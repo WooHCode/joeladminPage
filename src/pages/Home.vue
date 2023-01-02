@@ -224,7 +224,6 @@
               </tbody>
             </table>
           </div>
-          <a href="https://www.instagram.com/joel_coffee_n_milk/" title="더벤티 인스타그램 바로가기" class="icon"><img src="../assets/images/f_insta.png" alt="인스타 아이콘"></a>
         </main>
       </div>
     </div>
