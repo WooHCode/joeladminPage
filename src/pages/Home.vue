@@ -3,7 +3,7 @@
       <button class="navbar-toggler position-static d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand positoin-static center col-md-3 col-lg-2 me-0 px-3 fs-10" href="#">Joel's coffee & milk</a>
+      <router-link to="/" class="navbar-brand positoin-static center col-md-3 col-lg-2 me-0 px-3 fs-10">Joel's coffee & milk</router-link>
       <div class="navbar-nav">
         <div class="nav-item text-nowrap">
       <!--   <router-link to="/login" class="text-white" v-if="!$store.state.account.id">로그인</router-link>
@@ -28,17 +28,17 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/Sales" class="align-text-bottom">
+                <router-link to="/Emp" class="align-text-bottom">
                   직원관리
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/Sales" class="align-text-bottom">
+                <router-link to="/Client" class="align-text-bottom">
                   고객관리
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/Sales" class="align-text-bottom">
+                <router-link to="/Store" class="align-text-bottom">
                   매장관리
                 </router-link>
               </li>
