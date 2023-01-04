@@ -3,7 +3,7 @@
         <h2>상품추가하기</h2>
     </div>
     <div class="row g-5">
-        <div class="col-md-7 col-lg-8">
+        <div class="col-md-10 col-lg-12">
             <h4 class="mb-3">상품 정보</h4>
             <div class="needs-validation" novalidate="">
                 <div class="row g-3">
@@ -40,6 +40,7 @@ import axios from 'axios';
 import { reactive } from '@vue/reactivity';
 export default {
     name: "Itemmodal",
+
     setup() {
         const state = reactive({
             items: [],
@@ -65,6 +66,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#form-contorl{
+   margin-left:50px;
+}
 
 </style>
