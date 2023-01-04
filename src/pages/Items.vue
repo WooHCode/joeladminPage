@@ -86,8 +86,7 @@
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div  v-if="modal == true" class="black-bg">
           <div class="white-bg">
-            <h3>hello</h3>
-            <button @click="modal=false">추가하기</button>
+            <Itemmodal></Itemmodal>
           </div>
         </div>
         <div
@@ -133,8 +132,10 @@
 <script>
 import axios from "axios"
 import { reactive } from '@vue/reactivity'
+import Itemmodal from '@/components/Itemmodal.vue'  
 
 export default {
+  components: { Itemmodal },
   data(){
     return {
       modal: false,
