@@ -90,8 +90,31 @@
           <div class="album py-5 bg-light">
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col" v-for="(items, idx) in state.items" :key="idx">
-                  <Itemlist :items="items" />
+                <div class="items">
+                  <div class="container">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>번호</th>
+                          <th>상품명</th>
+                          <th>가격</th>
+                          <th>상품 사진 경로</th>
+                          <th>상품설명</th>
+                          <th>상품코드</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(i, idx1) in state.items" :key="idx1">
+                          <td>{{ i.id }}</td>
+                          <td>{{ i.name }}</td>
+                          <td>{{ i.price }}</td>
+                          <td>{{ i.imgPath }}</td>
+                          <td>{{ i.itemDes }}</td>
+                          <td>{{ i.itemCode }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -104,16 +127,16 @@
   
 <script>
 import axios from "axios"
-import Itemlist from '@/components/Itemlist.vue'
 import { reactive } from '@vue/reactivity'
+
 export default {
-  components: { Itemlist },
-  name: "Items",
   setup() {
     const state = reactive({
-      items: []
+      items: [],
     })
+
     axios.get("/api/v1/items").then(({ data }) => {
+      state.items = [];
       state.items = data;
     })
     return { state };
