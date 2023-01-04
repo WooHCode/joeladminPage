@@ -85,40 +85,39 @@
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <h1 class="h2">상품정보</h1>
-          <div class="album py-5 bg-light">
-            <div class="container">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="items">
-                  <div class="container">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>번호</th>
-                          <th>상품명</th>
-                          <th>가격</th>
-                          <th>상품 사진 경로</th>
-                          <th>상품설명</th>
-                          <th>상품코드</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(i, idx1) in state.items" :key="idx1">
-                          <td>{{ i.id }}</td>
-                          <td>{{ i.name }}</td>
-                          <td>{{ i.price }}</td>
-                          <td>{{ i.imgPath }}</td>
-                          <td>{{ i.itemDes }}</td>
-                          <td>{{ i.itemCode }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+        </div>
+        <div class="album py-5 bg-light">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              <div class="items">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>상품명</th>
+                      <th>가격</th>
+                      <th>상품 사진 경로</th>
+                      <th>상품설명</th>
+                      <th>상품코드</th>
+                      <th>상품삭제</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(i, idx1) in state.items" :key="idx1">
+                      <td>{{ i.name }}</td>
+                      <td>{{ i.price }}원</td>
+                      <td>{{ i.imgPath }}</td>
+                      <td>{{ i.itemDes }}</td>
+                      <td>{{ i.itemCode }}</td>
+                      <td><button class="fa fa-trash" @click="remove(i.id)"></button></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
+          <button class="submit" @click="submit()">상품추가</button>
         </div>
       </main>
     </div>
@@ -134,12 +133,20 @@ export default {
     const state = reactive({
       items: [],
     })
+    const load = () => {
+      axios.get("/api/v1/items").then(({ data }) => {
+        state.items = data;
+      })
+    }
 
-    axios.get("/api/v1/items").then(({ data }) => {
-      state.items = [];
-      state.items = data;
-    })
-    return { state };
+
+    const remove = (itemId) => {
+      axios.delete(`/api/v1/items/${itemId}`).then(() => {
+        load();
+      })
+    }
+    load();
+    return { state, remove };
   }
 }
 </script>
