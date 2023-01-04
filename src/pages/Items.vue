@@ -84,6 +84,12 @@
       </nav>
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div  v-if="modal == true" class="black-bg">
+          <div class="white-bg">
+            <h3>hello</h3>
+            <button @click="modal=false">추가하기</button>
+          </div>
+        </div>
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <h1 class="h2">상품정보</h1>
@@ -117,7 +123,7 @@
               </div>
             </div>
           </div>
-          <button class="submit" @click="submit()">상품추가</button>
+          <button class="submit" @click="modal=true">상품추가</button>
         </div>
       </main>
     </div>
@@ -129,6 +135,11 @@ import axios from "axios"
 import { reactive } from '@vue/reactivity'
 
 export default {
+  data(){
+    return {
+      modal: false,
+    }
+  },
   setup() {
     const state = reactive({
       items: [],
@@ -146,12 +157,23 @@ export default {
       })
     }
     load();
-    return { state, remove };
+    return { state, remove, };
   }
 }
 </script>
   
 <style scoped>
+.black-bg {
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  position: fixed; padding: 20px;
+}
+.white-bg {
+  width: 80%; background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
 .nav-item {
   margin-top: 20px;
   margin-bottom: 20px;
