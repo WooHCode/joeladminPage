@@ -29,7 +29,7 @@
                 <label for="cc-name" class="form-label">카드 번호</label>
                 <input type="text" class="form-control" id="cc-name" v-model="state.form.cardNumber">
                 <hr class="my-4">
-                <button class="w-100 btn btn-primary btn-lg" @click="submit()">결제하기</button>
+                <button class="w-50 btn btn-primary btn-lg" @click="submit()">상품 추가하기</button>
             </div>
         </div>
     </div>
