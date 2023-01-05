@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <hr class="my-4">
-                <h4 class="mb-3">결제수단</h4>
+                <h4 class="mb-3"></h4>
                 <div class="my-3">
                     <div class="form-check"><input id="card" name="paymentMethod" type="radio" class="form-check-input"
                             value="card" v-model="state.form.payment"><label class="form-check-label"
