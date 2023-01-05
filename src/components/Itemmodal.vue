@@ -26,8 +26,13 @@
                             v-model="state.form.payment">
                         <label class="form-check-label" for="itemCode">MILK</label>
                     </div>
+                    <div class="form-check">
+                        <input id="itemCode" name="paymentMethod" type="checkbox" class="form-check-input" value="itemCode"
+                            v-model="state.form.payment">
+                        <label class="form-check-label" for="itemCode">MILK</label>
+                    </div>
                 </div>
-                <label for="cc-name" class="form-label">카드 번호</label>
+                <label for="cc-name" class="form-label">상품 설명</label>
                 <input type="text" class="form-control" id="cc-name" v-model="state.form.cardNumber">
                 <hr class="my-4">
                 <button class="w-50 btn btn-primary btn-lg" @click="submit()">상품 추가하기</button>
