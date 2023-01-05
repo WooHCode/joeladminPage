@@ -20,10 +20,11 @@
                 <h4 class="mb-3">상품상세정보</h4>
                 <hr class="my-4">
                 <div class="my-3">
+                    <label for="cc-name" class="form-label">상품 코드</label>
                     <div class="form-check">
-                        <input id="card" name="paymentMethod" type="checkbox" class="form-check-input" value="card"
+                        <input id="itemCode" name="paymentMethod" type="checkbox" class="form-check-input" value="itemCode"
                             v-model="state.form.payment">
-                        <label class="form-check-label" for="card">MILK</label>
+                        <label class="form-check-label" for="itemCode">MILK</label>
                     </div>
                 </div>
                 <label for="cc-name" class="form-label">카드 번호</label>
