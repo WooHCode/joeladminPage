@@ -12,18 +12,18 @@
                             v-model="state.form.name">
                     </div>
                     <div class="col-12"><label for="address" class="form-label"></label>
-                        <input type="number" class="form-control" id="address" placeholder="상품 가격" v-model="state.form.address">
+                        <input type="number" class="form-control" id="address" placeholder="상품 가격"
+                            v-model="state.form.address">
                     </div>
                 </div>
                 <hr class="my-4">
-                <h4 class="mb-3"></h4>
+                <h4 class="mb-3">상품상세정보</h4>
+                <hr class="my-4">
                 <div class="my-3">
-                    <div class="form-check"><input id="card" name="paymentMethod" type="radio" class="form-check-input"
-                            value="card" v-model="state.form.payment"><label class="form-check-label"
-                            for="card">신용카드</label></div>
-                    <div class="form-check"><input id="bank" name="paymentMethod" type="radio" class="form-check-input"
-                            value="bank" v-model="state.form.payment">
-                        <label class="form-check-label" for="bank">무통장입금</label>
+                    <div class="form-check">
+                        <input id="card" name="paymentMethod" type="checkbox" class="form-check-input" value="card"
+                            v-model="state.form.payment">
+                        <label class="form-check-label" for="card">MILK</label>
                     </div>
                 </div>
                 <label for="cc-name" class="form-label">카드 번호</label>
@@ -67,8 +67,7 @@ export default {
 </script>
 
 <style scoped>
-#form-contorl{
-   margin-left:50px;
+#form-contorl {
+    margin-left: 50px;
 }
-
 </style>
