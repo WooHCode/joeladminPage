@@ -35,7 +35,8 @@
                     <label for="cc-name" class="form-label">상품 설명</label>
                     <input type="text" class="form-control" id="cc-name" v-model="state.form.cardNumber">
                     <hr class="my-4">
-                    <button class="w-50 btn btn-primary btn-lg" @click="submit()">상품 추가하기</button>
+                    <button @click="modalHide($emit,modalHide)">닫기</button>
+                    <button class="w-50 btn btn-primary btn-lg" @click="submit(), modalHide($emit,modalHide)">상품 추가하기</button>
                 </div>
             </div>
         </div>
@@ -47,7 +48,11 @@ import axios from 'axios';
 import { reactive } from '@vue/reactivity';
 export default {
     name: "Itemmodal",
-
+    methods:{
+        modalHide(){
+            this.$emit('modalHide');
+        }
+    },
     setup() {
         const state = reactive({
             items: [],
@@ -59,16 +64,16 @@ export default {
                 itemDesc: '',
             }
         })
-
         const submit = () => {
             const args = JSON.parse(JSON.stringify(state.form));
             args.items = JSON.stringify(state.items);
+            this.$emit('modalHide');
 
             axios.post("/api/v1/items", args).then(() => {
                 alert("주문 완료하였습니다.");
             })
         }
-        return { state, submit };
+        return { state, submit,};
     },
 }
 </script>
@@ -81,8 +86,8 @@ export default {
 .modal {
     position: absolute;
     display: flex;
-    width: 100%;
-    height: 100%;
+    width: 45%;
+    height: 80%;
     align-items: center;
     justify-content: center;
     background-color: white;

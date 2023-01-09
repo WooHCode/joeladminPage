@@ -2,44 +2,45 @@
   <div class="container-fluid">
     <div class="row">
       <SidebarMenu></SidebarMenu>
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">      
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
-          <div class="mopen" v-if="modal==true">
-            <Itemmodal></Itemmodal>
-          <h1 class="h2">상품정보</h1>
-        </div>
-        <div class="album py-5 bg-light">
-          <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div class="items">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>상품명</th>
-                      <th>가격</th>
-                      <th>상품 사진 경로</th>
-                      <th>상품설명</th>
-                      <th>상품코드</th>
-                      <th>상품삭제</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(i, idx1) in state.items" :key="idx1">
-                      <td>{{ i.name }}</td>
-                      <td>{{ i.price }}원</td>
-                      <td>{{ i.imgPath }}</td>
-                      <td>{{ i.itemDes }}</td>
-                      <td>{{ i.itemCode }}</td>
-                      <td><button class="fa fa-trash" @click="remove(i.id)"></button></td>
-                    </tr>
-                  </tbody>
-                </table>
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <h1 class="h2">상품정보</h1>
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
+          <div class="mopen" v-if="modal">
+            <Itemmodal @modalHide="modal=false"></Itemmodal>
+          </div>
+          <div class="album py-5 bg-light">
+            <div class="container">
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="items">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>상품명</th>
+                        <th>가격</th>
+                        <th>상품 사진 경로</th>
+                        <th>상품설명</th>
+                        <th>상품코드</th>
+                        <th>상품삭제</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(i, idx1) in state.items" :key="idx1">
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.price }}원</td>
+                        <td>{{ i.imgPath }}</td>
+                        <td>{{ i.itemDes }}</td>
+                        <td>{{ i.itemCode }}</td>
+                        <td><button class="fa fa-trash" @click="remove(i.id)"></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
+            <button class="submit" @click="modal = true">상품추가</button>
           </div>
-          <button class="submit" @click="modal=true">상품추가</button>
         </div>
-        </div>        
       </main>
     </div>
   </div>
@@ -53,12 +54,14 @@ import Itemmodal from '@/components/Itemmodal.vue'
 
 export default {
   name: "Items",
-  components: {  SidebarMenu, Itemmodal },
+  components: { SidebarMenu, Itemmodal },
   data() {
     return {
       modal: false,
     }
+
   },
+
   setup() {
     const state = reactive({
       items: [],
@@ -88,7 +91,6 @@ export default {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   padding: 20px;
-  opacity: 0.9;
 }
 
 .white-bg {
@@ -159,34 +161,4 @@ export default {
   -webkit-overflow-scrolling: touch;
 }
 
-.modal-dialog.modal-80size {
-  width: 80%;
-  height: 80%;
-  margin: 0;
-  padding: 0;
-}
-
-.modal-content.modal-80size {
-  height: auto;
-  min-height: 80%;
-}
-
-.modal.modal-center {
-  text-align: center;
-}
-
-@media screen and (min-width: 768px) {
-  .modal.modal-center:before {
-    display: inline-block;
-    vertical-align: middle;
-    content: " ";
-    height: 100%;
-  }
-}
-
-.modal-dialog.modal-center {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
-}
 </style>
