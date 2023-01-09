@@ -2,14 +2,10 @@
   <div class="container-fluid">
     <div class="row">
       <SidebarMenu></SidebarMenu>
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div  v-if="modal == true" class="black-bg">
-          <div class="white-bg">
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">      
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
+          <div class="mopen" v-if="modal==true">
             <Itemmodal></Itemmodal>
-          </div>
-        </div>
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <h1 class="h2">상품정보</h1>
         </div>
         <div class="album py-5 bg-light">
@@ -43,6 +39,7 @@
           </div>
           <button class="submit" @click="modal=true">상품추가</button>
         </div>
+        </div>        
       </main>
     </div>
   </div>
@@ -51,13 +48,13 @@
 <script>
 import axios from "axios"
 import { reactive } from '@vue/reactivity'
-import Itemmodal from '@/components/Itemmodal.vue'
 import SidebarMenu from "@/components/SidebarMenu.vue"
+import Itemmodal from '@/components/Itemmodal.vue'
 
 export default {
   name: "Items",
-  components: { Itemmodal , SidebarMenu},
-  data(){
+  components: {  SidebarMenu, Itemmodal },
+  data() {
     return {
       modal: false,
     }
@@ -85,15 +82,21 @@ export default {
 </script>
   
 <style scoped>
-.black-bg {
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  position: fixed; padding: 20px;
+.mopen {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  padding: 20px;
+  opacity: 0.9;
 }
+
 .white-bg {
-  width: 80%; background: white;
+  width: 80%;
+  background: white;
   border-radius: 8px;
   padding: 20px;
+  position: relative;
 }
 
 .nav-item {
@@ -154,5 +157,36 @@ export default {
   text-align: center;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
+}
+
+.modal-dialog.modal-80size {
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content.modal-80size {
+  height: auto;
+  min-height: 80%;
+}
+
+.modal.modal-center {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal.modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }
 </style>
