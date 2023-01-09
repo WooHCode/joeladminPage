@@ -76,9 +76,7 @@ export default {
                 alert("상품이 추가되었습니다.");
             })
                 .catch(function (error) {
-                    if (error.request) {
-                        alert(error.request);
-                    }
+                    alert(error+"\n"+ "상품을 다시 입력해주세요");
                 })
         }
         return { state, submit, };
