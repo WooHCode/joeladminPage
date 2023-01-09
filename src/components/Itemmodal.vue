@@ -71,12 +71,15 @@ export default {
         const submit = () => {
             const args = JSON.parse(JSON.stringify(state.form));
             args.items = JSON.stringify(state.items);
-            
 
             axios.post("/api/v1/items", args).then(() => {
                 alert("상품이 추가되었습니다.");
             })
-            this.$emit('modalHide');
+                .catch(function (error) {
+                    if (error.request) {
+                        alert(error.request);
+                    }
+                })
         }
         return { state, submit, };
     },

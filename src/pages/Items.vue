@@ -71,8 +71,6 @@ export default {
         state.items = data;
       })
     }
-
-
     const remove = (itemId) => {
       axios.delete(`/api/v1/items/${itemId}`).then(() => {
         load();
