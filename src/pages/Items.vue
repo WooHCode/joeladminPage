@@ -73,6 +73,7 @@ export default {
     }
     const remove = (itemId) => {
       axios.delete(`/api/v1/items/${itemId}`).then(() => {
+        alert("상품이 1건 삭제되었습니다.")
         load();
       })
     }
