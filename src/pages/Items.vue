@@ -7,7 +7,7 @@
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <div class="mopen" v-if="modal">
-            <Itemmodal @modalHide="modal=false"></Itemmodal>
+            <Itemmodal @modalHide="modal=false, load()"></Itemmodal>
           </div>
           <div class="album py-5 bg-light">
             <div class="container">
@@ -77,7 +77,7 @@ export default {
       })
     }
     load();
-    return { state, remove, };
+    return { state, remove, load };
   }
 }
 </script>
