@@ -7,7 +7,7 @@
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <div class="mopen" v-if="modal">
-            <Itemmodal @modalHide="modal=false, load()"></Itemmodal>
+            <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
           </div>
           <div class="album py-5 bg-light">
             <div class="container">
@@ -36,6 +36,9 @@
                     </tbody>
                   </table>
                 </div>
+              </div>
+              <div>
+                <img src="https://drive.google.com/file/d/110NT0zafKvwft8b_cDGD6Mh9YchWm7s4/view">
               </div>
             </div>
             <button class="submit" @click="modal = true">상품추가</button>
@@ -159,5 +162,4 @@ export default {
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
-
 </style>
