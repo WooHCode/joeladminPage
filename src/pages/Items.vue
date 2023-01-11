@@ -9,10 +9,6 @@
           <div class="mopen" v-if="modal">
             <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
           </div>
-          <div>
-            <span>{{ state.items[2].imgPath }}</span>
-            <img class="itemImages" :src="state.items[2].imgPath" alt="실패">
-          </div>
           <div class="album py-5 bg-light">
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -22,7 +18,7 @@
                       <tr>
                         <th>상품명</th>
                         <th>가격</th>
-                        <th>상품 사진 경로</th>
+                        <th>상품이미지</th>
                         <th>상품설명</th>
                         <th>상품코드</th>
                         <th>상품삭제</th>
@@ -32,7 +28,7 @@
                       <tr v-for="(i, idx1) in state.items" :key="idx1">
                         <td>{{ i.name }}</td>
                         <td>{{ i.price }}원</td>
-                        <td>{{ i.imgPath }}</td>
+                        <td><img class="itemImages" :src="i.imgPath" alt="실패"/></td>
                         <td>{{ i.itemDes }}</td>
                         <td>{{ i.itemCode }}</td>
                         <td><button class="fa fa-trash" @click="remove(i.id)"></button></td>
@@ -59,9 +55,9 @@ import SidebarMenu from "@/components/SidebarMenu.vue"
 import Itemmodal from '@/components/Itemmodal.vue'
 
 export default {
-  
+
   name: "Items",
-  
+
   components: { SidebarMenu, Itemmodal },
 
   data() {
@@ -97,6 +93,7 @@ export default {
   width: 50px;
   height: 50px;
 }
+
 .mopen {
   width: 100%;
   height: 100%;
