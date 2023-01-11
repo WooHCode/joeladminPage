@@ -9,6 +9,10 @@
           <div class="mopen" v-if="modal">
             <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
           </div>
+          <div>
+            <span>{{ state.items[2].imgPath }}</span>
+            <img class="itemImages" :src="state.items[2].imgPath" alt="실패">
+          </div>
           <div class="album py-5 bg-light">
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -38,7 +42,6 @@
                 </div>
               </div>
               <div>
-                <img src="https://drive.google.com/file/d/110NT0zafKvwft8b_cDGD6Mh9YchWm7s4/view">
               </div>
             </div>
             <button class="submit" @click="modal = true">상품추가</button>
@@ -56,8 +59,11 @@ import SidebarMenu from "@/components/SidebarMenu.vue"
 import Itemmodal from '@/components/Itemmodal.vue'
 
 export default {
+  
   name: "Items",
+  
   components: { SidebarMenu, Itemmodal },
+
   data() {
     return {
       modal: false,
@@ -87,6 +93,10 @@ export default {
 </script>
   
 <style scoped>
+.itemImages {
+  width: 50px;
+  height: 50px;
+}
 .mopen {
   width: 100%;
   height: 100%;
