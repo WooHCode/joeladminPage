@@ -91,15 +91,16 @@ export default {
         }
         return { state, submit, };
     },
-    async mounted() {
+    created(){
         const ustate = reactive({
             uitems: [],
         })
         axios.get(`/api/v2/items/${this.itemName}`).then(({ data }) => {
             ustate.uitems = data;
+            console.log(ustate.uitems);
         })
-        return { ustate, };
     },
+     
 }
 </script>
 
