@@ -5,10 +5,11 @@
         <div class="row g-5 h-50">
             <div class="col-md-10 col-lg-12">
                 <h4 class="mb-3">상품 정보</h4>
+                <h4 class="mb-3">{{ sendid }}</h4>
                 <div class="needs-validation" novalidate="">
                     <div class="row g-3">
                         <div class="col-12">
-                            <input type="text" class="form-control" id="itemName" placeholder="상품명"
+                            <input type="text" class="form-control" id="itemName"
                                 v-model="state.form.name">
                         </div>
                         <div class="col-12">
@@ -57,6 +58,9 @@ export default {
             this.$emit('modalHide');
         }
     },
+    props: { 
+        sendid: Number,
+    },
     setup() {
         const state = reactive({
             items: [],
@@ -68,6 +72,11 @@ export default {
                 itemDes: '',
             }
         })
+        const load = () => {
+            axios.get(`/api/v1/items/`).then(({ data }) => {
+                state.items = data;
+            })
+        }
         const submit = () => {
             const args = JSON.parse(JSON.stringify(state.form));
             args.items = JSON.stringify(state.items);
@@ -79,7 +88,7 @@ export default {
                     alert(error + "\n" + "상품을 다시 입력해주세요");
                 })
         }
-        return { state, submit, };
+        return { state, submit, load};
     },
 }
 </script>

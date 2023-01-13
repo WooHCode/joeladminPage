@@ -10,7 +10,7 @@
             <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
           </div>
           <div class="mopen" v-if="umodal">
-            <Itmeumodal @modalHide="umodal = false, load()"></Itmeumodal>
+            <Itmeumodal @modalHide="umodal = false, load()" :sendid="changeitemid"></Itmeumodal>
           </div>
           <div class="album py-5 bg-light">
             <div class="container">
@@ -29,7 +29,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="(i, idx1) in state.items" :key="idx1">
-                        <td class="nameHover"><a @click="umodal = true">{{ i.name }}</a></td>
+                        <td class="nameHover"><a @click="update(i.id)">{{ i.name }}</a></td>
                         <td>{{ i.price }}원</td>
                         <td><img class="itemImages" :src="i.imgPath" alt="실패"/></td>
                         <td>{{ i.itemDes }}</td>
@@ -62,12 +62,20 @@ export default {
 
   name: "Items",
 
+  methods: {
+      update(itemid) {
+      this.umodal = true;
+      this.changeitemid = itemid;
+    }
+  },
+
   components: { SidebarMenu, Itemmodal , Itmeumodal },
 
   data() {
     return {
       modal: false,
       umodal: false,
+      changeitemid : 1,
     }
 
   },
