@@ -5,12 +5,10 @@
         <div class="row g-5 h-50">
             <div class="col-md-10 col-lg-12">
                 <h4 class="mb-3">상품 정보</h4>
-                <h4 class="mb-3">{{ sendid }}</h4>
                 <div class="needs-validation" novalidate="">
                     <div class="row g-3">
                         <div class="col-12">
-                            <input type="text" class="form-control" id="itemName"
-                                v-model="state.form.name">
+                            <input type="text" class="form-control" id="itemName" v-model="state.form.name">
                         </div>
                         <div class="col-12">
                             <input type="number" class="form-control" id="itemPrice" placeholder="상품 가격"
@@ -58,9 +56,16 @@ export default {
             this.$emit('modalHide');
         }
     },
-    props: { 
-        sendid: Number,
+    data() {
+        return {
+            itemName: this.sendname,
+        }
     },
+
+    props: {
+        sendname: String,
+    },
+
     setup() {
         const state = reactive({
             items: [],
@@ -72,11 +77,7 @@ export default {
                 itemDes: '',
             }
         })
-        const load = () => {
-            axios.get(`/api/v1/items/`).then(({ data }) => {
-                state.items = data;
-            })
-        }
+
         const submit = () => {
             const args = JSON.parse(JSON.stringify(state.form));
             args.items = JSON.stringify(state.items);
@@ -88,7 +89,16 @@ export default {
                     alert(error + "\n" + "상품을 다시 입력해주세요");
                 })
         }
-        return { state, submit, load};
+        return { state, submit, };
+    },
+    async mounted() {
+        const ustate = reactive({
+            uitems: [],
+        })
+        axios.get(`/api/v2/items/${this.itemName}`).then(({ data }) => {
+            ustate.uitems = data;
+        })
+        return { ustate, };
     },
 }
 </script>
