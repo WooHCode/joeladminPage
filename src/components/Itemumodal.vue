@@ -112,6 +112,10 @@ export default {
 </script>
 
 <style scoped>
+.form-label-data{
+    opacity: 0.7;
+    color : blue;
+}
 select option[value=""][disabled] {
     display: none;
 }
