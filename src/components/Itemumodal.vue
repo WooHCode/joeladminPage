@@ -5,6 +5,7 @@
         <div class="row g-5 h-50">
             <div class="col-md-10 col-lg-12">
                 <h4 class="mb-3">상품 정보</h4>
+                <h3>{{ upitems.name }}</h3>
                 <div class="needs-validation" novalidate="">
                     <div class="row g-3">
                         <div class="col-12">
@@ -59,6 +60,7 @@ export default {
     data() {
         return {
             itemName: this.sendname,
+            upitems: [],
         }
     },
 
@@ -97,6 +99,7 @@ export default {
         })
         axios.get(`/api/v2/items/${this.itemName}`).then(({ data }) => {
             ustate.uitems = data;
+            this.upitems = ustate.uitems;
             console.log(ustate.uitems);
         })
     },
