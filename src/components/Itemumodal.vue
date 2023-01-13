@@ -51,7 +51,7 @@
 import axios from 'axios';
 import { reactive } from '@vue/reactivity';
 export default {
-    name: "Itemmodal",
+    name: "Itemumodal",
     methods: {
         modalHide() {
             this.$emit('modalHide');

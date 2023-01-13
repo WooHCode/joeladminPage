@@ -9,6 +9,9 @@
           <div class="mopen" v-if="modal">
             <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
           </div>
+          <div class="mopen" v-if="umodal">
+            <Itmeumodal @modalHide="umodal = false, load()"></Itmeumodal>
+          </div>
           <div class="album py-5 bg-light">
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -26,7 +29,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="(i, idx1) in state.items" :key="idx1">
-                        <td>{{ i.name }}</td>
+                        <td class="nameHover"><a @click="umodal = true">{{ i.name }}</a></td>
                         <td>{{ i.price }}원</td>
                         <td><img class="itemImages" :src="i.imgPath" alt="실패"/></td>
                         <td>{{ i.itemDes }}</td>
@@ -53,16 +56,18 @@ import axios from "axios"
 import { reactive } from '@vue/reactivity'
 import SidebarMenu from "@/components/SidebarMenu.vue"
 import Itemmodal from '@/components/Itemmodal.vue'
+import Itmeumodal from '@/components/Itemumodal.vue'
 
 export default {
 
   name: "Items",
 
-  components: { SidebarMenu, Itemmodal },
+  components: { SidebarMenu, Itemmodal , Itmeumodal },
 
   data() {
     return {
       modal: false,
+      umodal: false,
     }
 
   },
@@ -71,24 +76,31 @@ export default {
     const state = reactive({
       items: [],
     })
+
     const load = () => {
       axios.get("/api/v1/items").then(({ data }) => {
         state.items = data;
       })
     }
+
     const remove = (itemId) => {
-      axios.delete(`/api/v1/items/${itemId}`).then(() => {
+      axios.delete(`/api/v1/items/${itemId}`,).then(() => {
         alert("상품이 1건 삭제되었습니다.")
         load();
       })
     }
+
     load();
-    return { state, remove, load };
+    return { state, remove, load , };
   }
 }
 </script>
   
 <style scoped>
+.nameHover {
+  cursor: pointer;
+  color:blue;
+}
 .itemImages {
   width: 50px;
   height: 50px;
