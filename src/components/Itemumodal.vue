@@ -8,16 +8,17 @@
                 <div class="needs-validation" novalidate="">
                     <div class="row g-3">
                         <div class="col-12">
-                            <label for ="OitemName" class="form-label-data">기존이름 : {{ upitems.name }}</label>
-                            <input type="text" class="form-control" id="itemName" v-model="state.form.name" placeholder="상품명">
+                            <label for="OitemName" class="form-label-data">기존이름 : {{ upitems.name }}</label>
+                            <input type="text" class="form-control" id="itemName" placeholder="상품명"
+                                v-model="state.form.name">
                         </div>
                         <div class="col-12">
-                            <label for ="OitemPrice" class="form-label-data">기존가격 : {{ upitems.price }}원</label>
+                            <label for="OitemPrice" class="form-label-data">기존가격 : {{ upitems.price }}원</label>
                             <input type="number" class="form-control" id="itemPrice" placeholder="상품 가격"
                                 v-model="state.form.price">
                         </div>
                         <div class="col-12">
-                            <label for ="OimgPath" class="form-label-data">기존이미지경로 : {{ upitems.imgPath }}</label>
+                            <label for="OimgPath" class="form-label-data">기존이미지경로 : {{ upitems.imgPath }}</label>
                             <input type="text" class="form-control" id="imgPath" placeholder="이미지 경로"
                                 v-model="state.form.imgPath">
                         </div>
@@ -26,8 +27,8 @@
                     <h4 class="mb-3">상품상세정보</h4>
                     <hr class="my-4">
                     <label for="cc-name" class="form-label">상품 코드</label>
-                    <br/>
-                    <label for ="OitemCode" class="form-label-data">기존상품 코드 : {{ upitems.itemCode }}</label>
+                    <br />
+                    <label for="OitemCode" class="form-label-data">기존상품 코드 : {{ upitems.itemCode }}</label>
                     <div class="my-3">
                         <select name="itemCode" required v-model="state.form.itemCode">
                             <option value="" disabled selected>상품선택</option>
@@ -42,8 +43,9 @@
                     <label for="itemDes" class="form-label">상품 설명</label>
                     <input type="text" class="form-control" id="itemDes" v-model="state.form.itemDes">
                     <hr class="my-4">
-                    <button class="w-50 btn btn-primary btn-lg" @click="[submit(), modalHide($emit, modalHide)]">상품
-                        추가하기</button>
+                    <button class="w-50 btn btn-primary btn-lg"
+                        @click="[submit(upitems.id), modalHide($emit, modalHide)]">상품
+                        변경하기</button>
                     <button @click="modalHide($emit, modalHide)">닫기</button>
                 </div>
             </div>
@@ -59,7 +61,25 @@ export default {
     methods: {
         modalHide() {
             this.$emit('modalHide');
-        }
+        },
+        submit(pathId) {
+            const form = {
+                name: this.state.form.name,
+                price: this.state.form.price,
+                imgPath: this.state.form.imgPath,
+                itemCode: this.state.form.itemCode,
+                itemDes: this.state.form.itemDes
+            };
+            const args = JSON.parse(JSON.stringify(form));
+
+            axios.post(`/api/v1/items/${pathId}`, args,).then(() => {
+                alert("상품이 수정되었습니다.");
+            })
+                .catch(function (error) {
+                    alert(error + "\n" + "상품을 다시 입력해주세요");
+                })
+        },
+
     },
     data() {
         return {
@@ -81,23 +101,12 @@ export default {
                 imgPath: '',
                 itemCode: '',
                 itemDes: '',
-            }
+            },
         })
 
-        const submit = () => {
-            const args = JSON.parse(JSON.stringify(state.form));
-            args.items = JSON.stringify(state.items);
-
-            axios.put(`/api/v2/items/${this.upitems.name}`, args).then(() => {
-                alert("상품이 수정되었습니다.");
-            })
-                .catch(function (error) {
-                    alert(error + "\n" + "상품을 다시 입력해주세요");
-                })
-        }
-        return { state, submit, };
+        return { state, };
     },
-    created(){
+    created() {
         const ustate = reactive({
             uitems: [],
         })
@@ -106,16 +115,18 @@ export default {
             this.upitems = ustate.uitems;
             console.log(ustate.uitems);
         })
+        return { ustate };
     },
-     
+
 }
 </script>
 
 <style scoped>
-.form-label-data{
+.form-label-data {
     opacity: 0.7;
-    color : blue;
+    color: blue;
 }
+
 select option[value=""][disabled] {
     display: none;
 }
