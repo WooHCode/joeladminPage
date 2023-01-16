@@ -2,23 +2,23 @@
   <div class="container-fluid">
     <div class="row">
       <SidebarMenu></SidebarMenu>
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <h1 class="h2">상품정보</h1>
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
-          <div class="mopen" v-if="modal">
-            <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
-          </div>
-          <div class="mopen" v-if="umodal">
+      <main class="col-lg-10 col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="mopen align-items-center" v-if="modal">
+          <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
+        </div>
+        <div class="mopen align-items-center" v-if="umodal">
             <Itmeumodal @modalHide="umodal = false, load()" :sendname="changeitemname"></Itmeumodal>
           </div>
+        <h1 class="h2 d-flex justify-content-center">상품정보</h1>
+        <div
+          class="d-flex col-lg-12 justify-content-center flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <div class="album py-5 bg-light">
             <div class="container">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="items">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
+              <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
+                <div class="items table-responsive">
+                  <table class="table align-middle table-bordered">
+                    <thead class="table-light">
+                      <tr class="align-middle">
                         <th>상품명</th>
                         <th>가격</th>
                         <th>상품이미지</th>
@@ -28,10 +28,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(i, idx1) in state.items" :key="idx1">
-                        <td class="nameHover"><a @click="update(i.name)">{{ i.name }}</a></td>
+                      <tr class="align-middle" v-for="(i, idx1) in state.items" :key="idx1">
+                        <td class="nameHover align-middle"><a @click="update(i.name)">{{ i.name }}</a></td>
                         <td>{{ i.price }}원</td>
-                        <td><img class="itemImages" :src="i.imgPath" alt="실패"/></td>
+                        <td><img class="itemImages" :src="i.imgPath" alt="실패" /></td>
                         <td>{{ i.itemDes }}</td>
                         <td>{{ i.itemCode }}</td>
                         <td><button class="fa fa-trash" @click="remove(i.id)"></button></td>
@@ -43,7 +43,9 @@
               <div>
               </div>
             </div>
-            <button class="submit" @click="modal = true">상품추가</button>
+            <div class="d-flex justify-content-center">
+              <button class="submit btn btn-primary btn-lg" @click="modal = true">상품추가</button>
+            </div>
           </div>
         </div>
       </main>
@@ -63,19 +65,19 @@ export default {
   name: "Items",
 
   methods: {
-      update(itemName) {
+    update(itemName) {
       this.umodal = true;
       this.changeitemname = itemName;
     }
   },
 
-  components: { SidebarMenu, Itemmodal , Itmeumodal },
+  components: { SidebarMenu, Itemmodal, Itmeumodal },
 
   data() {
     return {
       modal: false,
       umodal: false,
-      changeitemid : '',
+      changeitemid: '',
     }
 
   },
@@ -99,7 +101,7 @@ export default {
     }
 
     load();
-    return { state, remove, load , };
+    return { state, remove, load, };
   }
 }
 </script>
@@ -107,8 +109,9 @@ export default {
 <style scoped>
 .nameHover {
   cursor: pointer;
-  color:blue;
+  color: blue;
 }
+
 .itemImages {
   width: 50px;
   height: 50px;

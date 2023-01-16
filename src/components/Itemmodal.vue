@@ -1,21 +1,21 @@
 <template>
-    <div class="modal">
+    <div class="modal col-lg-10 col-md-2 col-sm-2">
         <div class="py-5 text-center">
         </div>
-        <div class="row g-5 h-50">
+        <div class="row">
             <div class="col-md-10 col-lg-12">
                 <h4 class="mb-3">상품 정보</h4>
                 <div class="needs-validation" novalidate="">
                     <div class="row g-3">
-                        <div class="col-12">
+                        <div class="col-lg-12 col-sm-4">
                             <input type="text" class="form-control" id="itemName" placeholder="상품명"
                                 v-model="state.form.name">
                         </div>
-                        <div class="col-12">
+                        <div class="col-lg-12 col-sm-4">
                             <input type="number" class="form-control" id="itemPrice" placeholder="상품 가격"
                                 v-model="state.form.price">
                         </div>
-                        <div class="col-12">
+                        <div class="col-lg-12 col-sm-4">
                             <input type="text" class="form-control" id="imgPath" placeholder="이미지 경로"
                                 v-model="state.form.imgPath">
                         </div>
