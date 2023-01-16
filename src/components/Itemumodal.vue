@@ -88,8 +88,8 @@ export default {
             const args = JSON.parse(JSON.stringify(state.form));
             args.items = JSON.stringify(state.items);
 
-            axios.post("/api/v1/items", args).then(() => {
-                alert("상품이 추가되었습니다.");
+            axios.put(`/api/v2/items/${this.upitems.name}`, args).then(() => {
+                alert("상품이 수정되었습니다.");
             })
                 .catch(function (error) {
                     alert(error + "\n" + "상품을 다시 입력해주세요");
