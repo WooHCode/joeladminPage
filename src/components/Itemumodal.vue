@@ -10,7 +10,7 @@
                         <div class="col-12">
                             <label for="OitemName" class="form-label-data">기존이름 : {{ upitems.name }}</label>
                             <input type="text" class="form-control" id="itemName" placeholder="상품명"
-                                v-model="state.form.name">
+                                v-model="state.form.iname">
                         </div>
                         <div class="col-12">
                             <label for="OitemPrice" class="form-label-data">기존가격 : {{ upitems.price }}원</label>
@@ -64,7 +64,7 @@ export default {
         },
         submit(pathId) {
             const form = {
-                name: this.state.form.name,
+                itemName: this.state.form.iname,
                 price: this.state.form.price,
                 imgPath: this.state.form.imgPath,
                 itemCode: this.state.form.itemCode,
@@ -96,7 +96,7 @@ export default {
         const state = reactive({
             items: [],
             form: {
-                name: '',
+                iname: '',
                 price: '',
                 imgPath: '',
                 itemCode: '',
