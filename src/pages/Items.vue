@@ -19,9 +19,7 @@
             <div class="d-flex justify-content-end mb-1 me-3">
               <input type="text" placeholder="상품명으로 검색하세요" v-model="serchingItemName"
                 @keydown.enter="serchingResult(serchingItemName)">
-            </div>
-            <div class="d-flex justify-content-end" v-if="serchSuccess == true">
-              <button class="fa fa-undo"></button>
+                <button class="fa fa-undo ms-2" v-if="serchSuccess == true" @click="serchSuccess = false, serchingItemName=''"></button>
             </div>
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
@@ -39,7 +37,9 @@
                     </thead>
                     <tbody v-if="serchSuccess == true">
                       <tr class="align-middle">
-                        <td class="nameHover align-middle"><a @click="update(serchingItem.name)">{{ serchingItem.name }}</a></td>
+                        <td class="nameHover align-middle"> 
+                          <a @click="update(serchingItem.name)">{{ serchingItem.name }}</a>
+                        </td>
                         <td>{{ serchingItem.price }}원</td>
                         <td><img class="itemImages" :src="serchingItem.imgPath" alt="실패" /></td>
                         <td>{{ serchingItem.itemDes }}</td>
@@ -88,6 +88,7 @@ export default {
     update(itemName) {
       this.umodal = true;
       this.changeitemname = itemName;
+      console.log(this.changeitemname);
     },
     serchingResult(serchingItemName) {
       const pname = JSON.parse(JSON.stringify(serchingItemName))
@@ -110,7 +111,10 @@ export default {
           console.log(error);
           alert(error + "\n" + "상품을 조회하지 못하였습니다.");
         })
-    }
+    },
+    undo() {
+      this.load();
+    },
   },
 
   components: { SidebarMenu, Itemmodal, Itmeumodal },
