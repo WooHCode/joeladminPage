@@ -55,7 +55,7 @@
                         <td><img class="itemImages" :src="i.imgPath" alt="실패" /></td>
                         <td>{{ i.itemDes }}</td>
                         <td>{{ i.itemCode }}</td>
-                        <td><button class="fa fa-trash" @click="warnRemove(),remove(i.id)"></button></td>
+                        <td><button class="fa fa-trash" @click="warnRemove(), remove(i.id)"></button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -91,14 +91,14 @@ export default {
       this.changeitemname = itemName;
       console.log(this.changeitemname);
     },
-    remove(itemId){
-      if (this.reallyRemove == true){
+    remove(itemId) {
+      if (this.reallyRemove == true) {
         axios.delete(`/api/v1/items/${itemId}`,).then(() => {
-        alert("상품이 1건 삭제되었습니다.")
-        this.load();
-      })
+          alert("상품이 1건 삭제되었습니다.")
+          this.load();
+        })
       }
-      
+
     },
     serchingResult(serchingItemName) {
       const pname = JSON.parse(JSON.stringify(serchingItemName))
