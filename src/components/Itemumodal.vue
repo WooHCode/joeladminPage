@@ -4,6 +4,7 @@
         </div>
         <div class="row g-5 h-50">
             <div class="col-md-10 col-lg-12">
+                <div class="d-flex justify-content-end me-2 mt-5"><button class="fa fa-times" @click="modalHide($emit, modalHide)"></button></div>
                 <h4 class="mb-3">상품 정보</h4>
                 <div class="needs-validation" novalidate="">
                     <div class="row g-3">
@@ -46,7 +47,6 @@
                     <button class="w-50 btn btn-primary btn-lg"
                         @click="[submit(upitems.id), modalHide($emit, modalHide)]">상품
                         변경하기</button>
-                    <button @click="modalHide($emit, modalHide)">닫기</button>
                 </div>
             </div>
         </div>

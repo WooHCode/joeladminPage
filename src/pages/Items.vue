@@ -3,11 +3,8 @@
     <div class="row">
       <SidebarMenu></SidebarMenu>
       <main class="col-lg-10 col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="mopen align-items-center" v-if="modal">
+        <div class="mopen col-lg-10 col-md-10 col-sm-12" v-if="modal">
           <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
-          /**
-          * TODO: OPEN 이벤트 추가
-          */
         </div>
         <div class="mopen align-items-center" v-if="umodal">
           <Itmeumodal @modalHide="umodal = false, load()" :sendname="changeitemname"></Itmeumodal>
@@ -163,6 +160,10 @@ export default {
 </script>
   
 <style scoped>
+.container{
+  word-break:break-word;
+  overflow-y:auto; 
+}
 .nameHover {
   cursor: pointer;
   color: blue;
@@ -174,11 +175,14 @@ export default {
 }
 
 .mopen {
+  top: 5%;
+  left: 20%;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  padding: 20px;
+  position: absolute;
+  padding: 10px;
+  
 }
 
 .white-bg {

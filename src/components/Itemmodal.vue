@@ -1,10 +1,9 @@
 <template>
-    <div class="modal col-lg-10 col-md-2 col-sm-2">
-        <div class="py-5 text-center">
-        </div>
-        <div class="row">
+    <div class="modal  col-lg-10 col-md-10 col-sm-10">
+        <div class="row d-flex justify-content-center">
             <div class="col-md-10 col-lg-12">
-                <h4 class="mb-3">상품 정보</h4>
+                <div class="d-flex justify-content-end me-2 mt-5"><button class="fa fa-times" @click="modalHide($emit, modalHide)"></button></div>               
+                <h4 class="mb-3 d-flex justify-content-center">상품 정보</h4>
                 <div class="needs-validation" novalidate="">
                     <div class="row g-3">
                         <div class="col-lg-12 col-sm-4">
@@ -38,9 +37,10 @@
                     <label for="itemDes" class="form-label">상품 설명</label>
                     <input type="text" class="form-control" id="itemDes" v-model="state.form.itemDes">
                     <hr class="my-4">
+                    <div class="d-flex justify-content-center">
                     <button class="w-50 btn btn-primary btn-lg" @click="[submit(), modalHide($emit, modalHide)]">상품
                         추가하기</button>
-                    <button @click="modalHide($emit, modalHide)">닫기</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -94,10 +94,11 @@ select option[value=""][disabled] {
 }
 
 .modal {
-    position: absolute;
+    position: relative;
     display: flex;
-    width: 45%;
-    height: 80%;
+    width: 50%;
+    height: 90%;
+    border-radius: 12px;
     align-items: center;
     justify-content: center;
     background-color: white;
