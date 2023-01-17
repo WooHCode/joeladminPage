@@ -19,7 +19,8 @@
             <div class="d-flex justify-content-end mb-1 me-3">
               <input type="text" placeholder="상품명으로 검색하세요" v-model="serchingItemName"
                 @keydown.enter="serchingResult(serchingItemName)">
-                <button class="fa fa-undo ms-2" v-if="serchSuccess == true" @click="serchSuccess = false, serchingItemName=''"></button>
+              <button class="fa fa-undo ms-2" v-if="serchSuccess == true"
+                @click="serchSuccess = false, serchingItemName = ''"></button>
             </div>
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
@@ -37,7 +38,7 @@
                     </thead>
                     <tbody v-if="serchSuccess == true">
                       <tr class="align-middle">
-                        <td class="nameHover align-middle"> 
+                        <td class="nameHover align-middle">
                           <a @click="update(serchingItem.name)">{{ serchingItem.name }}</a>
                         </td>
                         <td>{{ serchingItem.price }}원</td>
@@ -54,7 +55,7 @@
                         <td><img class="itemImages" :src="i.imgPath" alt="실패" /></td>
                         <td>{{ i.itemDes }}</td>
                         <td>{{ i.itemCode }}</td>
-                        <td><button class="fa fa-trash" @click="remove(i.id)"></button></td>
+                        <td><button class="fa fa-trash" @click="warnRemove(),remove(i.id)"></button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -90,6 +91,15 @@ export default {
       this.changeitemname = itemName;
       console.log(this.changeitemname);
     },
+    remove(itemId){
+      if (this.reallyRemove == true){
+        axios.delete(`/api/v1/items/${itemId}`,).then(() => {
+        alert("상품이 1건 삭제되었습니다.")
+        this.load();
+      })
+      }
+      
+    },
     serchingResult(serchingItemName) {
       const pname = JSON.parse(JSON.stringify(serchingItemName))
       axios.get("/api/v2/search/",
@@ -115,6 +125,10 @@ export default {
     undo() {
       this.load();
     },
+    warnRemove() {
+      var retrunValue = confirm("정말 삭제하시겠습니까?");
+      this.reallyRemove = retrunValue;
+    }
   },
 
   components: { SidebarMenu, Itemmodal, Itmeumodal },
@@ -127,6 +141,7 @@ export default {
       umodal: false,
       changeitemid: '',
       serchSuccess: false,
+      reallyRemove: false,
     }
 
   },
@@ -141,16 +156,8 @@ export default {
         state.items = data;
       })
     }
-
-    const remove = (itemId) => {
-      axios.delete(`/api/v1/items/${itemId}`,).then(() => {
-        alert("상품이 1건 삭제되었습니다.")
-        load();
-      })
-    }
-
     load();
-    return { state, remove, load, };
+    return { state, load, };
   }
 }
 </script>
