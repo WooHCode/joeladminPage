@@ -45,7 +45,7 @@
                         <td><img class="itemImages" :src="serchingItem.imgPath" alt="실패" /></td>
                         <td>{{ serchingItem.itemDes }}</td>
                         <td>{{ serchingItem.itemCode }}</td>
-                        <td><button class="fa fa-trash" @click="remove(serchingItem.id)"></button></td>
+                        <td><button class="fa fa-trash" @click="warnRemove(),remove(serchingItem.id)"></button></td>
                       </tr>
                     </tbody>
                     <tbody v-if="serchSuccess == false">
@@ -126,7 +126,7 @@ export default {
       this.load();
     },
     warnRemove() {
-      var retrunValue = confirm("정말 삭제하시겠습니까?");
+      var retrunValue = confirm("상품 1건을 삭제하시겠습니까?");
       this.reallyRemove = retrunValue;
     }
   },
