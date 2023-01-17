@@ -5,14 +5,24 @@
       <main class="col-lg-10 col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="mopen align-items-center" v-if="modal">
           <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
+          /**
+          * TODO: OPEN 이벤트 추가
+          */
         </div>
         <div class="mopen align-items-center" v-if="umodal">
-            <Itmeumodal @modalHide="umodal = false, load()" :sendname="changeitemname"></Itmeumodal>
-          </div>
+          <Itmeumodal @modalHide="umodal = false, load()" :sendname="changeitemname"></Itmeumodal>
+        </div>
         <h1 class="h2 d-flex justify-content-center">상품정보</h1>
         <div
           class="d-flex col-lg-12 justify-content-center flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <div class="album py-5 bg-light">
+            <div class="d-flex justify-content-end mb-1 me-3">
+              <input type="text" placeholder="상품명으로 검색하세요" v-model="serchingItemName"
+                @keydown.enter="serchingResult(serchingItemName)">
+            </div>
+            <div class="d-flex justify-content-end" v-if="serchSuccess == true">
+              <button class="fa fa-undo"></button>
+            </div>
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
                 <div class="items table-responsive">
@@ -27,7 +37,17 @@
                         <th>상품삭제</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-if="serchSuccess == true">
+                      <tr class="align-middle">
+                        <td class="nameHover align-middle"><a @click="update(serchingItem.name)">{{ serchingItem.name }}</a></td>
+                        <td>{{ serchingItem.price }}원</td>
+                        <td><img class="itemImages" :src="serchingItem.imgPath" alt="실패" /></td>
+                        <td>{{ serchingItem.itemDes }}</td>
+                        <td>{{ serchingItem.itemCode }}</td>
+                        <td><button class="fa fa-trash" @click="remove(serchingItem.id)"></button></td>
+                      </tr>
+                    </tbody>
+                    <tbody v-if="serchSuccess == false">
                       <tr class="align-middle" v-for="(i, idx1) in state.items" :key="idx1">
                         <td class="nameHover align-middle"><a @click="update(i.name)">{{ i.name }}</a></td>
                         <td>{{ i.price }}원</td>
@@ -68,6 +88,28 @@ export default {
     update(itemName) {
       this.umodal = true;
       this.changeitemname = itemName;
+    },
+    serchingResult(serchingItemName) {
+      const pname = JSON.parse(JSON.stringify(serchingItemName))
+      axios.get("/api/v2/search/",
+        {
+          params: {
+            name: pname
+          }
+        }
+      ).then(({ data }) => {
+        if (data == '') {
+          alert("상품을 조회하지 못하였습니다.");
+        } else {
+          this.serchingItem = data;
+          this.serchSuccess = true;
+        }
+
+      })
+        .catch(function (error) {
+          console.log(error);
+          alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+        })
     }
   },
 
@@ -75,9 +117,12 @@ export default {
 
   data() {
     return {
+      serchingItem: [],
+      serchingItemName: '',
       modal: false,
       umodal: false,
       changeitemid: '',
+      serchSuccess: false,
     }
 
   },
