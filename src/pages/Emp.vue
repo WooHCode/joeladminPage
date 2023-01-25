@@ -85,6 +85,8 @@ export default {
 <style scoped>
 .tb-title {
   text-align: center;
+  border-left: 1px dashed black;
+  margin-left: 2px;
 }
 .tb-context {
   text-align: center;
