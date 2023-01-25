@@ -30,7 +30,7 @@
                             <th class="tb-title">상세설명</th>
                           </thead>
                           <tbody>
-                            <tr class="" v-for="(i, idx) in state.emp" :key="idx">
+                            <tr class="" v-for="(i, idx) in state.emp" :key="idx" @click="fixEmp()">
                               <td class="tb-context">{{ idx + 1 }}</td>
                               <td class="tb-context">{{ i.empName }}</td>
                               <td class="tb-context">{{ i.empAge }}</td>
@@ -62,7 +62,9 @@ import axios from 'axios';
 import { reactive } from '@vue/reactivity';
 export default {
   methods: {
-
+    fixEmp(){
+      console.log("hello")
+    }
   },
   components: { SidebarMenu },
   data() {
@@ -85,8 +87,7 @@ export default {
 <style scoped>
 .tb-title {
   text-align: center;
-  border-left: 1px dashed black;
-  margin-left: 2px;
+  border-left: 0.1px dotted black;
 }
 .tb-context {
   text-align: center;
