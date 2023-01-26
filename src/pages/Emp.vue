@@ -45,6 +45,17 @@
                     </div>
                   </div>
                 </div>
+                <div aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item" v-for="(i,idx) in state.count" :key="idx"><a class="page-link" href="#" >{{ i }}</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div>
               </div>
@@ -62,20 +73,34 @@ import axios from 'axios';
 import { reactive } from '@vue/reactivity';
 export default {
   methods: {
-    fixEmp(){
+    fixEmp() {
       console.log("hello")
+    },
+    callPageNum() {
+   
     }
   },
   components: { SidebarMenu },
   data() {
     return {
       isModalViewed: false,
+      pageCount: 0,
     };
   },
   setup() {
     const state = reactive({
       emp: [],
+      count: 0,
     })
+
+    axios.get("/api/v3/emp/total", {
+      params: {
+        size: 5
+      }
+    }).then(( res ) => {
+      state.count = res.data
+    })
+
     axios.get(`/api/v1/emp`).then(({ data }) => {
       state.emp = data;
       console.log(state.emp)
@@ -89,6 +114,7 @@ export default {
   text-align: center;
   border-left: 0.1px dotted black;
 }
+
 .tb-context {
   text-align: center;
 }
