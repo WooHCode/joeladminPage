@@ -48,7 +48,7 @@
                     <tbody v-if="serchSuccess == false">
                       <tr class="align-middle" v-for="(i, idx1) in state.items" :key="idx1">
                         <td class="nameHover align-middle"><a @click="update(i.name)">{{ i.name }}</a></td>
-                        <td>{{ i.price }}원</td>
+                        <td>{{ lib.getNumerFormatted(i.price) }}원</td>
                         <td><img class="itemImages" :src="i.imgPath" alt="실패" /></td>
                         <td>{{ i.itemDes }}</td>
                         <td>{{ i.itemCode }}</td>
@@ -77,6 +77,7 @@ import { reactive } from '@vue/reactivity'
 import SidebarMenu from "@/components/SidebarMenu.vue"
 import Itemmodal from '@/components/Itemmodal.vue'
 import Itmeumodal from '@/components/Itemumodal.vue'
+import lib from '@/scripts/lib'
 
 export default {
 
@@ -154,7 +155,7 @@ export default {
       })
     }
     load();
-    return { state, load, };
+    return { state, load, lib};
   }
 }
 </script>
