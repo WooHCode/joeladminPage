@@ -36,7 +36,7 @@
                               <td class="tb-context">{{ i.empAge }}</td>
                               <td class="tb-context">{{ i.empGender }}</td>
                               <td class="tb-context">{{ i.empWorkCount }}</td>
-                              <td class="tb-context">{{ i.empPay }}원</td>
+                              <td class="tb-context">{{ lib.getNumerFormatted(i.empPay) }}원</td>
                               <td class="tb-context">{{ i.empDescription }}</td>
                             </tr>
                           </tbody>
@@ -53,7 +53,7 @@
                     <li class="page-item" v-for="(i, idx) in state.count" :key="idx"><a class="page-link" href="#"
                         @click="changePages(i)">{{ i }}</a></li>
                     <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
+                      <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
                     </li>
                   </ul>
                 </div>
@@ -72,6 +72,7 @@
 import SidebarMenu from '@/components/SidebarMenu.vue';
 import axios from 'axios';
 import { reactive } from '@vue/reactivity';
+import lib from '@/scripts/lib'
 export default {
   methods: {
     fixEmp() {
@@ -80,13 +81,25 @@ export default {
     changePages(pageNum) {
       axios.get(`/api/v3/emp`, {
         params: {
-          page: pageNum-1,
+          page: pageNum - 1,
           size: 5
         }
       }).then(({ data }) => {
         this.state.emp = data;
+        this.currentPageNum = pageNum - 1;
       })
-
+    },
+    nextPage(num) {
+      var nextPNum = num + 1;
+      axios.get(`/api/v3/emp`, {
+        params: {
+          page: nextPNum,
+          size: 5
+        }
+      }).then(({ data }) => {
+        this.state.emp = data;
+        this.currentPageNum = nextPNum;
+      })
     }
   },
   components: { SidebarMenu },
@@ -95,6 +108,7 @@ export default {
       isModalViewed: false,
       pageCount: 0,
       empList: [],
+      currentPageNum: 0,
     };
   },
   setup() {
@@ -119,7 +133,7 @@ export default {
     }).then(({ data }) => {
       state.emp = data;
     })
-    return { state }
+    return { state, lib }
   },
 };
 </script>
