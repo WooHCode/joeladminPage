@@ -50,7 +50,8 @@
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Previous</a>
                     </li>
-                    <li class="page-item" v-for="(i,idx) in state.count" :key="idx"><a class="page-link" href="#" >{{ i }}</a></li>
+                    <li class="page-item" v-for="(i, idx) in state.count" :key="idx"><a class="page-link" href="#"
+                        @click="changePages(i)">{{ i }}</a></li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
                     </li>
@@ -76,8 +77,16 @@ export default {
     fixEmp() {
       console.log("hello")
     },
-    callPageNum() {
-   
+    changePages(pageNum) {
+      axios.get(`/api/v3/emp`, {
+        params: {
+          page: pageNum-1,
+          size: 5
+        }
+      }).then(({ data }) => {
+        this.state.emp = data;
+      })
+
     }
   },
   components: { SidebarMenu },
@@ -85,6 +94,7 @@ export default {
     return {
       isModalViewed: false,
       pageCount: 0,
+      empList: [],
     };
   },
   setup() {
@@ -97,13 +107,17 @@ export default {
       params: {
         size: 5
       }
-    }).then(( res ) => {
+    }).then((res) => {
       state.count = res.data
     })
 
-    axios.get(`/api/v1/emp`).then(({ data }) => {
+    axios.get(`/api/v3/emp`, {
+      params: {
+        page: 0,
+        size: 5
+      }
+    }).then(({ data }) => {
       state.emp = data;
-      console.log(state.emp)
     })
     return { state }
   },
