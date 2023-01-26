@@ -14,14 +14,13 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h4 class="card-title d-flex justify-content-center">Striped Table with Hover</h4>
-                      <p class="card-category d-flex justify-content-center">Here is a subtitle for this table</p>
+                      <h1 class="card-title d-flex justify-content-center">직원 리스트</h1>
+                      <p class="card-category d-flex justify-content-center">권한이 있는 사람만 볼수있습니다.</p>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
                         <table class="table table-hover table-striped">
                           <thead>
-                            <th class="tb-title">번호</th>
                             <th class="tb-title">이름</th>
                             <th class="tb-title">나이</th>
                             <th class="tb-title">성별</th>
@@ -31,16 +30,18 @@
                           </thead>
                           <tbody>
                             <tr class="" v-for="(i, idx) in state.emp" :key="idx" @click="fixEmp()">
-                              <td class="tb-context">{{ idx + 1 }}</td>
                               <td class="tb-context">{{ i.empName }}</td>
-                              <td class="tb-context">{{ i.empAge }}</td>
+                              <td class="tb-context">{{ i.empAge }}세</td>
                               <td class="tb-context">{{ i.empGender }}</td>
-                              <td class="tb-context">{{ i.empWorkCount }}</td>
+                              <td class="tb-context">{{ i.empWorkCount }}일</td>
                               <td class="tb-context">{{ lib.getNumerFormatted(i.empPay) }}원</td>
-                              <td class="tb-context">{{ i.empDescription }}</td>
+                              <td class="tb-context"><button>상세페이지</button></td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="d-flex justify-content-end me-4 fs-12 fw-light">
+                        <a>총원 : {{ state.count[1] }}명</a>
                       </div>
                     </div>
                   </div>
@@ -50,7 +51,7 @@
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Previous</a>
                     </li>
-                    <li class="page-item" v-for="(i, idx) in state.count" :key="idx"><a class="page-link" href="#"
+                    <li class="page-item" v-for="(i, idx) in state.count[0]" :key="idx"><a class="page-link" href="#"
                         @click="changePages(i)">{{ i }}</a></li>
                     <li class="page-item">
                       <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
@@ -114,7 +115,7 @@ export default {
   setup() {
     const state = reactive({
       emp: [],
-      count: 0,
+      count: [],
     })
 
     axios.get("/api/v3/emp/total", {
