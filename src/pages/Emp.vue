@@ -17,6 +17,9 @@
                       <h1 class="card-title d-flex justify-content-center">직원 리스트</h1>
                       <p class="card-category d-flex justify-content-center">권한이 있는 사람만 볼수있습니다.</p>
                     </div>
+                    <div>
+                      <a>1페이지</a>
+                    </div>
                     <div class="card-body">
                       <div class="table-responsive">
                         <table class="table table-hover table-striped">
@@ -48,8 +51,8 @@
                 </div>
                 <div aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    <li class="page-item">
+                      <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
                     </li>
                     <li class="page-item" v-for="(i, idx) in state.count[0]" :key="idx"><a class="page-link" href="#"
                         @click="changePages(i)">{{ i }}</a></li>
@@ -101,7 +104,23 @@ export default {
         this.state.emp = data;
         this.currentPageNum = nextPNum;
       })
-    }
+    },
+    prevPage(num) {
+      var nextPNum = num - 1;
+      if (nextPNum < 0) {
+        nextPNum = 0;
+      } else {
+        axios.get(`/api/v3/emp`, {
+          params: {
+            page: nextPNum,
+            size: 5
+          }
+        }).then(({ data }) => {
+          this.state.emp = data;
+          this.currentPageNum = nextPNum;
+        })
+      }
+    },
   },
   components: { SidebarMenu },
   data() {
