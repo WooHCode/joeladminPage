@@ -23,7 +23,7 @@
                       <caption class="d-flex justify-content-end">{{ currentPageNum + 1}} page</caption>
                       <div class="table-responsive">
                         <table class="table table-hover table-striped">
-                          
+
                           <thead>
                             <th class="tb-title">이름</th>
                             <th class="tb-title">나이</th>
@@ -81,7 +81,7 @@ import lib from '@/scripts/lib'
 export default {
   methods: {
     fixEmp() {
-      
+
     },
     changePages(pageNum) {
       axios.get(`/api/v3/emp`, {
@@ -164,20 +164,23 @@ export default {
 };
 </script>
 <style scoped>
-.tx-serch{
+.tx-serch {
   border-radius: 8px;
   border-color: lightgray;
   box-shadow: 1px;
 }
+
 .container {
-  font-size: 1.7vw;
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
 }
+
 .card-body {
   padding-left: 2%;
   padding-right: 2%;
   padding-bottom: 2%;
   padding-top: 0%;
 }
+
 .tb-title {
   text-align: center;
   border-left: 0.1px dotted black;
