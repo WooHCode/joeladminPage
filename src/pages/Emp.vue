@@ -7,7 +7,6 @@
           class="d-flex col-lg-12 justify-content-center flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <div class="album py-5 bg-light">
             <div class="d-flex justify-content-end mb-1 me-3">
-
             </div>
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
@@ -36,7 +35,7 @@
                             <tr class="" v-for="(i, idx) in state.emp" :key="idx" @click="fixEmp()">
                               <td class="tb-context">{{ i.empName }}</td>
                               <td class="tb-context">{{ i.empAge }}세</td>
-                              <td class="tb-context">{{ i.empGender }}</td>
+                              <td class="tb-context">{{ lib.getGenderFormatted(i.empGender) }}</td>
                               <td class="tb-context">{{ i.empWorkCount }}일</td>
                               <td class="tb-context">{{ lib.getNumerFormatted(i.empPay) }}원</td>
                               <td class="tb-context"><button>상세페이지</button></td>
@@ -81,7 +80,7 @@ import lib from '@/scripts/lib'
 export default {
   methods: {
     fixEmp() {
-      console.log(this.state.count[0])
+      
     },
     changePages(pageNum) {
       axios.get(`/api/v3/emp`, {
