@@ -12,7 +12,7 @@
       </div>
       <div class="checkbox mb-3">
         <label>
-          <input type="checkbox" value="remember-me"> 아이디 기억하기
+          <input type="checkbox" value="remember-me"> 로그인 상태 유지
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
