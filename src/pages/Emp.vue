@@ -16,13 +16,14 @@
                       <h1 class="card-title d-flex justify-content-center">직원 리스트</h1>
                       <p class="card-category d-flex justify-content-center">권한이 있는 사람만 볼수있습니다.</p>
                     </div>
-                    <div class="d-flex justify-content-end me-5 fs-6 fw-light">
-                      <a>{{ currentPageNum + 1}} page</a>
+                    <div class="d-flex justify-content-end me-3 mt-3">
+                      <input type="text" class="tx-serch" placeholder="직원검색">
                     </div>
-                    <hr>
                     <div class="card-body">
+                      <caption class="d-flex justify-content-end">{{ currentPageNum + 1}} page</caption>
                       <div class="table-responsive">
                         <table class="table table-hover table-striped">
+                          
                           <thead>
                             <th class="tb-title">이름</th>
                             <th class="tb-title">나이</th>
@@ -163,6 +164,20 @@ export default {
 };
 </script>
 <style scoped>
+.tx-serch{
+  border-radius: 8px;
+  border-color: lightgray;
+  box-shadow: 1px;
+}
+.container {
+  font-size: 1.7vw;
+}
+.card-body {
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 2%;
+  padding-top: 0%;
+}
 .tb-title {
   text-align: center;
   border-left: 0.1px dotted black;
