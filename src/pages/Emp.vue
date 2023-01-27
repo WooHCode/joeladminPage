@@ -17,9 +17,10 @@
                       <h1 class="card-title d-flex justify-content-center">직원 리스트</h1>
                       <p class="card-category d-flex justify-content-center">권한이 있는 사람만 볼수있습니다.</p>
                     </div>
-                    <div>
-                      <a>1페이지</a>
+                    <div class="d-flex justify-content-end me-5 fs-6 fw-light">
+                      <a>{{ currentPageNum + 1}} page</a>
                     </div>
+                    <hr>
                     <div class="card-body">
                       <div class="table-responsive">
                         <table class="table table-hover table-striped">
@@ -80,7 +81,7 @@ import lib from '@/scripts/lib'
 export default {
   methods: {
     fixEmp() {
-      console.log("hello")
+      console.log(this.state.count[0])
     },
     changePages(pageNum) {
       axios.get(`/api/v3/emp`, {
@@ -104,10 +105,15 @@ export default {
         this.state.emp = data;
         this.currentPageNum = nextPNum;
       })
+      if (this.state.count[0] < nextPNum + 1) {
+        alert("마지막 페이지입니다.")
+        this.prevPage(this.state.count[0])
+      }
     },
     prevPage(num) {
       var nextPNum = num - 1;
       if (nextPNum < 0) {
+        alert("첫번째 페이지입니다.")
         nextPNum = 0;
       } else {
         axios.get(`/api/v3/emp`, {
