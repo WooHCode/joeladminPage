@@ -43,8 +43,7 @@ export default {
 
       axios.post(`/api/v1/login`, {
         params: {
-          id: id,
-          password: password
+          
         }
       }).then(({ res }) => {
         console.log(res);
