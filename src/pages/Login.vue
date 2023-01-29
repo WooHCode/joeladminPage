@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <div class="text-center mt-5">
     <div class="form-signin">
       <img class="mb-4" src="Joelfab.png" alt="" width="72" height="72">
       <div class="d-flex justify-content-center">
