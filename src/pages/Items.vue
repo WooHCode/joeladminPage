@@ -42,7 +42,7 @@
                         <td><img class="itemImages" :src="serchingItem.imgPath" alt="실패" /></td>
                         <td>{{ serchingItem.itemDes }}</td>
                         <td>{{ serchingItem.itemCode }}</td>
-                        <td><button class="fa fa-trash" @click="warnRemove(),remove(serchingItem.id)"></button></td>
+                        <td><button class="fa fa-trash" @click="warnRemove(), remove(serchingItem.id)"></button></td>
                       </tr>
                     </tbody>
                     <tbody v-if="serchSuccess == false">
@@ -61,8 +61,21 @@
               <div>
               </div>
             </div>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mb-4">
               <button class="submit btn btn-primary btn-lg" @click="modal = true">상품추가</button>
+            </div>
+            <div aria-label="Page navigation example mt-5">
+              <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#" @click="first()">1</a></li>
+                <li class="page-item"><a class="page-link" href="#" @click="second()">2</a></li>
+                <li class="page-item"><a class="page-link" href="#" @click="third()">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -126,7 +139,7 @@ export default {
     warnRemove() {
       var retrunValue = confirm("상품 1건을 삭제하시겠습니까?");
       this.reallyRemove = retrunValue;
-    }
+    },
   },
 
   components: { SidebarMenu, Itemmodal, Itmeumodal },
@@ -155,16 +168,17 @@ export default {
       })
     }
     load();
-    return { state, load, lib};
+    return { state, load, lib };
   }
 }
 </script>
   
 <style scoped>
-.container{
-  word-break:break-word;
-  overflow-y:auto; 
+.container {
+  word-break: break-word;
+  overflow-y: auto;
 }
+
 .nameHover {
   cursor: pointer;
   color: blue;
@@ -183,7 +197,7 @@ export default {
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   padding: 10px;
-  
+
 }
 
 .white-bg {
