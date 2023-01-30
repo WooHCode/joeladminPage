@@ -49,8 +49,8 @@
                       <tr class="align-middle" v-for="(i, idx1) in state.items" :key="idx1">
                         <td class="nameHover align-middle"><a @click="update(i.name)">{{ i.name }}</a></td>
                         <td>{{ lib.getNumerFormatted(i.price) }}원</td>
-                        <td><img class="itemImages" :src="i.imgPath" alt="실패" /></td>
-                        <td>{{ i.itemDes }}</td>
+                        <td><img class="itemImages" :src="i.image" alt="실패" /></td>
+                        <td>{{ i.description }}</td>
                         <td>{{ i.itemCode }}</td>
                         <td><button class="fa fa-trash" @click="warnRemove(), remove(i.id)"></button></td>
                       </tr>
@@ -160,11 +160,19 @@ export default {
   setup() {
     const state = reactive({
       items: [],
+      pageCounts: [],
     })
 
     const load = () => {
-      axios.get("/api/v1/items").then(({ data }) => {
-        state.items = data;
+      axios.get("/api/v3/items",{
+        params: {
+          page: 0,
+          size: 5
+        }
+      }).then(({ data }) => {
+        console.log(data.data)
+
+        state.items = data.data;
       })
     }
     load();
