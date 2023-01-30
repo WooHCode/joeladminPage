@@ -13,6 +13,9 @@
         <div
           class="d-flex col-lg-12 justify-content-center flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <div class="album py-5 bg-light">
+            <div class="d-flex justify-content-end me-5 mb-2">
+              <a>{{ currentPageNum + 1}}page</a>
+            </div>
             <div class="d-flex justify-content-end mb-1 me-3">
               <input type="text" placeholder="상품명으로 검색하세요" v-model="serchingItemName"
                 @keydown.enter="serchingResult(serchingItemName)">
@@ -69,9 +72,9 @@
                 <li class="page-item disabled">
                   <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#" @click="first()">1</a></li>
-                <li class="page-item"><a class="page-link" href="#" @click="second()">2</a></li>
-                <li class="page-item"><a class="page-link" href="#" @click="third()">3</a></li>
+                <li class="page-item" v-for="(i, idx) in state.pageCounts[0]" :key="idx">
+                  <a class="page-link" href="#" @click="movePage(i)">{{ i }}</a>
+                </li>
                 <li class="page-item">
                   <a class="page-link" href="#">Next</a>
                 </li>
@@ -140,6 +143,17 @@ export default {
       var retrunValue = confirm("상품 1건을 삭제하시겠습니까?");
       this.reallyRemove = retrunValue;
     },
+    movePage(pNum) {
+      axios.get(`/api/v3/items`, {
+        params: {
+          page: pNum - 1,
+          size: 5
+        }
+      }).then(({ data }) => {
+        this.state.items = data.data;
+        this.currentPageNum = pNum-1;
+      })
+    },
   },
 
   components: { SidebarMenu, Itemmodal, Itmeumodal },
@@ -153,6 +167,7 @@ export default {
       changeitemid: '',
       serchSuccess: false,
       reallyRemove: false,
+      currentPageNum: 0,
     }
 
   },
@@ -164,14 +179,20 @@ export default {
     })
 
     const load = () => {
-      axios.get("/api/v3/items",{
+      axios.get("/api/v3/items/count", {
+        params: {
+          size: 5
+        }
+      }).then((res) => {
+        state.pageCounts = res.data
+      })
+
+      axios.get("/api/v3/items", {
         params: {
           page: 0,
           size: 5
         }
       }).then(({ data }) => {
-        console.log(data.data)
-
         state.items = data.data;
       })
     }
