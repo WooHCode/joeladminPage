@@ -70,7 +70,7 @@
             <div aria-label="Page navigation example mt-5">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
-                  <a class="page-link" @click="prevPage(currentPageNum + 1)">Previous</a>
+                  <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
                 </li>
                 <li class="page-item" v-for="(i, idx) in state.pageCounts[0]" :key="idx">
                   <a class="page-link" href="#" @click="movePage(i)">{{ i }}</a>
@@ -154,11 +154,23 @@ export default {
         this.currentPageNum = pNum-1;
       })
     },
-    prevPage(currentPageNum) {
-      if (currentPageNum <0) {
-        
+    prevPage(currentPNum) {
+      var nextPNum = currentPNum - 1;
+      if (nextPNum < 0) {
+        alert("첫번째 페이지 입니다.")
+        nextPNum = 0;
       }
-    }
+      else {  
+      axios.get(`/api/v3/items`, {
+        params: {
+          page: nextPNum,
+          size: 5
+        }
+      }).then(({ data }) => {
+        this.state.items = data.data;
+        this.currentPageNum = nextPNum;
+      })
+    }}
   },
 
   components: { SidebarMenu, Itemmodal, Itmeumodal },
