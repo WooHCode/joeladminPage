@@ -69,14 +69,14 @@
             </div>
             <div aria-label="Page navigation example mt-5">
               <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">Previous</a>
+                <li class="page-item">
+                  <a class="page-link" @click="prevPage(currentPageNum + 1)">Previous</a>
                 </li>
                 <li class="page-item" v-for="(i, idx) in state.pageCounts[0]" :key="idx">
                   <a class="page-link" href="#" @click="movePage(i)">{{ i }}</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
+                  <a class="page-link" href="#" @click="prevPage(currentPageNum)">Next</a>
                 </li>
               </ul>
             </div>
@@ -154,6 +154,11 @@ export default {
         this.currentPageNum = pNum-1;
       })
     },
+    prevPage(currentPageNum) {
+      if (currentPageNum <0) {
+        
+      }
+    }
   },
 
   components: { SidebarMenu, Itemmodal, Itmeumodal },
