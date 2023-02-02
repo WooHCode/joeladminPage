@@ -71,7 +71,7 @@
               <h5 class="total-itemCount" v-if="searchSuccess">검색된 상품 개수: {{ totalItemCount }}건</h5>
               <h5 class="total-itemCount" v-else>총 상품 개수: {{ state.pageCounts[1] }}건</h5>
             </div>
-            <div aria-label="Page navigation example mt-5">
+            <div aria-label="Page navigation example mt-5" v-if="searchSuccess==false">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
                   <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
