@@ -37,15 +37,15 @@
                       </tr>
                     </thead>
                     <tbody v-if="serchSuccess == true">
-                      <tr class="align-middle">
+                      <tr class="align-middle" v-for="(i, idx2) in serchingItem" :key="idx2">
                         <td class="nameHover align-middle">
-                          <a @click="update(serchingItem.name)">{{ serchingItem.name }}</a>
+                          <a @click="update(i.name)">{{ i.name }}</a>
                         </td>
-                        <td>{{ serchingItem.price }}원</td>
-                        <td><img class="itemImages" :src="serchingItem.imgPath" alt="실패" /></td>
-                        <td>{{ serchingItem.itemDes }}</td>
-                        <td>{{ serchingItem.itemCode }}</td>
-                        <td><button class="fa fa-trash" @click="warnRemove(), remove(serchingItem.id)"></button></td>
+                        <td>{{ i.price }}원</td>
+                        <td><img class="itemImages" :src="i.imgPath" alt="실패" /></td>
+                        <td>{{ i.itemDes }}</td>
+                        <td>{{ i.itemCode }}</td>
+                        <td><button class="fa fa-trash" @click="warnRemove(), remove(i.id)"></button></td>
                       </tr>
                     </tbody>
                     <tbody v-if="serchSuccess == false">
@@ -116,10 +116,10 @@ export default {
     },
     serchingResult(serchingItemName) {
       const pname = JSON.parse(JSON.stringify(serchingItemName))
-      axios.get("/api/v2/search/",
+      axios.get("/api/v2/search",
         {
           params: {
-            name: pname
+            likeName: pname
           }
         }
       ).then(({ data }) => {
