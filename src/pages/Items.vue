@@ -89,7 +89,7 @@
                 <li class="page-item">
                   <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
                 </li>
-                <li class="page-item" v-for="(i, idx) in state.pageCounts[0]" :key="idx">
+                <li class="page-item" v-for="(i, idx) in totalPageCount" :key="idx">
                   <a class="page-link" href="#" @click="movePage(i)">{{ i }}</a>
                 </li>
                 <li class="page-item">
@@ -148,7 +148,9 @@ export default {
           console.log(data[2])
           this.serchingItem = data[0].content;
           this.currentPageNum = 0;
+          this.totalItemCount = data[1];
           this.searchSuccess = true;
+          this.totalPageCount = data[2];
         }
 
       })
@@ -224,6 +226,7 @@ export default {
       reallyRemove: false,
       currentPageNum: 0,
       totalItemCount: 0,
+      totalPageCount: 0,
     }
 
   },
