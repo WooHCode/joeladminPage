@@ -120,7 +120,6 @@ export default {
     update(itemName) {
       this.umodal = true;
       this.changeitemname = itemName;
-      console.log(this.changeitemname);
     },
     remove(itemId) {
       if (this.reallyRemove == true) {
@@ -145,7 +144,6 @@ export default {
         if (data[0].content == '') {
           alert("상품을 조회하지 못하였습니다.");
         } else {
-          console.log(data[2])
           this.serchingItem = data[0].content;
           this.currentPageNum = 0;
           this.totalItemCount = data[1];
@@ -177,9 +175,8 @@ export default {
           if (data[0].content == '') {
             alert("상품을 조회하지 못하였습니다.");
           } else {
-            console.log(data[2])
             this.serchingItem = data[0].content;
-            this.currentPageNum = 0;
+            this.currentPageNum = pageNumber;
             this.totalItemCount = data[1];
             this.searchSuccess = true;
             this.totalPageCount = data[2];
@@ -206,7 +203,6 @@ export default {
           if (data[0].content == '') {
             alert("상품을 조회하지 못하였습니다.");
           } else {
-            console.log(data[2])
             this.serchingItem = data[0].content;
             this.currentPageNum = pageNumber;
             this.totalItemCount = data[1];
@@ -221,8 +217,36 @@ export default {
           })
       
     },
-    searchNextPage() {
+    searchNextPage(pageNum) {
+      var pageNumber = pageNum + 1;
+      if (pageNumber >= this.totalPageCount) {
+        alert("마지막 페이지입니다.")
+      } else {
+        axios.get("/api/v3/search",
+          {
+            params: {
+              likeName: this.serchingItemName,
+              page: pageNumber,
+              size: 5
+            }
+          }
+        ).then(({ data }) => {
+          if (data[0].content == '') {
+            alert("상품을 조회하지 못하였습니다.");
+          } else {
+            this.serchingItem = data[0].content;
+            this.currentPageNum = pageNumber;
+            this.totalItemCount = data[1];
+            this.searchSuccess = true;
+            this.totalPageCount = data[2];
+          }
 
+        })
+          .catch(function (error) {
+            console.log(error);
+            alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+          })
+      }
     },
     undo() {
       this.load();
