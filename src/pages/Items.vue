@@ -84,6 +84,19 @@
                 </li>
               </ul>
             </div>
+            <div aria-label="Page navigation example mt-5" v-if="searchSuccess==true">
+              <ul class="pagination justify-content-center">
+                <li class="page-item">
+                  <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
+                </li>
+                <li class="page-item" v-for="(i, idx) in state.pageCounts[0]" :key="idx">
+                  <a class="page-link" href="#" @click="movePage(i)">{{ i }}</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </main>
@@ -120,18 +133,21 @@ export default {
     },
     serchingResult(serchingItemName) {
       const pname = JSON.parse(JSON.stringify(serchingItemName))
-      axios.get("/api/v2/search",
+      axios.get("/api/v3/search",
         {
           params: {
-            likeName: pname
+            likeName: pname,
+            page: 0,
+            size: 5
           }
         }
       ).then(({ data }) => {
-        if (data == '') {
+        if (data[0].content == '') {
           alert("상품을 조회하지 못하였습니다.");
         } else {
-          this.serchingItem = data;
-          this.totalItemCount = data.length;
+          console.log(data[2])
+          this.serchingItem = data[0].content;
+          this.currentPageNum = 0;
           this.searchSuccess = true;
         }
 
