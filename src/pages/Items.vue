@@ -71,7 +71,7 @@
               <h5 class="total-itemCount" v-if="searchSuccess">검색된 상품 개수: {{ totalItemCount }}건</h5>
               <h5 class="total-itemCount" v-else>총 상품 개수: {{ state.pageCounts[1] }}건</h5>
             </div>
-            <div aria-label="Page navigation example mt-5" v-if="searchSuccess==false">
+            <div aria-label="Page navigation example mt-5" v-if="searchSuccess == false">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
                   <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
@@ -84,16 +84,16 @@
                 </li>
               </ul>
             </div>
-            <div aria-label="Page navigation example mt-5" v-if="searchSuccess==true">
+            <div aria-label="Page navigation example mt-5" v-if="searchSuccess == true">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
-                  <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
+                  <a class="page-link" href="#" @click="searchPrevPage(currentPageNum)">Previous</a>
                 </li>
                 <li class="page-item" v-for="(i, idx) in totalPageCount" :key="idx">
-                  <a class="page-link" href="#" @click="movePage(i)">{{ i }}</a>
+                  <a class="page-link" href="#" @click="searchMovePage(i)">{{ i }}</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
+                  <a class="page-link" href="#" @click="searchNextPage(currentPageNum)">Next</a>
                 </li>
               </ul>
             </div>
@@ -151,6 +151,7 @@ export default {
           this.totalItemCount = data[1];
           this.searchSuccess = true;
           this.totalPageCount = data[2];
+          this.serchingItemName = pname;
         }
 
       })
@@ -158,6 +159,70 @@ export default {
           console.log(error);
           alert(error + "\n" + "상품을 조회하지 못하였습니다.");
         })
+    },
+    searchPrevPage(pageNum) {
+      var pageNumber = pageNum - 1;
+      if (pageNumber < 0) {
+        alert("첫번째 페이지입니다.")
+      } else {
+        axios.get("/api/v3/search",
+          {
+            params: {
+              likeName: this.serchingItemName,
+              page: pageNumber,
+              size: 5
+            }
+          }
+        ).then(({ data }) => {
+          if (data[0].content == '') {
+            alert("상품을 조회하지 못하였습니다.");
+          } else {
+            console.log(data[2])
+            this.serchingItem = data[0].content;
+            this.currentPageNum = 0;
+            this.totalItemCount = data[1];
+            this.searchSuccess = true;
+            this.totalPageCount = data[2];
+          }
+
+        })
+          .catch(function (error) {
+            console.log(error);
+            alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+          })
+      }
+    },
+    searchMovePage(pageNum) {
+      var pageNumber = pageNum - 1;
+        axios.get("/api/v3/search",
+          {
+            params: {
+              likeName: this.serchingItemName,
+              page: pageNumber,
+              size: 5
+            }
+          }
+        ).then(({ data }) => {
+          if (data[0].content == '') {
+            alert("상품을 조회하지 못하였습니다.");
+          } else {
+            console.log(data[2])
+            this.serchingItem = data[0].content;
+            this.currentPageNum = pageNumber;
+            this.totalItemCount = data[1];
+            this.searchSuccess = true;
+            this.totalPageCount = data[2];
+          }
+
+        })
+          .catch(function (error) {
+            console.log(error);
+            alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+          })
+      
+    },
+    searchNextPage() {
+
     },
     undo() {
       this.load();
