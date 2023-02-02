@@ -19,8 +19,8 @@
             <div class="d-flex justify-content-end mb-1 me-3">
               <input type="text" placeholder="상품명으로 검색하세요" v-model="serchingItemName"
                 @keydown.enter="serchingResult(serchingItemName)">
-              <button class="fa fa-undo ms-2" v-if="serchSuccess == true"
-                @click="serchSuccess = false, serchingItemName = ''"></button>
+              <button class="fa fa-undo ms-2" v-if="searchSuccess == true"
+                @click="searchSuccess = false, serchingItemName = ''"></button>
             </div>
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
@@ -36,7 +36,7 @@
                         <th>상품삭제</th>
                       </tr>
                     </thead>
-                    <tbody v-if="serchSuccess == true">
+                    <tbody v-if="searchSuccess == true">
                       <tr class="align-middle" v-for="(i, idx2) in serchingItem" :key="idx2">
                         <td class="nameHover align-middle">
                           <a @click="update(i.name)">{{ i.name }}</a>
@@ -48,7 +48,7 @@
                         <td><button class="fa fa-trash" @click="warnRemove(), remove(i.id)"></button></td>
                       </tr>
                     </tbody>
-                    <tbody v-if="serchSuccess == false">
+                    <tbody v-if="searchSuccess == false">
                       <tr class="align-middle" v-for="(i, idx1) in state.items" :key="idx1">
                         <td class="nameHover align-middle"><a @click="update(i.name)">{{ i.name }}</a></td>
                         <td>{{ lib.getNumerFormatted(i.price) }}원</td>
@@ -66,6 +66,10 @@
             </div>
             <div class="d-flex justify-content-center mb-4">
               <button class="submit btn btn-primary btn-lg" @click="modal = true">상품추가</button>
+            </div>
+            <div class="d-flex justify-content-end me-5">
+              <h5 class="total-itemCount" v-if="searchSuccess">검색된 상품 개수: {{ totalItemCount }}건</h5>
+              <h5 class="total-itemCount" v-else>총 상품 개수: {{ state.pageCounts[1] }}건</h5>
             </div>
             <div aria-label="Page navigation example mt-5">
               <ul class="pagination justify-content-center">
@@ -127,7 +131,8 @@ export default {
           alert("상품을 조회하지 못하였습니다.");
         } else {
           this.serchingItem = data;
-          this.serchSuccess = true;
+          this.totalItemCount = data.length;
+          this.searchSuccess = true;
         }
 
       })
@@ -151,7 +156,7 @@ export default {
         }
       }).then(({ data }) => {
         this.state.items = data.data;
-        this.currentPageNum = pNum-1;
+        this.currentPageNum = pNum - 1;
       })
     },
     prevPage(currentPNum) {
@@ -160,32 +165,34 @@ export default {
         alert("첫번째 페이지 입니다.")
         nextPNum = 0;
       }
-      else {  
-      axios.get(`/api/v3/items`, {
-        params: {
-          page: nextPNum,
-          size: 5
-        }
-      }).then(({ data }) => {
-        this.state.items = data.data;
-        this.currentPageNum = nextPNum;
-      })
-    }},
+      else {
+        axios.get(`/api/v3/items`, {
+          params: {
+            page: nextPNum,
+            size: 5
+          }
+        }).then(({ data }) => {
+          this.state.items = data.data;
+          this.currentPageNum = nextPNum;
+        })
+      }
+    },
     nextPage(currentPNum) {
-      var nextPNum = currentPNum+1;
-      if (nextPNum >=  this.state.pageCounts[0]) {
+      var nextPNum = currentPNum + 1;
+      if (nextPNum >= this.state.pageCounts[0]) {
         alert("마지막 페이지입니다.");
-      }else{
-      axios.get(`/api/v3/items`, {
-        params: {
-          page: nextPNum,
-          size: 5
-        }
-      }).then(({ data }) => {
-        this.state.items = data.data;
-        this.currentPageNum = nextPNum;
-      })
-      }}
+      } else {
+        axios.get(`/api/v3/items`, {
+          params: {
+            page: nextPNum,
+            size: 5
+          }
+        }).then(({ data }) => {
+          this.state.items = data.data;
+          this.currentPageNum = nextPNum;
+        })
+      }
+    }
   },
 
   components: { SidebarMenu, Itemmodal, Itmeumodal },
@@ -197,9 +204,10 @@ export default {
       modal: false,
       umodal: false,
       changeitemid: '',
-      serchSuccess: false,
+      searchSuccess: false,
       reallyRemove: false,
       currentPageNum: 0,
+      totalItemCount: 0,
     }
 
   },
@@ -235,6 +243,10 @@ export default {
 </script>
   
 <style scoped>
+.total-itemCount {
+  font-size: 15px;
+}
+
 .container {
   word-break: break-word;
   overflow-y: auto;
