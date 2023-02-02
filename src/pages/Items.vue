@@ -76,7 +76,7 @@
                   <a class="page-link" href="#" @click="movePage(i)">{{ i }}</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" href="#" @click="prevPage(currentPageNum)">Next</a>
+                  <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
                 </li>
               </ul>
             </div>
@@ -170,7 +170,22 @@ export default {
         this.state.items = data.data;
         this.currentPageNum = nextPNum;
       })
-    }}
+    }},
+    nextPage(currentPNum) {
+      var nextPNum = currentPNum+1;
+      if (nextPNum >=  this.state.pageCounts[0]) {
+        alert("마지막 페이지입니다.");
+      }else{
+      axios.get(`/api/v3/items`, {
+        params: {
+          page: nextPNum,
+          size: 5
+        }
+      }).then(({ data }) => {
+        this.state.items = data.data;
+        this.currentPageNum = nextPNum;
+      })
+      }}
   },
 
   components: { SidebarMenu, Itemmodal, Itmeumodal },
