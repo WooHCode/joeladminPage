@@ -61,7 +61,19 @@
                     </div>
                   </div>
                 </div>
-                <div aria-label="Page navigation example">
+                <div aria-label="Page navigation example" v-if="searchSuccess==false">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                      <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
+                    </li>
+                    <li class="page-item" v-for="(i, idx) in state.count[0]" :key="idx"><a class="page-link" href="#"
+                        @click="changePages(i)">{{ i }}</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
+                    </li>
+                  </ul>
+                </div>
+                <div aria-label="Page navigation example" v-if="searchSuccess">
                   <ul class="pagination justify-content-center">
                     <li class="page-item">
                       <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
@@ -92,9 +104,10 @@ import lib from '@/scripts/lib'
 export default {
   methods: {
     searchingEmp(empData) {
-      var searchData = '';
-      if (empData == '남성' ||empData == "여성") {
-        (empData == '여성')? searchData = 'W' : searchData = 'M';
+      let searchData = lib.getSearchEmpData(empData);
+      if(searchData != 'M' && searchData != 'W'){
+        
+      }else{
         axios.get(`/api/v1/emp/search`, {
           params: {
             empGender: searchData,
@@ -105,11 +118,9 @@ export default {
           this.searchSuccess = true;
           this.searchResult = data.content;
         }).catch(function (err) {
+          alert("이름 혹은 성별로 검색해주세요!");
           console.log(err)
         })
-      }
-      else if (empData) {
-        return null;
       }
     },
     fixEmp() {
