@@ -20,7 +20,7 @@
               <input type="text" placeholder="상품명으로 검색하세요" v-model="searchingItemName"
                 @keydown.enter="searchingResult(searchingItemName)">
               <button class="fa fa-undo ms-2" v-if="searchSuccess == true"
-                @click="searchSuccess = false, searchingItemName = ''"></button>
+                @click="searchSuccess = false, searchingItemName = '', currentPageNum = 0"></button>
             </div>
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">

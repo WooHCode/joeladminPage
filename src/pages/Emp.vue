@@ -20,7 +20,7 @@
                       <input type="text" class="tx-serch" title="이름 또는 성별로 검색해주세요" placeholder="직원검색"
                         v-model="searchingData" @keydown.enter="searchingEmp(searchingData)">
                       <button class="fa fa-undo ms-2" v-if="searchSuccess == true"
-                        @click="searchSuccess = false, searchingData = ''"></button>
+                        @click="searchSuccess = false, searchingData = '', currentPageNum = 0"></button>
                     </div>
                     <div class="card-body">
                       <caption class="d-flex justify-content-end">{{ currentPageNum + 1}} page</caption>
