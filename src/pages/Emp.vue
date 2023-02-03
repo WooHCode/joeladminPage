@@ -19,6 +19,8 @@
                     <div class="d-flex justify-content-end me-3 mt-3">
                       <input type="text" class="tx-serch" title="이름 또는 성별로 검색해주세요" placeholder="직원검색"
                         v-model="searchingData" @keydown.enter="searchingEmp(searchingData)">
+                      <button class="fa fa-undo ms-2" v-if="searchSuccess == true"
+                        @click="searchSuccess = false, searchingData = ''"></button>
                     </div>
                     <div class="card-body">
                       <caption class="d-flex justify-content-end">{{ currentPageNum + 1}} page</caption>
@@ -55,7 +57,7 @@
                           </tbody>
                         </table>
                       </div>
-                      <div class="d-flex justify-content-end me-4 fs-12 fw-light" v-if="searchSuccess==false">
+                      <div class="d-flex justify-content-end me-4 fs-12 fw-light" v-if="searchSuccess == false">
                         <a>총원 : {{ state.count[1] }}명</a>
                       </div>
                       <div class="d-flex justify-content-end me-4 fs-12 fw-light" v-if="searchSuccess">
