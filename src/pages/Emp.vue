@@ -93,7 +93,7 @@
                     <li class="page-item">
                       <a class="page-link" href="#" @click="searchPrevPage(currentPageNum)">Previous</a>
                     </li>
-                    <li class="page-item" v-for="(i, idx) in state.count[0]" :key="idx"><a class="page-link" href="#"
+                    <li class="page-item" v-for="(i, idx) in searchingMaxPage" :key="idx"><a class="page-link" href="#"
                         @click="searchChangePages(i)">{{ i }}</a></li>
                     <li class="page-item">
                       <a class="page-link" href="#" @click="searchNextPage(currentPageNum)">Next</a>
@@ -144,6 +144,8 @@ export default {
           this.searchSuccess = true;
           this.searchResult = data.content;
           this.searchingName = searchData;
+          this.searchingMaxPage = data.totalPages;
+          this.searchingTotalElements = data.totalElements;
         }).catch(function (err) {
           alert("이름 혹은 성별로 검색해주세요!");
           console.log(err)
@@ -160,10 +162,60 @@ export default {
           this.searchSuccess = true;
           this.searchResult = data.content;
           this.searchingName = searchData;
+          this.searchingMaxPage = data.totalPages;
+          this.searchingTotalElements = data.totalElements;
         }).catch(function (err) {
           console.log(err)
         })
       }
+    },
+    searchPrevPage(pageNum) {
+      let searchPageNum = pageNum - 1;
+      let searchingName = lib.getSearchEmpData(this.searchingName);
+
+      if (searchPageNum <= 0) {
+        alert("첫번째 페이지입니다.")
+      } else {
+        if (searchingName != 'M' && searchingName != 'W') {
+          axios.get(`/api/v2/emp/search`, {
+            params: {
+              empName: searchingName,
+              page: searchPageNum,
+              size: 5
+            }
+          }).then(({ data }) => {
+            this.currentPageNum = searchPageNum;
+            this.searchSuccess = true;
+            this.searchResult = data.content;
+            this.searchingName = searchingName;
+          }).catch(function (err) {
+            alert("이름 혹은 성별로 검색해주세요!");
+            console.log(err)
+          })
+        } else {
+          axios.get(`/api/v1/emp/search`, {
+            params: {
+              empGender: searchingName,
+              page: searchPageNum,
+              size: 5
+            }
+          }).then(({ data }) => {
+            this.currentPageNum = searchPageNum;
+            this.searchSuccess = true;
+            this.searchResult = data.content;
+            this.searchingName = searchingName;
+          }).catch(function (err) {
+            alert("이름 혹은 성별로 검색해주세요!");
+            console.log(err)
+          })
+        }
+      }
+    },
+    searchChangePages() {
+
+    },
+    searchNextPage() {
+
     },
     fixEmp() {
 
@@ -221,6 +273,8 @@ export default {
       empList: [],
       currentPageNum: 0,
       searchingData: '',
+      searchingMaxPage: 0,
+      searchingTotalElements: 0,
       searchSuccess: false,
       searchResult:[],
     };
