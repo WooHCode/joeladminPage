@@ -9,5 +9,15 @@ export default {
         else {
             return val.toString().replace(/W/gi, '여성')
         }
+    },
+    getSearchEmpData(val) {
+        if(val != '남성' && val != '여성'){
+            return val;
+        } 
+        
+        if( val == '여성'){
+            return 'W';
+        }
+        return 'M';
     }
 }
