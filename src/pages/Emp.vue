@@ -17,7 +17,8 @@
                       <p class="card-category d-flex justify-content-center">권한이 있는 사람만 볼수있습니다.</p>
                     </div>
                     <div class="d-flex justify-content-end me-3 mt-3">
-                      <input type="text" class="tx-serch" placeholder="직원검색">
+                      <input type="text" class="tx-serch" title="이름 또는 성별로 검색해주세요" placeholder="직원검색"
+                        v-model="searchingData" @keydown.enter="searchingEmp(searchingData)">
                     </div>
                     <div class="card-body">
                       <caption class="d-flex justify-content-end">{{ currentPageNum + 1}} page</caption>
@@ -80,6 +81,21 @@ import { reactive } from '@vue/reactivity';
 import lib from '@/scripts/lib'
 export default {
   methods: {
+    searchingEmp(empData) {
+      if (empData == "남성" | "여성") {
+        if (empData == "남성") {
+          var searchData = "M";
+          axios.get(`/api/v1/emp`).then(({ data }) => {
+            console.log(data);
+            console.log(searchData);
+          }).catch(function (err) {
+            console.log(err)
+          })
+        }
+      } else if (empData) {
+        return null;
+      }
+    },
     fixEmp() {
 
     },
