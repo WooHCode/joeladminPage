@@ -106,7 +106,7 @@ export default {
     searchingEmp(empData) {
       let searchData = lib.getSearchEmpData(empData);
       if(searchData != 'M' && searchData != 'W'){
-        
+        return null;
       }else{
         axios.get(`/api/v1/emp/search`, {
           params: {
