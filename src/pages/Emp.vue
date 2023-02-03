@@ -55,8 +55,11 @@
                           </tbody>
                         </table>
                       </div>
-                      <div class="d-flex justify-content-end me-4 fs-12 fw-light">
+                      <div class="d-flex justify-content-end me-4 fs-12 fw-light" v-if="searchSuccess==false">
                         <a>총원 : {{ state.count[1] }}명</a>
+                      </div>
+                      <div class="d-flex justify-content-end me-4 fs-12 fw-light" v-if="searchSuccess">
+                        <a>총원 : {{ searchingTotalElements }}명</a>
                       </div>
                     </div>
                   </div>
@@ -78,7 +81,7 @@
                     <li class="page-item">
                       <a class="page-link" href="#" @click="searchPrevPage(currentPageNum)">Previous</a>
                     </li>
-                    <li class="page-item" v-for="(i, idx) in state.count[0]" :key="idx"><a class="page-link" href="#"
+                    <li class="page-item" v-for="(i, idx) in searchingMaxPage" :key="idx"><a class="page-link" href="#"
                         @click="searchChangePages(i)">{{ i }}</a></li>
                     <li class="page-item">
                       <a class="page-link" href="#" @click="searchNextPage(currentPageNum)">Next</a>
@@ -117,6 +120,8 @@ export default {
           this.searchSuccess = true;
           this.searchResult = data.content;
           this.searchingName = searchData;
+          this.searchingMaxPage = data.totalPages;
+          this.searchingTotalElements = data.totalElements;
         }).catch(function (err) {
           alert("이름 혹은 성별로 검색해주세요!");
           console.log(err)
@@ -133,6 +138,8 @@ export default {
           this.searchSuccess = true;
           this.searchResult = data.content;
           this.searchingName = searchData;
+          this.searchingMaxPage = data.totalPages;
+          this.searchingTotalElements = data.totalElements;
         }).catch(function (err) {
           alert("이름 혹은 성별로 검색해주세요!");
           console.log(err)
@@ -181,11 +188,85 @@ export default {
         }
       }
     },
-    searchChangePages() {
+    searchChangePages(pageNum) {
+      let searchPageNum = pageNum - 1;
+      let searchingName = lib.getSearchEmpData(this.searchingName);
 
+      if (searchingName != 'M' && searchingName != 'W') {
+        axios.get(`/api/v2/emp/search`, {
+          params: {
+            empName: searchingName,
+            page: searchPageNum,
+            size: 5
+          }
+        }).then(({ data }) => {
+          this.currentPageNum = searchPageNum;
+          this.searchSuccess = true;
+          this.searchResult = data.content;
+          this.searchingName = searchingName;
+        }).catch(function (err) {
+          alert("이름 혹은 성별로 검색해주세요!");
+          console.log(err)
+        })
+      } else {
+        axios.get(`/api/v1/emp/search`, {
+          params: {
+            empGender: searchingName,
+            page: searchPageNum,
+            size: 5
+          }
+        }).then(({ data }) => {
+          this.currentPageNum = searchPageNum;
+          this.searchSuccess = true;
+          this.searchResult = data.content;
+          this.searchingName = searchingName;
+        }).catch(function (err) {
+          alert("이름 혹은 성별로 검색해주세요!");
+          console.log(err)
+        })
+      }
     },
-    searchNextPage() {
+    searchNextPage(pageNum) {
+      let searchPageNum = pageNum + 1;
+      let searchingName = lib.getSearchEmpData(this.searchingName);
 
+      if (searchPageNum >= this.searchingMaxPage) {
+        alert("마지막 페이지입니다.")
+      } else {
+        if (searchingName != 'M' && searchingName != 'W') {
+          axios.get(`/api/v2/emp/search`, {
+            params: {
+              empName: searchingName,
+              page: searchPageNum,
+              size: 5
+            }
+          }).then(({ data }) => {
+            this.currentPageNum = searchPageNum;
+            this.searchSuccess = true;
+            this.searchResult = data.content;
+            this.searchingName = searchingName;
+          }).catch(function (err) {
+            alert("이름 혹은 성별로 검색해주세요!");
+            console.log(err)
+          })
+        } else {
+          axios.get(`/api/v1/emp/search`, {
+            params: {
+              empGender: searchingName,
+              page: searchPageNum,
+              size: 5
+            }
+          }).then(({ data }) => {
+            this.currentPageNum = searchPageNum;
+            this.searchSuccess = true;
+            this.searchResult = data.content;
+            this.searchingName = searchingName;
+          }).catch(function (err) {
+            alert("이름 혹은 성별로 검색해주세요!");
+            console.log(err)
+          })
+        }
+      }
     },
     fixEmp() {
       //TODO 수정 페이지 구현
@@ -244,6 +325,8 @@ export default {
       currentPageNum: 0,
       searchingName: '',
       searchingData: '',
+      searchingMaxPage: 0,
+      searchingTotalElements: 0,
       searchSuccess: false,
       searchResult: [],
     };
