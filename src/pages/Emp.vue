@@ -33,8 +33,18 @@
                             <th class="tb-title">월급</th>
                             <th class="tb-title">상세설명</th>
                           </thead>
-                          <tbody>
+                          <tbody v-if="searchSuccess==false">
                             <tr class="" v-for="(i, idx) in state.emp" :key="idx" @click="fixEmp()">
+                              <td class="tb-context">{{ i.empName }}</td>
+                              <td class="tb-context">{{ i.empAge }}세</td>
+                              <td class="tb-context">{{ lib.getGenderFormatted(i.empGender) }}</td>
+                              <td class="tb-context">{{ i.empWorkCount }}일</td>
+                              <td class="tb-context">{{ lib.getNumerFormatted(i.empPay) }}원</td>
+                              <td class="tb-context"><button>상세페이지</button></td>
+                            </tr>
+                          </tbody>
+                          <tbody v-if="searchSuccess">
+                            <tr class="" v-for="(i, idx) in searchResult" :key="idx" @click="fixEmp()">
                               <td class="tb-context">{{ i.empName }}</td>
                               <td class="tb-context">{{ i.empAge }}세</td>
                               <td class="tb-context">{{ lib.getGenderFormatted(i.empGender) }}</td>
@@ -82,17 +92,23 @@ import lib from '@/scripts/lib'
 export default {
   methods: {
     searchingEmp(empData) {
-      if (empData == "남성" | "여성") {
-        if (empData == "남성") {
-          var searchData = "M";
-          axios.get(`/api/v1/emp`).then(({ data }) => {
-            console.log(data);
-            console.log(searchData);
-          }).catch(function (err) {
-            console.log(err)
-          })
-        }
-      } else if (empData) {
+      var searchData = '';
+      if (empData == '남성' ||empData == "여성") {
+        (empData == '여성')? searchData = 'W' : searchData = 'M';
+        axios.get(`/api/v1/emp/search`, {
+          params: {
+            empGender: searchData,
+            page: 0,
+            size: 5
+          }
+        }).then(({ data }) => {
+          this.searchSuccess = true;
+          this.searchResult = data.content;
+        }).catch(function (err) {
+          console.log(err)
+        })
+      }
+      else if (empData) {
         return null;
       }
     },
@@ -151,6 +167,9 @@ export default {
       pageCount: 0,
       empList: [],
       currentPageNum: 0,
+      searchingData: '',
+      searchSuccess: false,
+      searchResult:[],
     };
   },
   setup() {
