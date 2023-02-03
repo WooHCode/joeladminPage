@@ -42,7 +42,7 @@
                               <td class="tb-context">{{ lib.getGenderFormatted(i.empGender) }}</td>
                               <td class="tb-context">{{ i.empWorkCount }}일</td>
                               <td class="tb-context">{{ lib.getNumerFormatted(i.empPay) }}원</td>
-                              <td class="tb-context"><a><router-link to="/EmpDetail">상세페이지</router-link></a></td>
+                              <td class="tb-context"><button @click="empDetail(i.empName)">상세페이지</button></td>
                             </tr>
                           </tbody>
                           <tbody v-if="searchSuccess">
@@ -52,7 +52,7 @@
                               <td class="tb-context">{{ lib.getGenderFormatted(i.empGender) }}</td>
                               <td class="tb-context">{{ i.empWorkCount }}일</td>
                               <td class="tb-context">{{ lib.getNumerFormatted(i.empPay) }}원</td>
-                              <td class="tb-context"><button>상세페이지</button></td>
+                              <td class="tb-context"><button @click="empDetail(i.empName)">상세페이지</button></td>
                             </tr>
                           </tbody>
                         </table>
@@ -273,8 +273,11 @@ export default {
     fixEmp() {
       //TODO 수정 페이지 구현
     },
-    empDetail() {
-
+    empDetail(requestName) {
+      this.$router.push({
+        name: "EmpDetail",
+        params: { name: requestName }
+      })
     },
     changePages(pageNum) {
       axios.get(`/api/v3/emp`, {
