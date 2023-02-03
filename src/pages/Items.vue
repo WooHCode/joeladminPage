@@ -17,10 +17,10 @@
               <a>{{ currentPageNum + 1}}page</a>
             </div>
             <div class="d-flex justify-content-end mb-1 me-3">
-              <input type="text" placeholder="상품명으로 검색하세요" v-model="serchingItemName"
-                @keydown.enter="serchingResult(serchingItemName)">
+              <input type="text" placeholder="상품명으로 검색하세요" v-model="searchingItemName"
+                @keydown.enter="searchingResult(searchingItemName)">
               <button class="fa fa-undo ms-2" v-if="searchSuccess == true"
-                @click="searchSuccess = false, serchingItemName = ''"></button>
+                @click="searchSuccess = false, searchingItemName = ''"></button>
             </div>
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
@@ -37,7 +37,7 @@
                       </tr>
                     </thead>
                     <tbody v-if="searchSuccess == true">
-                      <tr class="align-middle" v-for="(i, idx2) in serchingItem" :key="idx2">
+                      <tr class="align-middle" v-for="(i, idx2) in searchingItem" :key="idx2">
                         <td class="nameHover align-middle">
                           <a @click="update(i.name)">{{ i.name }}</a>
                         </td>
@@ -130,8 +130,8 @@ export default {
       }
 
     },
-    serchingResult(serchingItemName) {
-      const pname = JSON.parse(JSON.stringify(serchingItemName))
+    searchingResult(searchingItemName) {
+      const pname = JSON.parse(JSON.stringify(searchingItemName))
       axios.get("/api/v3/search",
         {
           params: {
@@ -144,12 +144,12 @@ export default {
         if (data[0].content == '') {
           alert("상품을 조회하지 못하였습니다.");
         } else {
-          this.serchingItem = data[0].content;
+          this.searchingItem = data[0].content;
           this.currentPageNum = 0;
           this.totalItemCount = data[1];
           this.searchSuccess = true;
           this.totalPageCount = data[2];
-          this.serchingItemName = pname;
+          this.searchingItemName = pname;
         }
 
       })
@@ -166,7 +166,7 @@ export default {
         axios.get("/api/v3/search",
           {
             params: {
-              likeName: this.serchingItemName,
+              likeName: this.searchingItemName,
               page: pageNumber,
               size: 5
             }
@@ -175,7 +175,7 @@ export default {
           if (data[0].content == '') {
             alert("상품을 조회하지 못하였습니다.");
           } else {
-            this.serchingItem = data[0].content;
+            this.searchingItem = data[0].content;
             this.currentPageNum = pageNumber;
             this.totalItemCount = data[1];
             this.searchSuccess = true;
@@ -194,7 +194,7 @@ export default {
         axios.get("/api/v3/search",
           {
             params: {
-              likeName: this.serchingItemName,
+              likeName: this.searchingItemName,
               page: pageNumber,
               size: 5
             }
@@ -203,7 +203,7 @@ export default {
           if (data[0].content == '') {
             alert("상품을 조회하지 못하였습니다.");
           } else {
-            this.serchingItem = data[0].content;
+            this.searchingItem = data[0].content;
             this.currentPageNum = pageNumber;
             this.totalItemCount = data[1];
             this.searchSuccess = true;
@@ -225,7 +225,7 @@ export default {
         axios.get("/api/v3/search",
           {
             params: {
-              likeName: this.serchingItemName,
+              likeName: this.searchingItemName,
               page: pageNumber,
               size: 5
             }
@@ -234,7 +234,7 @@ export default {
           if (data[0].content == '') {
             alert("상품을 조회하지 못하였습니다.");
           } else {
-            this.serchingItem = data[0].content;
+            this.searchingItem = data[0].content;
             this.currentPageNum = pageNumber;
             this.totalItemCount = data[1];
             this.searchSuccess = true;
@@ -306,8 +306,8 @@ export default {
 
   data() {
     return {
-      serchingItem: [],
-      serchingItemName: '',
+      searchingItem: [],
+      searchingItemName: '',
       modal: false,
       umodal: false,
       changeitemid: '',
