@@ -220,6 +220,9 @@ export default {
     fixEmp() {
 
     },
+    empDetail() {
+
+    },
     changePages(pageNum) {
       axios.get(`/api/v3/emp`, {
         params: {
