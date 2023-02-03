@@ -131,9 +131,10 @@ import lib from '@/scripts/lib'
 export default {
   methods: {
     searchingEmp(empData) {
-      var searchData = '';
-      if (empData == '남성' ||empData == "여성") {
-        (empData == '여성')? searchData = 'W' : searchData = 'M';
+      let searchData = lib.getSearchEmpData(empData);
+      if(searchData != 'M' && searchData != 'W'){
+        return null;
+      }else{
         axios.get(`/api/v1/emp/search`, {
           params: {
             empGender: searchData,
