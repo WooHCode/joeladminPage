@@ -16,7 +16,7 @@ const routes = [
     { path: '/emp', component: Emp },
     { path: '/client', component: Client },
     { path: '/store', component: Store },
-    { path: '/empDetail', component: EmpDetail },
+    { path: '/empDetail/:name', name: 'EmpDetail', props: true, component: EmpDetail },
 ]
 
 const router = createRouter({
