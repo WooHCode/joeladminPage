@@ -1,0 +1,15 @@
+<template>
+    <h3>hello</h3>
+</template>
+
+<script>
+export default {
+    methods: {
+        
+    }
+}
+</script>
+
+<style>
+
+</style>
