@@ -76,7 +76,19 @@
                     </div>
                   </div>
                 </div>
-                <div aria-label="Page navigation example" v-if="searchSuccess == false">
+                <div aria-label="Page navigation example" v-if="searchSuccess==false">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                      <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
+                    </li>
+                    <li class="page-item" v-for="(i, idx) in state.count[0]" :key="idx"><a class="page-link" href="#"
+                        @click="changePages(i)">{{ i }}</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
+                    </li>
+                  </ul>
+                </div>
+                <div aria-label="Page navigation example" v-if="searchSuccess">
                   <ul class="pagination justify-content-center">
                     <li class="page-item">
                       <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
@@ -119,17 +131,23 @@ import lib from '@/scripts/lib'
 export default {
   methods: {
     searchingEmp(empData) {
-      if (empData == "남성" | "여성") {
-        if (empData == "남성") {
-          var searchData = "M";
-          axios.get(`/api/v1/emp`).then(({ data }) => {
-            console.log(data);
-            console.log(searchData);
-          }).catch(function (err) {
-            console.log(err)
-          })
-        }
-      } else if (empData) {
+      var searchData = '';
+      if (empData == '남성' ||empData == "여성") {
+        (empData == '여성')? searchData = 'W' : searchData = 'M';
+        axios.get(`/api/v1/emp/search`, {
+          params: {
+            empGender: searchData,
+            page: 0,
+            size: 5
+          }
+        }).then(({ data }) => {
+          this.searchSuccess = true;
+          this.searchResult = data.content;
+        }).catch(function (err) {
+          console.log(err)
+        })
+      }
+      else if (empData) {
         return null;
       }
     },
