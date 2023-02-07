@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name">이름</label>
-                            <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="name" placeholder="" v-model="updateEmp.empName" required>
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
@@ -76,6 +76,8 @@
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
+import axios from 'axios'
 export default {
     name: "EmpDetail",
     methods: {
@@ -90,8 +92,22 @@ export default {
     data() {
         return {
             searchingName: this.$props.name,
+            updateEmp: [],
         }
     },
+    created() {
+        const state = reactive({
+            emp: [],
+        })
+        let searchName = JSON.parse(JSON.stringify(this.searchingName));
+        axios.get(`api/v1/emp/${searchName}`).then(({ data }) => {
+            console.log(data);
+            state.emp = data;
+            this.updateEmp = state.emp
+        })
+        return { state };
+    },
+
 }
 </script>
 
