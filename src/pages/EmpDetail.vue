@@ -13,8 +13,10 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="nickname">별명</label>
-                            <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                            <label for="nickname">성별</label>
+                            <br/>
+                            <input type="checkbox" class="" id="gender">남성
+                            <input type="checkbox" class="" id="gender">여성
                             <div class="invalid-feedback">
                                 별명을 입력해주세요.
                             </div>
