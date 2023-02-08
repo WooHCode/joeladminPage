@@ -13,12 +13,14 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="nickname">성별</label>
-                            <br/>
-                            <input type="checkbox" class="" id="gender">남성
-                            <input type="checkbox" class="" id="gender">여성
+                            <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
+                            <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="" id="gender" name="empGenders" v-if="updateEmp.empGender == 'M'" checked required>&nbsp;
+                            <input type="radio" class="" id="gender" name="empGenders" v-if="updateEmp.empGender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="" id="gender" name="empGenders" v-if="updateEmp.empGender == 'M'" required>
+                            <input type="radio" class="" id="gender" name="empGenders" v-if="updateEmp.empGender == 'W'" checked required>&nbsp; 
                             <div class="invalid-feedback">
-                                별명을 입력해주세요.
+                                성별을 체크해주세요.
                             </div>
                         </div>
                     </div>
