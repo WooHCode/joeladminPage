@@ -2,7 +2,7 @@
     <div class="container">
         <div class="input-form-backgroud row">
             <div class="input-form col-md-12 mx-auto ">
-                <h4 class="mb-3 d-flex justify-content-center">회원정보</h4>
+                <h4 class="mb-3 d-flex justify-content-center">직원상세정보</h4>
                 <form class="validation-form" novalidate>
                     <div class="row">
                         <div class="col-md-6 mb-3">
