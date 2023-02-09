@@ -15,32 +15,14 @@
                         <div class="col-md-6 mb-3">
                             <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
                             <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="" id="gender" name="empGenders" v-if="updateEmp.empGender == 'M'" checked required>&nbsp;
-                            <input type="radio" class="" id="gender" name="empGenders" v-if="updateEmp.empGender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="" id="gender" name="empGenders" v-if="updateEmp.empGender == 'M'" required>
-                            <input type="radio" class="" id="gender" name="empGenders" v-if="updateEmp.empGender == 'W'" checked required>&nbsp; 
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.empGender == 'M'" checked required>&nbsp;
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.empGender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.empGender == 'M'" required>
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.empGender == 'W'" checked required>&nbsp; 
                             <div class="invalid-feedback">
                                 성별을 체크해주세요.
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email">이메일</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
-                        <div class="invalid-feedback">
-                            이메일을 입력해주세요.
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address">주소</label>
-                        <input type="text" class="form-control" id="address" placeholder="서울특별시 강남구" required>
-                        <div class="invalid-feedback">
-                            주소를 입력해주세요.
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
-                        <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
                     </div>
                     <div class="row">
                         <div class="col-md-8 mb-3">
@@ -62,14 +44,28 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="aggrement" required>
-                        <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+                    <div class="mb-3">
+                        <label for="email">이메일</label>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                        <div class="invalid-feedback">
+                            이메일을 입력해주세요.
+                        </div>
                     </div>
+                    <div class="mb-3">
+                        <label for="address">주소</label>
+                        <input type="text" class="form-control" id="address" placeholder="서울특별시 강남구" required>
+                        <div class="invalid-feedback">
+                            주소를 입력해주세요.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                        <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
+                    </div>
+                    <hr class="mb-4">
                     <div class="mb-4 "></div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">수정하기</button>
                     </div>
                 </form>
             </div>
@@ -85,7 +81,9 @@ import axios from 'axios'
 export default {
     name: "EmpDetail",
     methods: {
-
+        test(val) {
+          console.log(val);  
+        },
     },
     props: {
         name: {
@@ -116,6 +114,9 @@ export default {
 </script>
 
 <style scoped>
+.genderCheck {
+    
+}
 .body {
     min-height: 100vh;
 
