@@ -46,7 +46,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="email">이메일</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required v-model="updateEmp.email">
                         <div class="invalid-feedback">
                             이메일을 입력해주세요.
                         </div>
