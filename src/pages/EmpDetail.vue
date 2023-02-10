@@ -7,15 +7,17 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="name">이름</label>
-                            <input type="text" class="form-control" id="name" placeholder="" v-model="updateEmp.name" required>
+                            <input type="text" class="form-control" id="name" placeholder="" v-model="updateEmp.name"
+                                required>
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="age">나이</label>
-                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" required v-model="updateEmp.age">
-                            <option v-for="i in 100 " :key="i">{{ i }}</option>
+                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" required
+                                v-model="updateEmp.age">
+                                <option v-for="i in 100 " :key="i">{{ i }}</option>
                             </select>
                             <div class="invalid-feedback">
                                 나이을 입력해주세요.
@@ -23,56 +25,65 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
-                            <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'M'" checked required>&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'M'" required>
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'W'" checked required>&nbsp; 
+                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
+                                v-if="updateEmp.gender == 'M'" checked required>&nbsp;
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
+                                v-if="updateEmp.gender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
+                                v-if="updateEmp.gender == 'M'" required>
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
+                                v-if="updateEmp.gender == 'W'" checked required>&nbsp;
                             <div class="invalid-feedback">
                                 성별을 체크해주세요.
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="phone">전화번호</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="휴대폰번호를 입력해주세요" v-model="updateEmp.phone" required>
+                            <input type="tel" class="form-control" id="phone" placeholder="휴대폰번호를 입력해주세요"
+                                v-model="updateEmp.phone" required>
                             <div class="invalid-feedback">
                                 전화번호를 입력해주세요.
                             </div>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="workDate">최근 출근일</label>
-                            <input type="text" class="form-control" id="workDate" placeholder="" v-model="updateEmp.workDate" required readonly="true">
-                            <div class="invalid-feedback">
-                                전화번호를 입력해주세요.
-                            </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="pay">월급</label><br />
+                            <input type="hidden" class="form-control" id="code" placeholder="" v-model="updateEmp.pay"
+                                required>
+                            {{ lib.getNumerFormatted(updateEmp.pay) }}원
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="code">추천인 코드</label>
-                            <input type="text" class="form-control" id="code" placeholder="" required>
-                            <div class="invalid-feedback">
-                                추천인 코드를 입력해주세요.
-                            </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="workCount">이번달 출근횟수</label><br />
+                            <input type="hidden" class="form-control" id="workCount" placeholder=""
+                                v-model="updateEmp.workCount" required>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ updateEmp.workCount }}일
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="payOk">월급지급완료</label><br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success"
+                                @click="paidOk()">완료</button>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="email">이메일</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required v-model="updateEmp.email">
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required
+                            v-model="updateEmp.email">
                         <div class="invalid-feedback">
                             이메일을 입력해주세요.
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="address">주소</label>
-                        <input type="text" class="form-control" id="address" placeholder="서울특별시 강남구" required>
-                        <div class="invalid-feedback">
-                            주소를 입력해주세요.
-                        </div>
+                        <label for="workDate">최근 출근일</label><br />
+                        <input type="hidden" class="form-control" id="workDate" placeholder=""
+                            v-model="updateEmp.workDate" required readonly="true">
+                        {{ lib.getDateFormatted(updateEmp.workDate) }}
                     </div>
                     <div class="mb-3">
                         <label for="description">비고<span class="text-muted">&nbsp;(필수 아님)</span></label>
-                        <input type="text" class="form-control" id="description" v-model="updateEmp.empDesc" placeholder="비고를 입력해주세요.">
+                        <input type="text" class="form-control" id="description" v-model="updateEmp.empDesc"
+                            placeholder="비고를 입력해주세요.">
                     </div>
                     <hr class="mb-4">
                     <div class="mb-4 "></div>
@@ -90,11 +101,18 @@
 <script>
 import { reactive } from '@vue/reactivity'
 import axios from 'axios'
+import lib from '@/scripts/lib'
 export default {
     name: "EmpDetail",
     methods: {
         test(val) {
-          console.log(val);  
+            console.log(val);
+        },
+        paidOk() {
+            if (confirm("정말 월급이 지급완료되었습니까?" + "\n" + "주의) 월급기록과 출근일수가 초기화됩니다.") == true) {
+                this.updateEmp.pay = 0;
+                this.updateEmp.workCount = 0;
+            }
         },
     },
     props: {
@@ -121,14 +139,16 @@ export default {
         })
         return { state };
     },
+    setup() {
+        return { lib }
+    },
 
 }
 </script>
 
 <style scoped>
-.genderCheck {
-    
-}
+.genderCheck {}
+
 .body {
     min-height: 100vh;
 

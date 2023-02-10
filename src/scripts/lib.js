@@ -11,13 +11,19 @@ export default {
         }
     },
     getSearchEmpData(val) {
-        if(val != '남성' && val != '여성'){
+        if (val != '남성' && val != '여성') {
             return val;
-        } 
-        
-        if( val == '여성'){
+        }
+
+        if (val == '여성') {
             return 'W';
         }
         return 'M';
+    },
+    getDateFormatted(val) {
+        let date = new Date(val);
+        let options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        let formattedDate = date.toLocaleString('ko-KR', options).replace(/\//g, '년').replace(/d:d:d/g, '시','분','초');
+        return formattedDate;
     }
 }
