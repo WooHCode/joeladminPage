@@ -133,7 +133,6 @@ export default {
         })
         let searchName = JSON.parse(JSON.stringify(this.searchingName));
         axios.get(`api/v1/emp/${searchName}`).then(({ data }) => {
-            console.log(data);
             state.emp = data;
             this.updateEmp = state.emp
         })
