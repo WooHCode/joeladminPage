@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name">이름</label>
-                            <input type="text" class="form-control" id="name" placeholder="" v-model="updateEmp.empName" required>
+                            <input type="text" class="form-control" id="name" placeholder="" v-model="updateEmp.name" required>
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
@@ -15,10 +15,10 @@
                         <div class="col-md-6 mb-3">
                             <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
                             <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.empGender == 'M'" checked required>&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.empGender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.empGender == 'M'" required>
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.empGender == 'W'" checked required>&nbsp; 
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'M'" checked required>&nbsp;
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'M'" required>
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'W'" checked required>&nbsp; 
                             <div class="invalid-feedback">
                                 성별을 체크해주세요.
                             </div>
