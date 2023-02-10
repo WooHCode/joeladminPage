@@ -34,15 +34,18 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 mb-3">
-                            <label for="root">가입 경로</label>
-                            <select class="custom-select d-block w-100" id="root">
-                                <option value=""></option>
-                                <option>검색</option>
-                                <option>카페</option>
-                            </select>
+                        <div class="col-md-4 mb-3">
+                            <label for="phone">전화번호</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="휴대폰번호를 입력해주세요" v-model="updateEmp.phone" required>
                             <div class="invalid-feedback">
-                                가입 경로를 선택해주세요.
+                                전화번호를 입력해주세요.
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="workDate">최근 출근일</label>
+                            <input type="text" class="form-control" id="workDate" placeholder="" v-model="updateEmp.workDate" required readonly="true">
+                            <div class="invalid-feedback">
+                                전화번호를 입력해주세요.
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
@@ -68,8 +71,8 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
-                        <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
+                        <label for="description">비고<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                        <input type="text" class="form-control" id="description" v-model="updateEmp.empDesc" placeholder="비고를 입력해주세요.">
                     </div>
                     <hr class="mb-4">
                     <div class="mb-4 "></div>
