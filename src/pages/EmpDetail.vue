@@ -5,14 +5,23 @@
                 <h4 class="mb-3 d-flex justify-content-center">직원상세정보</h4>
                 <form class="validation-form" novalidate>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="name">이름</label>
                             <input type="text" class="form-control" id="name" placeholder="" v-model="updateEmp.name" required>
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
+                            <label for="age">나이</label>
+                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" required v-model="updateEmp.age">
+                            <option v-for="i in 100 " :key="i">{{ i }}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                나이을 입력해주세요.
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
                             <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
                             <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="radio" class="genderCheck" id="gender" name="empGenders" v-if="updateEmp.gender == 'M'" checked required>&nbsp;
