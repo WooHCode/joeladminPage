@@ -136,6 +136,7 @@ export default {
             const args = JSON.parse(JSON.stringify(dto));
             axios.put(`api/v1/emp/update/${empId}`, args).then(() => {
                 alert("직원정보가 수정되었습니다.")
+                router.go()
             }).catch(function (error) {
                 alert(error + "\n" + "수정하려는 직원정보를 다시 입력해주세요");
             })
