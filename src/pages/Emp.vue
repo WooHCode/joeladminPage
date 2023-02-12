@@ -270,9 +270,6 @@ export default {
         }
       }
     },
-    fixEmp() {
-      //TODO 수정 페이지 구현
-    },
     empDetail(requestName) {
       this.$router.push({
         name: "EmpDetail",
