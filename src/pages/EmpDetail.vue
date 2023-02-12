@@ -26,13 +26,13 @@
                         <div class="col-md-4 mb-3">
                             <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
                             <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-model="updateGenderMan"
                                 v-if="updateEmp.gender == 'M'" checked required>&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-model="updateGenderWoman"
                                 v-if="updateEmp.gender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-model="updateGenderMan"
                                 v-if="updateEmp.gender == 'M'" required>
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
+                            <input type="radio" class="genderCheck" id="gender" name="empGenders" v-model="updateGenderWoman"
                                 v-if="updateEmp.gender == 'W'" checked required>&nbsp;
                             <div class="invalid-feedback">
                                 성별을 체크해주세요.
@@ -116,12 +116,18 @@ export default {
             }
         },
         submit(empId) {
+            let postGender = '';
+            if(this.updateGenderMan == true){
+                postGender = 'M'
+            }else {
+                postGender = 'W'    
+            }
             const dto = {
                 empName: this.updateEmp.name,
                 empPhone: this.updateEmp.phone,
                 empEmail: this.updateEmp.email,
                 offTime: this.updateEmp.workDate,
-                empGender: this.updateEmp.gender,
+                empGender: postGender,
                 empWorkCount: this.updateEmp.workCount,
                 empPay: this.updateEmp.pay,
                 empAge: this.updateEmp.age,
@@ -145,6 +151,9 @@ export default {
         return {
             searchingName: this.$props.name,
             updateEmp: [],
+            updateGenderMan: '',
+            updateGenderWoman: '',
+                
         }
     },
     created() {
