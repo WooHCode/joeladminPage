@@ -26,15 +26,15 @@
                         <div class="col-md-4 mb-3">
                             <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
                             <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
-                                v-model="updateGenderMan" v-if="updateEmp.gender == 'M'" checked required>&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
-                                v-model="updateGenderWoman" v-if="updateEmp.gender == 'W'"
+                            <input type="radio" class="genderCheck" id="genderM" name="empGenders"
+                                v-model="updateGender" value="M" v-if="updateEmp.gender == 'M'" checked required>&nbsp;
+                            <input type="radio" class="genderCheck" id="genderM" name="empGenders"
+                                v-model="updateGender" value="M" v-if="updateEmp.gender == 'W'"
                                 required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
-                                v-model="updateGenderMan" v-if="updateEmp.gender == 'M'" required>
-                            <input type="radio" class="genderCheck" id="gender" name="empGenders"
-                                v-model="updateGenderWoman" v-if="updateEmp.gender == 'W'" checked required>&nbsp;
+                            <input type="radio" class="genderCheck" id="genderW" name="empGenders"
+                                v-model="updateGender" value="W" v-if="updateEmp.gender == 'M'" required>
+                            <input type="radio" class="genderCheck" id="genderW" name="empGenders"
+                                v-model="updateGender" value="W" v-if="updateEmp.gender == 'W'" checked required>&nbsp;
                             <div class="invalid-feedback">
                                 성별을 체크해주세요.
                             </div>
@@ -117,12 +117,8 @@ export default {
             }
         },
         submit(empId) {
-            let postGender = '';
-            if (this.updateGenderMan == true && this.updateGenderWoman == false) {
-                postGender = 'M'
-            } else {
-                postGender = 'W'
-            }
+            let postGender = this.updateGender;
+            
             const dto = {
                 empName: this.updateEmp.name,
                 empPhone: this.updateEmp.phone,
@@ -153,8 +149,7 @@ export default {
         return {
             searchingName: this.$props.name,
             updateEmp: [],
-            updateGenderMan: '',
-            updateGenderWoman: '',
+            updateGender: '',
 
         }
     },
