@@ -108,6 +108,9 @@ import { reactive } from '@vue/reactivity';
 import lib from '@/scripts/lib'
 export default {
   methods: {
+    fixEmp(){
+      //TODO 삭제기능
+    },
     searchingEmp(empData) {
       let searchData = lib.getSearchEmpData(empData);
       if (searchData != 'M' && searchData != 'W') {
