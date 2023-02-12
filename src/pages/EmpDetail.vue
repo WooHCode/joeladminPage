@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="age">나이</label>
+                            <label for="age">나이(세)</label>
                             <select class="form-control" id="age" placeholder="나이를 선택해주세요" required
                                 v-model="updateEmp.age">
                                 <option v-for="i in 100 " :key="i">{{ i }}</option>
@@ -88,7 +88,8 @@
                     <hr class="mb-4">
                     <div class="mb-4 "></div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">수정하기</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="button"
+                            @click="submit(updateEmp.id)">수정하기</button>
                     </div>
                 </form>
             </div>
@@ -113,6 +114,25 @@ export default {
                 this.updateEmp.pay = 0;
                 this.updateEmp.workCount = 0;
             }
+        },
+        submit(empId) {
+            const dto = {
+                empName: this.updateEmp.name,
+                empPhone: this.updateEmp.phone,
+                empEmail: this.updateEmp.email,
+                offTime: this.updateEmp.workDate,
+                empGender: this.updateEmp.gender,
+                empWorkCount: this.updateEmp.workCount,
+                empPay: this.updateEmp.pay,
+                empAge: this.updateEmp.age,
+                empDescription: this.updateEmp.empDesc
+            }
+            const args = JSON.parse(JSON.stringify(dto));
+            axios.put(`api/v1/emp/update/${empId}`, args).then(() => {
+                alert("직원정보가 수정되었습니다.")
+            }).catch(function (error) {
+                alert(error + "\n" + "수정하려는 직원정보를 다시 입력해주세요");
+            })
         },
     },
     props: {

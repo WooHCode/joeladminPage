@@ -1,6 +1,7 @@
 export default {
     getNumerFormatted(val) {
-        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        let num = ""+ val;
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     },
     getGenderFormatted(val) {
         if (val == "M") {
