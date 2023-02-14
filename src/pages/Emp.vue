@@ -34,7 +34,7 @@
                             <th class="tb-title">상세설명</th>
                           </thead>
                           <tbody v-if="searchSuccess == false">
-                            <tr class="" v-for="(i, idx) in state.emp" :key="idx" @click="fixEmp()">
+                            <tr class="" v-for="(i, idx) in state.emp" :key="idx">
                               <td class="tb-context">{{ i.empName }}</td>
                               <td class="tb-context">{{ i.empAge }}세</td>
                               <td class="tb-context">{{ lib.getGenderFormatted(i.empGender) }}</td>
@@ -89,7 +89,7 @@
                   </ul>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success">직원추가</button>
+                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="addEmp()">직원추가</button>
                 </div>
               </div>
               <div>
@@ -109,8 +109,8 @@ import { reactive } from '@vue/reactivity';
 import lib from '@/scripts/lib'
 export default {
   methods: {
-    fixEmp() {
-      //TODO 삭제기능
+    addEmp() {
+      this.$router.push("EmpSave");
     },
     searchingEmp(empData) {
       let searchData = lib.getSearchEmpData(empData);
