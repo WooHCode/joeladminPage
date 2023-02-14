@@ -5,9 +5,7 @@
       <main class="col-lg-10 col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div
           class="d-flex col-lg-12 justify-content-center flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
-          <div class="album py-5 bg-light">
-            <div class="d-flex justify-content-end mb-1 me-3">
-            </div>
+          <div class="py-5 bg-light">
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
                 <div class="col-12">
@@ -90,6 +88,9 @@
                     </li>
                   </ul>
                 </div>
+                <div class="d-flex justify-content-center">
+                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success">직원추가</button>
+                </div>
               </div>
               <div>
               </div>
@@ -108,7 +109,7 @@ import { reactive } from '@vue/reactivity';
 import lib from '@/scripts/lib'
 export default {
   methods: {
-    fixEmp(){
+    fixEmp() {
       //TODO 삭제기능
     },
     searchingEmp(empData) {

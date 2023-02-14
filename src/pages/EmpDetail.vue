@@ -2,6 +2,9 @@
     <div class="container">
         <div class="input-form-backgroud row">
             <div class="input-form col-md-12 mx-auto ">
+                <div class="d-flex justify-content-end">
+                    <a class="btnback bi bi-arrow-left-circle me-5" @click="backPage()"></a>
+                </div>
                 <h4 class="mb-3 d-flex justify-content-center">직원상세정보</h4>
                 <form class="validation-form" novalidate>
                     <div class="row">
@@ -107,8 +110,8 @@ import lib from '@/scripts/lib'
 export default {
     name: "EmpDetail",
     methods: {
-        test(val) {
-            console.log(val);
+        backPage() {
+            this.$router.go(-1);
         },
         paidOk() {
             if (confirm("정말 월급이 지급완료되었습니까?" + "\n" + "주의) 월급기록과 출근일수가 초기화됩니다.") == true) {
@@ -118,7 +121,7 @@ export default {
         },
         submit(empId) {
             let postGender = this.updateGender;
-            
+
             const dto = {
                 empName: this.updateEmp.name,
                 empPhone: this.updateEmp.phone,
@@ -172,6 +175,11 @@ export default {
 </script>
 
 <style scoped>
+.btnback{
+    font-size: 25px;
+    color: #1d6e42;
+    cursor: pointer;
+}
 .genderCheck {}
 
 .body {
