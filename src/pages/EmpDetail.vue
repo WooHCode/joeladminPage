@@ -120,14 +120,12 @@ export default {
             }
         },
         submit(empId) {
-            let postGender = this.updateGender;
-
             const dto = {
                 empName: this.updateEmp.name,
                 empPhone: this.updateEmp.phone,
                 empEmail: this.updateEmp.email,
                 offTime: this.updateEmp.workDate,
-                empGender: postGender,
+                empGender: this.updateGender,
                 empWorkCount: this.updateEmp.workCount,
                 empPay: this.updateEmp.pay,
                 empAge: this.updateEmp.age,
