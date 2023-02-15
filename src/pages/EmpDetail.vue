@@ -175,11 +175,12 @@ export default {
 </script>
 
 <style scoped>
-.btnback{
+.btnback {
     font-size: 25px;
     color: #1d6e42;
     cursor: pointer;
 }
+
 .genderCheck {}
 
 .body {

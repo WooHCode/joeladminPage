@@ -10,17 +10,16 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="name">이름</label>
-                            <input type="text" class="form-control" id="name" placeholder="이름을 입력해주세요"
-                                required>
+                            <input type="text" class="form-control" id="name" placeholder="이름을 입력해주세요" required>
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="age">나이(세)</label>
-                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" required
-                                >
-                                <option v-for="i in 100 " :key="i">{{ i }}</option>
+                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" required>
+                                <option value="null" selected disabled>나이를 선택하세요</option>
+                                <option v-for="i in 100" :key="i">{{ i }}</option>
                             </select>
                             <div class="invalid-feedback">
                                 나이을 입력해주세요.
@@ -28,8 +27,9 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
-                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="genderM" name="empGenders" value="M" required>
+                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="genderCheck" id="genderM" name="empGenders" value="M"
+                                required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="radio" class="genderCheck" id="genderW" name="empGenders" value="W" required>
                             <div class="invalid-feedback">
                                 성별을 체크해주세요.
@@ -37,53 +37,40 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-6 mb-6">
                             <label for="phone">전화번호</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="휴대폰번호를 입력해주세요"
-                                 required>
+                            <input type="tel" class="form-control" id="phone" placeholder="휴대폰번호를 입력해주세요" required>
                             <div class="invalid-feedback">
                                 전화번호를 입력해주세요.
                             </div>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="pay">월급</label><br />
-                            <input type="hidden" class="form-control" id="code" placeholder=""
-                                required>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="workCount">이번달 출근횟수</label><br />
-                            <input type="hidden" class="form-control" id="workCount" placeholder=""
-                                required>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="payOk">월급지급완료</label><br />
-                            <button type="button" class="btn btn-success"
-                               >완료</button>
+                        <div class="col-md-6 mb-6">
+                            <label for="pay">월급(원)</label>&nbsp;<i class="info fa fa-info-circle" aria-hidden="true"
+                                @mouseover="payInfo = true" @mouseleave="payInfo = false">
+                                <small class="infoText" v-if="payInfo == true"> 최초의 월급을 지정할수있습니다.</small></i><br />
+                            <input type="number" class="form-control" id="code" placeholder="" required>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="email">이메일</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required
-                            >
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
                         <div class="invalid-feedback">
                             이메일을 입력해주세요.
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="workDate">최근 출근일</label><br />
-                        <input type="hidden" class="form-control" id="workDate" placeholder=""
-                            required readonly="true">
-                        
+                        <label for="workDate">입사일</label><br />
+                        <input type="date" class="form-control" id="workDate" placeholder="" required>
+
                     </div>
                     <div class="mb-3">
                         <label for="description">비고<span class="text-muted">&nbsp;(필수 아님)</span></label>
-                        <input type="text" class="form-control" id="description" 
-                            placeholder="비고를 입력해주세요.">
+                        <input type="text" class="form-control" id="description" placeholder="비고를 입력해주세요.">
                     </div>
                     <hr class="mb-4">
                     <div class="mb-4 "></div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary btn-lg btn-block" type="button">추가하기</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="button" @click="submit()">추가하기</button>
                     </div>
                 </form>
             </div>
@@ -94,28 +81,49 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: "EmpDetail",
     methods: {
         backPage() {
             this.$router.go(-1);
         },
-    },
-    props: {
-        name: {
-            type: String,
-            default: "",
-        }
+        submit() {
+            axios.post(`/api/v1/emp/save`).then(() => {
+
+            })
+        },
     },
     data() {
         return {
-            searchingName: this.$props.name,
+            postData: [
+            ],
+            payInfo: false,
         }
     },
 }
 </script>
 
 <style scoped>
+.info {
+    color: #92b5db;
+}
+
+.info:hover {
+    color: #92b5db;
+}
+
+.infoText {
+    color: #6B728E;
+}
+
+.btnback {
+    font-size: 25px;
+    color: #1d6e42;
+    cursor: pointer;
+}
+
 .body {
     min-height: 100vh;
 

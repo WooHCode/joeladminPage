@@ -43,7 +43,7 @@ export default {
 
       axios.post(`/api/v1/login`, {
         params: {
-          
+
         }
       }).then(({ res }) => {
         console.log(res);
