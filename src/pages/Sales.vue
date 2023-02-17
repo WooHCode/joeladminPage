@@ -20,10 +20,10 @@ export default {
     first() {
       console.log("first")
     },
-    second(){
+    second() {
       console.log("second")
     },
-    third(){
+    third() {
       console.log("third")
     }
   }
@@ -31,6 +31,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
