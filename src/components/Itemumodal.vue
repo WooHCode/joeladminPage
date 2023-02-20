@@ -12,7 +12,7 @@
                         <div class="col-12">
                             <label for="OitemName" class="form-label-data">기존이름 : {{ upitems.name }}</label>
                             <input type="text" class="form-control" id="itemName" placeholder="상품명"
-                                v-model="state.form.iname">
+                                v-model="state.form.iname" required>
                         </div>
                         <div class="col-12">
                             <label for="OitemPrice" class="form-label-data">기존가격 : {{ upitems.price }}원</label>
@@ -46,6 +46,7 @@
                             <option value="ADE">ADE</option>
                             <option value="TEA">TEA</option>
                         </select>
+
                     </div>
                     <label for="itemDes" class="form-label">상품 설명</label>
                     <input type="text" class="form-control" id="itemDes" v-model="state.form.itemDes">
@@ -76,16 +77,20 @@ export default {
                 itemCode: this.state.form.itemCode,
                 itemDes: this.state.form.itemDes
             };
-            const args = JSON.parse(JSON.stringify(form));
+            if (form.itemName === '' || form.imgPath === '' || form.price === '' || form.itemCode === '') {
+                alert("상품정보를 전부 입력해주세요.")
+            } else {
+                const args = JSON.parse(JSON.stringify(form));
 
-            axios.post(`/api/v1/items/${pathId}`, args,).then(() => {
-                alert("상품이 수정되었습니다.");
-            })
-                .catch(function (error) {
-                    alert(error + "\n" + "상품을 다시 입력해주세요");
+
+                axios.post(`/api/v1/items/${pathId}`, args,).then(() => {
+                    alert("상품이 수정되었습니다.");
                 })
+                    .catch(function (error) {
+                        alert(error + "\n" + "상품을 다시 입력해주세요");
+                    })
+            }
         },
-
     },
     data() {
         return {

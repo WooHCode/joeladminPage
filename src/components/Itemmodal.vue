@@ -75,15 +75,19 @@ export default {
             }
         })
         const submit = () => {
-            const args = JSON.parse(JSON.stringify(state.form));
-            args.items = JSON.stringify(state.items);
+            if (state.form.name === '' || state.form.price === '' || state.form.imgPath === '' || state.form.itemCode === '') {
+                alert("상품정보를 모두 입력해주세요")
+            } else {
+                const args = JSON.parse(JSON.stringify(state.form));
+                args.items = JSON.stringify(state.items);
 
-            axios.post("/api/v1/items", args).then(() => {
-                alert("상품이 추가되었습니다.");
-            })
-                .catch(function (error) {
-                    alert(error + "\n" + "상품을 다시 입력해주세요");
+                axios.post("/api/v1/items", args).then(() => {
+                    alert("상품이 추가되었습니다.");
                 })
+                    .catch(function (error) {
+                        alert(error + "\n" + "상품을 다시 입력해주세요");
+                    })
+            }
         }
         return { state, submit, };
     },
