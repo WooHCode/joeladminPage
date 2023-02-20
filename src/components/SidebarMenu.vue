@@ -1,74 +1,74 @@
 <template>
   <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="position-sticky pt-3 sidebar-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <router-link to="/Sales" class="align-text-bottom">
-                매출관리
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/Items" class="align-text-bottom">
-                상품관리
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/Emp" class="align-text-bottom">
-                직원관리
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/Client" class="align-text-bottom">
-                고객관리
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/Store" class="align-text-bottom">
-                매장관리
-              </router-link>
-            </li>
-          </ul>
+    <div class="position-sticky pt-3 sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <router-link to="/Sales" class="align-text-bottom">
+            매출관리
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/Items" class="align-text-bottom">
+            상품관리
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/Emp" class="align-text-bottom">
+            직원관리
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/Client" class="align-text-bottom">
+            고객관리
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/Store" class="align-text-bottom">
+            매장관리
+          </router-link>
+        </li>
+      </ul>
 
-          <h6
-            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-            <span>바로가기</span>
-            <a class="link-secondary" href="#" aria-label="Add a new report">
-              <span data-feather="plus-circle" class="align-text-bottom"></span>
-            </a>
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <li class="nav-item-1">
-              <a class="nav-link" href="https://www.instagram.com/joel_coffee_n_milk/">
-                <span data-feather="file-text" class="align-text-bottom"></span>
-                Instagram
-              </a>
-            </li>
-            <li class="nav-item-1">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text" class="align-text-bottom"></span>
-                네이버 지도관리
-              </a>
-            </li>
-            <li class="nav-item-1">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text" class="align-text-bottom"></span>
-                배달의 민족
-              </a>
-            </li>
-            <li class="nav-item-1">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text" class="align-text-bottom"></span>
-                추가
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <h6
+        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+        <span>바로가기</span>
+        <a class="link-secondary" href="#" aria-label="Add a new report">
+          <span data-feather="plus-circle" class="align-text-bottom"></span>
+        </a>
+      </h6>
+      <ul class="nav flex-column mb-2">
+        <li class="nav-item-1">
+          <a class="nav-link" href="https://www.instagram.com/joel_coffee_n_milk/">
+            <span data-feather="file-text" class="align-text-bottom"></span>
+            Instagram
+          </a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text" class="align-text-bottom"></span>
+            네이버 지도관리
+          </a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text" class="align-text-bottom"></span>
+            배달의 민족
+          </a>
+        </li>
+        <li class="nav-item-1">
+          <a class="nav-link" href="#">
+            <span data-feather="file-text" class="align-text-bottom"></span>
+            추가
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {
-    name: "SidebarMenu"
+  name: "SidebarMenu"
 
 }
 </script>
@@ -133,5 +133,4 @@ export default {
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
-
 </style>
