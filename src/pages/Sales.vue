@@ -8,8 +8,10 @@
           <h1 class="h2">매출현황</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">일별매출현황</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">월별매출현황</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary"
+                @click="weekData = true, monthData = false">일매출현황</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary"
+                @click="monthData = true, weekData = false">월매출현황</button>
             </div>
             <div class="dropdown">
               <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" @click="dropdown = true">
@@ -24,6 +26,10 @@
             </div>
           </div>
         </div>
+        <div>
+          <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="weekData == true" />
+          <Line id="my-chart-id" :options="chartOptions" :data="chartDataM" v-if="monthData == true" />
+        </div>
       </main>
     </div>
   </div>
@@ -31,13 +37,56 @@
 
 <script>
 import SidebarMenu from "@/components/SidebarMenu.vue"
+import { Line } from 'vue-chartjs'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
+
+ChartJS.register(CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend)
+
 export default {
   data() {
     return {
       dropdown: false,
+      weekData: true,
+      monthData: false,
+      chartDataW: {
+        labels: ['월', '화', '수', '목', '금', '토', '일'],
+        datasets: [{
+          label: '요일별 매출',
+          backgroundColor: '#f87979',
+          data: [30000, 50000, 40000, 30000, 50000, 40000, 60000]
+        }]
+      },
+      chartDataM: {
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        datasets: [{
+          label: '월별 매출',
+          backgroundColor: '#f87979',
+          data: [300000, 300000, 400000, 600000, 100000, 200000, 600000, 400000, 600000, 100000, 300000]
+
+        }]
+      },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
     }
   },
-  components: { SidebarMenu }
+  components: { SidebarMenu, Line }
 }
 </script>
 
