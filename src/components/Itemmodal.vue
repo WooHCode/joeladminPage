@@ -2,7 +2,8 @@
     <div class="modal  col-lg-10 col-md-10 col-sm-10">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10 col-lg-12">
-                <div class="d-flex justify-content-end me-2 mt-5"><button class="fa fa-times" @click="modalHide($emit, modalHide)"></button></div>               
+                <div class="d-flex justify-content-end me-2 mt-5"><button class="fa fa-times"
+                        @click="modalHide($emit, modalHide)"></button></div>
                 <h4 class="mb-3 d-flex justify-content-center">상품 정보</h4>
                 <div class="needs-validation" novalidate="">
                     <div class="row g-3">
@@ -26,21 +27,26 @@
                     <div class="my-3">
                         <select name="itemCode" required v-model="state.form.itemCode">
                             <option value="" disabled selected>상품선택</option>
-                            <option value="MILK">MILK</option>
-                            <option value="WHITE">WHITE</option>
-                            <option value="BLACK">BLACK</option>
+                            <option value="CROFFLE">CROFFLE</option>
+                            <option value="TOAST">TOAST</option>
+                            <option value="SCONE">SCONE</option>
+                            <option value="BASAK">BASAK</option>
+                            <option value="COFFEE">COFFEE</option>
+                            <option value="LATTE">LATTE</option>
+                            <option value="NON_COFFEE">NON_COFFEE</option>
+                            <option value="ONE_LITER">ONE_LITER</option>
+                            <option value="B_TEA">B_TEA</option>
                             <option value="ADE">ADE</option>
                             <option value="TEA">TEA</option>
-                            <option value="B_TEA">B_TEA</option>
                         </select>
                     </div>
                     <label for="itemDes" class="form-label">상품 설명</label>
                     <input type="text" class="form-control" id="itemDes" v-model="state.form.itemDes">
                     <hr class="my-4">
                     <div class="d-flex justify-content-center">
-                    <button class="w-50 btn btn-primary btn-lg" @click="[submit(), modalHide($emit, modalHide)]">상품
-                        추가하기</button>
-                </div>
+                        <button class="w-50 btn btn-primary btn-lg" @click="[submit(), modalHide($emit, modalHide)]">상품
+                            추가하기</button>
+                    </div>
                 </div>
             </div>
         </div>
