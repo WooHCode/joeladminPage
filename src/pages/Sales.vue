@@ -6,7 +6,7 @@
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">매출현황</h1>
-          <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-toolbar mb-2 mb-md-0 me-5">
             <div class="btn-group me-2">
               <button type="button" class="btn btn-sm btn-outline-secondary"
                 @click="weekData = true, monthData = false">일매출현황</button>
@@ -19,9 +19,17 @@
                 상품별
               </button>
               <div class="dropdown-content" v-if="dropdown == true">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <a href="#">CROFFLE</a>
+                <a href="#">TOAST</a>
+                <a href="#">SCONE</a>
+                <a href="#">BASAK</a>
+                <a href="#">COFFEE</a>
+                <a href="#">LATTE</a>
+                <a href="#">NON_COFFEE</a>
+                <a href="#">ONE_LITER</a>
+                <a href="#">B_TEA</a>
+                <a href="#">ADE</a>
+                <a href="#">TEA</a>
               </div>
             </div>
           </div>
@@ -82,12 +90,19 @@ export default {
       },
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+
       }
     }
   },
-  components: { SidebarMenu, Line }
+  components: { SidebarMenu, Line },
+  created() {
+
+  },
+
 }
+
+
 </script>
 
 <style scoped>
