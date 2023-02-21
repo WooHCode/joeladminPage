@@ -76,7 +76,7 @@ export default {
         datasets: [{
           label: '요일별 매출',
           backgroundColor: '#f87979',
-          data: [30000, 50000, 40000, 30000, 50000, 40000, 60000]
+          data: []
         }]
       },
       chartDataM: {
@@ -97,7 +97,8 @@ export default {
   },
   components: { SidebarMenu, Line },
   created() {
-
+    const mydata = [30000, 50000, 40000, 30000, 50000, 40000, 60000];
+    this.chartDataW.datasets[0].data = mydata;
   },
 
 }
