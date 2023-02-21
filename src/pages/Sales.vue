@@ -34,10 +34,14 @@
             </div>
           </div>
         </div>
-        <div>
+        <div class="Chart">
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="weekData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataM" v-if="monthData == true" />
         </div>
+        <div class="d-flex justify-content-center mt-5">
+          <button class="saleSubmit btn btn-success" @click="saleStart()">금일매출등록</button>
+        </div>
+
       </main>
     </div>
   </div>
@@ -66,8 +70,14 @@ ChartJS.register(CategoryScale,
   Legend)
 
 export default {
+  methods: {
+    saleStart() {
+      this.submitS = true;
+    }
+  },
   data() {
     return {
+      submitS: false,
       dropdown: false,
       weekData: true,
       monthData: false,
@@ -107,6 +117,11 @@ export default {
 </script>
 
 <style scoped>
+.Chart {
+  width: auto;
+  height: 50vh;
+}
+
 .container {
   font-size: clamp(0.8rem, 1.1vw, 1rem);
 }
