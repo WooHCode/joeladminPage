@@ -41,7 +41,6 @@
         <div class="d-flex justify-content-center mt-5">
           <button class="saleSubmit btn btn-success" @click="saleStart()">금일매출등록</button>
         </div>
-
       </main>
     </div>
   </div>
