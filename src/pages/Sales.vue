@@ -8,10 +8,8 @@
           <h1 class="h2">매출현황</h1>
           <div class="btn-toolbar mb-2 mb-md-0 me-5">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary"
-                @click="weekData = true, monthData = false">일매출현황</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary"
-                @click="monthData = true, weekData = false">월매출현황</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" @click="showDayChart()">일매출현황</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" @click="showMonthChart()">월매출현황</button>
             </div>
             <div class="dropdown">
               <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" @click="dropdown = true">
@@ -19,7 +17,7 @@
                 상품별
               </button>
               <div class="dropdown-content" v-if="dropdown == true">
-                <a href="#">CROFFLE</a>
+                <a href="#" @click="showCroffle()">CROFFLE</a>
                 <a href="#">TOAST</a>
                 <a href="#">SCONE</a>
                 <a href="#">BASAK</a>
@@ -37,6 +35,7 @@
         <div class="Chart">
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="weekData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataM" v-if="monthData == true" />
+          <Line id="my-chart-id" :options="chartOptions" :data="chartDataCroffle" v-if="croffleData == true" />
         </div>
         <div class="d-flex justify-content-center mt-5">
           <button class="saleSubmit btn btn-success" @click="saleStart()">금일매출등록</button>
@@ -72,7 +71,23 @@ export default {
   methods: {
     saleStart() {
       this.submitS = true;
-    }
+    },
+    showDayChart() {
+      this.weekData = true;
+      this.monthData = false;
+      this.croffleData = false;
+    },
+    showMonthChart() {
+      this.weekData = false;
+      this.monthData = true;
+      this.croffleData = false;
+    },
+    showCroffle() {
+      this.croffleData = true;
+      this.dropdown = false;
+      this.weekData = false;
+      this.monthData = false;
+    },
   },
   data() {
     return {
@@ -80,6 +95,7 @@ export default {
       dropdown: false,
       weekData: true,
       monthData: false,
+      croffleData: false,
       chartDataW: {
         labels: ['월', '화', '수', '목', '금', '토', '일'],
         datasets: [{
@@ -94,6 +110,15 @@ export default {
           label: '월별 매출',
           backgroundColor: '#f87979',
           data: [300000, 300000, 400000, 600000, 100000, 200000, 600000, 400000, 600000, 100000, 300000]
+
+        }]
+      },
+      chartDataCroffle: {
+        labels: ['오리지널', '애플잼', '로투스', '누텔라', '카야잼'],
+        datasets: [{
+          label: '월별 매출',
+          backgroundColor: '#f87979',
+          data: [300000, 300000, 400000, 600000, 100000]
 
         }]
       },
