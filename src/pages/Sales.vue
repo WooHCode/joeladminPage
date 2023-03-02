@@ -18,16 +18,16 @@
               </button>
               <div class="dropdown-content" v-if="dropdown == true">
                 <a href="#" @click="showCroffle()">CROFFLE</a>
-                <a href="#">TOAST</a>
-                <a href="#">SCONE</a>
-                <a href="#">BASAK</a>
-                <a href="#">COFFEE</a>
-                <a href="#">LATTE</a>
-                <a href="#">NON_COFFEE</a>
-                <a href="#">ONE_LITER</a>
-                <a href="#">B_TEA</a>
-                <a href="#">ADE</a>
-                <a href="#">TEA</a>
+                <a href="#" @click="showToast()">TOAST</a>
+                <a href="#" @click="showScone()">SCONE</a>
+                <a href="#" @click="showBasak()">BASAK</a>
+                <a href="#" @click="showCoffee()">COFFEE</a>
+                <a href="#" @click="showLatte()">LATTE</a>
+                <a href="#" @click="showNCoffee()">NON_COFFEE</a>
+                <a href="#" @click="showOneLitter()">ONE_LITER</a>
+                <a href="#" @click="showBTea()">B_TEA</a>
+                <a href="#" @click="showAde()">ADE</a>
+                <a href="#" @click="showTea()">TEA</a>
               </div>
             </div>
           </div>
