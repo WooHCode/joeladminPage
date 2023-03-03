@@ -8,7 +8,7 @@
           <h1 class="h2">매출현황</h1>
           <div class="btn-toolbar mb-2 mb-md-0 me-5">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary" @click="showDayChart()">일매출현황</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" @click="showWeekChart()">일매출현황</button>
               <button type="button" class="btn btn-sm btn-outline-secondary" @click="showMonthChart()">월매출현황</button>
             </div>
             <div class="dropdown">
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="Chart">
-          <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="startData == true" />
+          <Bar id="my-chart-id" :options="startOptions" :data="startChart" v-if="startData == true"></Bar>
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="weekData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataM" v-if="monthData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataCroffle" v-if="croffleData == true" />
@@ -50,9 +50,12 @@
 <script>
 import SidebarMenu from "@/components/SidebarMenu.vue"
 import { Line } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs'
+
 import {
   Chart as ChartJS,
   CategoryScale,
+  BarElement,
   LinearScale,
   PointElement,
   LineElement,
@@ -69,6 +72,7 @@ ChartJS.register(CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend)
@@ -79,7 +83,13 @@ export default {
       this.submitS = true;
     },
 
-    showDayChart() {
+    showWeekChart() {
+      axios.get("/api/v1/sales").then(({ data }) => {
+        var sortData = lib.sortDataByDate(data);
+        this.chartDataW.labels = Object.keys(sortData);
+        this.chartDataW.datasets[0].data = Object.values(sortData);
+      })
+
       this.startData = false;
       this.weekData = true;
       this.monthData = false;
@@ -96,11 +106,7 @@ export default {
       this.adeData = false;
       this.teaData = false;
 
-      axios.get("/api/v1/sales").then(({ data }) => {
-        var sortData = lib.sortDataByDate(data);
-        this.chartDataW.labels = Object.keys(sortData);
-        this.chartDataW.datasets[0].data = Object.values(sortData);
-      })
+
     },
 
     showMonthChart() {
@@ -347,6 +353,20 @@ export default {
       adeData: false,
       teaData: false,
 
+
+      startChart: {
+        labels: ['크로플', '토스트', '스콘', '바삭이', '커피', '라떼', 'Non커피', '1리터', '스무디', '버블티', '에이드', '티'],
+        datasets: [{
+          label: '카테고리 별 상품 수',
+          backgroundColor: '#f87979',
+          data: [8, 5, 5, 2, 2, 13, 10, 9, 12, 4, 8, 11]
+        }]
+      },
+      startOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      },
+
       chartDataW: {
         labels: [],
         datasets: [{
@@ -379,11 +399,7 @@ export default {
       }
     }
   },
-  components: { SidebarMenu, Line },
-
-  mounted() {
-    this.showDayChart();
-  },
+  components: { SidebarMenu, Line, Bar },
 
 }
 
