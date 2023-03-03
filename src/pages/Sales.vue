@@ -25,6 +25,7 @@
                 <a href="#" @click="showLatte()">LATTE</a>
                 <a href="#" @click="showNCoffee()">NON_COFFEE</a>
                 <a href="#" @click="showOneLitter()">ONE_LITER</a>
+                <a href="#" @click="showSmoothie()">SMOOTHIE</a>
                 <a href="#" @click="showBTea()">B_TEA</a>
                 <a href="#" @click="showAde()">ADE</a>
                 <a href="#" @click="showTea()">TEA</a>
@@ -84,6 +85,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -100,6 +102,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -115,6 +118,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -130,6 +134,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -145,6 +150,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -160,6 +166,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -175,6 +182,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -190,6 +198,7 @@ export default {
       this.latteData = true;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -205,6 +214,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = true;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -220,6 +230,23 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = true;
+      this.smoothieData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showSmoothie() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.smoothieData = true;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
@@ -235,6 +262,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = true;
       this.adeData = false;
       this.teaData = false;
@@ -250,6 +278,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = true;
       this.teaData = false;
@@ -265,6 +294,7 @@ export default {
       this.latteData = false;
       this.nCoffeeData = false;
       this.oneLitterData = false;
+      this.smoothieData = false;
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = true;
@@ -286,6 +316,7 @@ export default {
       latteData: false,
       nCoffeeData: false,
       oneLitterData: false,
+      smoothieData: false,
       bTeaData: false,
       adeData: false,
       teaData: false,
@@ -325,7 +356,9 @@ export default {
   },
   components: { SidebarMenu, Line },
   created() {
-    const mydata = [30000, 50000, 40000, 30000, 50000, 40000, 60000];
+    const mydata = [];
+
+
     this.chartDataW.datasets[0].data = mydata;
   },
 
