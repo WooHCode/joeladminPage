@@ -72,30 +72,224 @@ export default {
     saleStart() {
       this.submitS = true;
     },
+
     showDayChart() {
       this.weekData = true;
       this.monthData = false;
       this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
     },
+
     showMonthChart() {
       this.weekData = false;
       this.monthData = true;
       this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
     },
     showCroffle() {
-      this.croffleData = true;
-      this.dropdown = false;
       this.weekData = false;
       this.monthData = false;
+      this.croffleData = true;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
     },
+    showToast() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = true;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showScone() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = true;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showBasak() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = true;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showCoffee() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = true;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showLatte() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = true;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showNCoffee() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = true;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showOneLitter() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = true;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showBTea() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = true;
+      this.adeData = false;
+      this.teaData = false;
+    },
+    showAde() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = true;
+      this.teaData = false;
+    },
+    showTea() {
+      this.weekData = false;
+      this.monthData = false;
+      this.croffleData = false;
+      this.toastData = false;
+      this.sconeData = false;
+      this.basakData = false;
+      this.coffeeData = false;
+      this.latteData = false;
+      this.nCoffeeData = false;
+      this.oneLitterData = false;
+      this.bTeaData = false;
+      this.adeData = false;
+      this.teaData = true;
+    }
   },
+
   data() {
     return {
       submitS: false,
       dropdown: false,
+
       weekData: true,
       monthData: false,
       croffleData: false,
+      toastData: false,
+      sconeData: false,
+      basakData: false,
+      coffeeData: false,
+      latteData: false,
+      nCoffeeData: false,
+      oneLitterData: false,
+      bTeaData: false,
+      adeData: false,
+      teaData: false,
+
       chartDataW: {
         labels: ['월', '화', '수', '목', '금', '토', '일'],
         datasets: [{
