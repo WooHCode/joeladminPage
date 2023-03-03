@@ -34,6 +34,7 @@
           </div>
         </div>
         <div class="Chart">
+          <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="startData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="weekData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataM" v-if="monthData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataCroffle" v-if="croffleData == true" />
@@ -60,6 +61,10 @@ import {
   Legend
 } from 'chart.js'
 
+import axios from 'axios'
+import lib from '@/scripts/lib'
+
+
 ChartJS.register(CategoryScale,
   LinearScale,
   PointElement,
@@ -75,6 +80,7 @@ export default {
     },
 
     showDayChart() {
+      this.startData = false;
       this.weekData = true;
       this.monthData = false;
       this.croffleData = false;
@@ -89,9 +95,16 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      axios.get("/api/v1/sales").then(({ data }) => {
+        var sortData = lib.sortDataByDate(data);
+        this.chartDataW.labels = Object.keys(sortData);
+        this.chartDataW.datasets[0].data = Object.values(sortData);
+      })
     },
 
     showMonthChart() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = true;
       this.croffleData = false;
@@ -108,6 +121,7 @@ export default {
       this.teaData = false;
     },
     showCroffle() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = true;
@@ -124,6 +138,7 @@ export default {
       this.teaData = false;
     },
     showToast() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -140,6 +155,7 @@ export default {
       this.teaData = false;
     },
     showScone() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -156,6 +172,7 @@ export default {
       this.teaData = false;
     },
     showBasak() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -172,6 +189,7 @@ export default {
       this.teaData = false;
     },
     showCoffee() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -188,6 +206,7 @@ export default {
       this.teaData = false;
     },
     showLatte() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -204,6 +223,7 @@ export default {
       this.teaData = false;
     },
     showNCoffee() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -220,6 +240,7 @@ export default {
       this.teaData = false;
     },
     showOneLitter() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -236,6 +257,7 @@ export default {
       this.teaData = false;
     },
     showSmoothie() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -252,6 +274,7 @@ export default {
       this.teaData = false;
     },
     showBTea() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -268,6 +291,7 @@ export default {
       this.teaData = false;
     },
     showAde() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -284,6 +308,7 @@ export default {
       this.teaData = false;
     },
     showTea() {
+      this.startData = false;
       this.weekData = false;
       this.monthData = false;
       this.croffleData = false;
@@ -306,7 +331,8 @@ export default {
       submitS: false,
       dropdown: false,
 
-      weekData: true,
+      startData: true,
+      weekData: false,
       monthData: false,
       croffleData: false,
       toastData: false,
@@ -322,11 +348,11 @@ export default {
       teaData: false,
 
       chartDataW: {
-        labels: ['월', '화', '수', '목', '금', '토', '일'],
+        labels: [],
         datasets: [{
           label: '요일별 매출',
           backgroundColor: '#f87979',
-          data: []
+          data: [],
         }]
       },
       chartDataM: {
@@ -335,7 +361,6 @@ export default {
           label: '월별 매출',
           backgroundColor: '#f87979',
           data: [300000, 300000, 400000, 600000, 100000, 200000, 600000, 400000, 600000, 100000, 300000]
-
         }]
       },
       chartDataCroffle: {
@@ -355,11 +380,9 @@ export default {
     }
   },
   components: { SidebarMenu, Line },
-  created() {
-    const mydata = [];
 
-
-    this.chartDataW.datasets[0].data = mydata;
+  mounted() {
+    this.showDayChart();
   },
 
 }

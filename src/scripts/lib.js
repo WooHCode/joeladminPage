@@ -41,4 +41,15 @@ export default {
       return formattedDate;
     }
   },
+
+  sortDataByDate(data) {
+    const sortedKeys = Object.keys(data).sort(
+      (a, b) => new Date(a) - new Date(b)
+    );
+    const sortedData = {};
+    for (const key of sortedKeys) {
+      sortedData[key] = data[key];
+    }
+    return sortedData;
+  },
 };
