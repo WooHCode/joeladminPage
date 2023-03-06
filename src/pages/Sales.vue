@@ -125,7 +125,15 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      axios.get(`/api/v2/sales/`).then(({ data }) => {
+        var sortData = lib.sortDataByDate(data);
+        this.chartDataM.labels = Object.keys(sortData);
+        this.chartDataM.datasets[0].data = Object.values(sortData);
+      })
     },
+
+
     showCroffle() {
       this.startData = false;
       this.weekData = false;
@@ -376,11 +384,11 @@ export default {
         }]
       },
       chartDataM: {
-        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        labels: [],
         datasets: [{
           label: '월별 매출',
           backgroundColor: '#f87979',
-          data: [300000, 300000, 400000, 600000, 100000, 200000, 600000, 400000, 600000, 100000, 300000]
+          data: []
         }]
       },
       chartDataCroffle: {
