@@ -1,34 +1,58 @@
 <template>
-  <div>
-    <div class="modal" v-if="showModal">
-      <div class="modal-content">
-        <span class="close" @click="closeModal()"></span>
-        <p>Modal Content goes here</p>
-      </div>
-    </div>
-    <button class="myBtn" @click="openModal()">Open Modal</button>
-    <i class="fa fa-bathtub" aria-hidden="true"></i>
+  <div id="app">
+    <select v-model="selectedOption1">
+      <option disabled value="">Please select one</option>
+      <option value="option1">Option 1</option>
+      <option value="option2">Option 2</option>
+      <option value="option3">Option 3</option>
+    </select>
 
-    <div class="mtauto ">
-      <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-    </div>
+    <select v-model="selectedOption2">
+      <option disabled value="">Please select one</option>
+      <option v-for="option in secondOptions" :key="option.value">{{ option.text }}</option>
+    </select>
 
+    <button @click="submit()">확인</button>
   </div>
 </template>
 
 <script>
 export default {
+  methods: {
+    submit() {
+      alert(this.selectedOption1 + ' ' + this.selectedOption2);
+    },
+  },
   data() {
     return {
-      showModal: false
-    };
+      selectedOption1: '',
+      selectedOption2: '',
+      options: [
+        {
+          value: 'option1', text: 'Option 1', suboptions: [
+            { value: 'suboption1', text: 'Suboption 1' },
+            { value: 'suboption2', text: 'Suboption 2' }
+          ]
+        },
+        {
+          value: 'option2', text: 'Option 2', suboptions: [
+            { value: 'suboption3', text: 'Suboption 3' }
+          ]
+        },
+        {
+          value: 'option3', text: 'Option 3', suboptions: [
+            { value: 'suboption4', text: 'Suboption 4' },
+            { value: 'suboption5', text: 'Suboption 5' }
+          ]
+        }
+      ]
+    }
   },
-  methods: {
-    openModal() {
-      this.showModal = true;
-    },
-    closeModal() {
-      this.showModal = false;
+  computed: {
+    secondOptions: function () {
+      const selectedOption = this.selectedOption1;
+      const matchedOption = this.options.find(option => option.value === selectedOption);
+      return matchedOption ? matchedOption.suboptions : [];
     }
   }
 };
