@@ -91,7 +91,7 @@ ChartJS.register(CategoryScale,
 export default {
   methods: {
     saleStart() {
-      this.submitS = true;
+      this.$router.push("SaleSave");
     },
 
     showWeekChart() {
@@ -441,7 +441,6 @@ export default {
 
   data() {
     return {
-      submitS: false,
       dropdown: false,
 
       startData: true,

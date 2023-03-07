@@ -41,7 +41,8 @@
                             <option value="COFFEE">COFFEE</option>
                             <option value="LATTE">LATTE</option>
                             <option value="NON_COFFEE">NON_COFFEE</option>
-                            <option value="ONE_LITER">ONE_LITER</option>
+                            <option value="ONE_LITER">ONE_LITTER</option>
+                            <option value="SMOOTHIE">SMOOTHIE</option>
                             <option value="B_TEA">B_TEA</option>
                             <option value="ADE">ADE</option>
                             <option value="TEA">TEA</option>
