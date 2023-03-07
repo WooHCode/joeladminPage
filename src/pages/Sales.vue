@@ -37,7 +37,7 @@
           <Bar id="my-chart-id" :options="startOptions" :data="startChart" v-if="startData == true"></Bar>
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="weekData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataM" v-if="monthData == true" />
-          <Line id="my-chart-id" :options="chartOptions" :data="chartDataCroffle" v-if="croffleData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataCroffle" v-if="croffleData == true" />
         </div>
         <div class="d-flex justify-content-center mt-5">
           <button class="saleSubmit btn btn-success" @click="saleStart()">금일매출등록</button>
@@ -126,7 +126,7 @@ export default {
       this.adeData = false;
       this.teaData = false;
 
-      axios.get(`/api/v2/sales/`).then(({ data }) => {
+      axios.get(`/api/v2/sales`).then(({ data }) => {
         var sortData = lib.sortDataByDate(data);
         this.chartDataM.labels = Object.keys(sortData);
         this.chartDataM.datasets[0].data = Object.values(sortData);
@@ -150,6 +150,14 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'CROFFLE';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataCroffle.labels = Object.keys(data.data);
+        this.chartDataCroffle.datasets[0].data = Object.values(data.data);
+      })
+
     },
     showToast() {
       this.startData = false;
@@ -167,6 +175,11 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+
+
+
+
     },
     showScone() {
       this.startData = false;
@@ -392,14 +405,14 @@ export default {
         }]
       },
       chartDataCroffle: {
-        labels: ['오리지널', '애플잼', '로투스', '누텔라', '카야잼'],
+        labels: [],
         datasets: [{
-          label: '월별 매출',
+          label: '이번달 상품 별 매출',
           backgroundColor: '#f87979',
-          data: [300000, 300000, 400000, 600000, 100000]
-
+          data: []
         }]
       },
+
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
