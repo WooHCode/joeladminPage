@@ -38,6 +38,17 @@
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataW" v-if="weekData == true" />
           <Line id="my-chart-id" :options="chartOptions" :data="chartDataM" v-if="monthData == true" />
           <Bar id="my-chart-id" :options="chartOptions" :data="chartDataCroffle" v-if="croffleData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataToast" v-if="toastData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataScone" v-if="sconeData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataBasak" v-if="basakData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataCoffee" v-if="coffeeData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataLatte" v-if="latteData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataNonCoffee" v-if="nCoffeeData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataOneLitter" v-if="oneLitterData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataSmoothie" v-if="smoothieData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataBTea" v-if="bTeaData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataAde" v-if="adeData == true" />
+          <Bar id="my-chart-id" :options="chartOptions" :data="chartDataTea" v-if="teaData == true" />
         </div>
         <div class="d-flex justify-content-center mt-5">
           <button class="saleSubmit btn btn-success" @click="saleStart()">금일매출등록</button>
@@ -405,6 +416,14 @@ export default {
         }]
       },
       chartDataCroffle: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+      chartDataToast: {
         labels: [],
         datasets: [{
           label: '이번달 상품 별 매출',
