@@ -188,7 +188,12 @@ export default {
       this.teaData = false;
 
 
+      var itemCode = 'TOAST';
 
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataToast.labels = Object.keys(data.data);
+        this.chartDataToast.datasets[0].data = Object.values(data.data);
+      })
 
 
     },
@@ -208,6 +213,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'SCONE';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataScone.labels = Object.keys(data.data);
+        this.chartDataScone.datasets[0].data = Object.values(data.data);
+      })
     },
     showBasak() {
       this.startData = false;
@@ -225,6 +237,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'BASAK';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataBasak.labels = Object.keys(data.data);
+        this.chartDataBasak.datasets[0].data = Object.values(data.data);
+      })
     },
     showCoffee() {
       this.startData = false;
@@ -242,6 +261,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'COFFEE';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataCoffee.labels = Object.keys(data.data);
+        this.chartDataCoffee.datasets[0].data = Object.values(data.data);
+      })
     },
     showLatte() {
       this.startData = false;
@@ -259,6 +285,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'LATTE';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataLatte.labels = Object.keys(data.data);
+        this.chartDataLatte.datasets[0].data = Object.values(data.data);
+      })
     },
     showNCoffee() {
       this.startData = false;
@@ -276,6 +309,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'NON_COFFEE';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataNonCoffee.labels = Object.keys(data.data);
+        this.chartDataNonCoffee.datasets[0].data = Object.values(data.data);
+      })
     },
     showOneLitter() {
       this.startData = false;
@@ -293,6 +333,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'ONE_LITTER';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataOneLitter.labels = Object.keys(data.data);
+        this.chartDataOneLitter.datasets[0].data = Object.values(data.data);
+      })
     },
     showSmoothie() {
       this.startData = false;
@@ -310,6 +357,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'SMOOTHIE';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataSmoothie.labels = Object.keys(data.data);
+        this.chartDataSmoothie.datasets[0].data = Object.values(data.data);
+      })
     },
     showBTea() {
       this.startData = false;
@@ -327,6 +381,13 @@ export default {
       this.bTeaData = true;
       this.adeData = false;
       this.teaData = false;
+
+      var itemCode = 'B_TEA';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataBTea.labels = Object.keys(data.data);
+        this.chartDataBTea.datasets[0].data = Object.values(data.data);
+      })
     },
     showAde() {
       this.startData = false;
@@ -344,6 +405,13 @@ export default {
       this.bTeaData = false;
       this.adeData = true;
       this.teaData = false;
+
+      var itemCode = 'ADE';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataAde.labels = Object.keys(data.data);
+        this.chartDataAde.datasets[0].data = Object.values(data.data);
+      })
     },
     showTea() {
       this.startData = false;
@@ -361,6 +429,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = true;
+
+      var itemCode = 'TEA';
+
+      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataTea.labels = Object.keys(data.data);
+        this.chartDataTea.datasets[0].data = Object.values(data.data);
+      })
     }
   },
 
@@ -424,6 +499,95 @@ export default {
         }]
       },
       chartDataToast: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataScone: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataBasak: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataCoffee: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataLatte: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataNonCoffee: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataOneLitter: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataSmoothie: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataBTea: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+
+      chartDataAde: {
+        labels: [],
+        datasets: [{
+          label: '이번달 상품 별 매출',
+          backgroundColor: '#f87979',
+          data: []
+        }]
+      },
+      chartDataTea: {
         labels: [],
         datasets: [{
           label: '이번달 상품 별 매출',
