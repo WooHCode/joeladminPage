@@ -11,27 +11,27 @@
                         <div class="col-md-4 mb-3">
                             <label for="name">상품 카테고리</label><br>
                             <select class="form-control" id="code" placeholder="카테고리를 선택해주세요" required
-                                v-model="selectedItemCode" @change="testSelect()">
+                                v-model="selectedItemCode">
                                 <option value="null" selected disabled>상품코드를 선택해주세요</option>
                                 <option v-for="i in itemCode" :key="i">{{ i }}</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-
+                    <div class="row row-assign">
+                        <div class="col-md-4 col-lg-4 mb-3">
+                            <div class="item-group" v-for="(i, idx) in submitData" :key="idx">
+                                <label>{{ i.itemName }}</label>
+                                <input type="number" class="saleCount" id="saleCount" placeholder="판매수량을 입력" required
+                                    v-model="i.itemCount">
+                            </div>
 
                         </div>
-                        <div class="col-md-4 mb-3">
-
-                        </div>
-                        <div v-for="(i, idx) in submitData" :key="idx">
-                            <a>{{ i.itemName }}</a>
-                            <input type="number" class="saleCount" id="saleCount" placeholder="판매수량을 입력" required
-                                v-model="i.itemCount">
-                        </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-4 col-lg-4 mb-3">
                             <a @click="testSelect()">테스트</a>
+                        </div>
+                        <div class="col-md-4 col-lg-4 mb-3" v-if="viewSubmit">
+                            <h5 v-for="(i, idx) in showSaleItemName" :key="idx">{{ '상품명: ' + i + ' ' + '수량: ' +
+                                showSaleItemValue[idx] }}</h5>
                         </div>
                     </div>
                 </form>
@@ -44,6 +44,7 @@
 
 <script>
 import axios from 'axios';
+import lib from '@/scripts/lib';
 
 export default {
     name: "SaleSave",
@@ -52,7 +53,12 @@ export default {
             this.$router.go(-1);
         },
         testSelect() {
-            console.log(this.submitData);
+            this.viewSubmit = true;
+            const newArray = Object.values(this.submitData);
+            newArray.forEach((i) => {
+                this.showSaleItemName.push(i.itemName);
+                this.showSaleItemValue.push(i.itemCount);
+            });
         }
     },
     data() {
@@ -61,8 +67,11 @@ export default {
             selectedItem: '',
             selectedItemCount: [],
             submitData: [],
-
+            date: lib.getNowDate(),
             sItemCode: false,
+            viewSubmit: false,
+            showSaleItemName: [],
+            showSaleItemValue: [],
 
             itemNamePrice: [],
             itemName: [],
@@ -87,10 +96,12 @@ export default {
             deep: true,
             immediate: true, // 페이지 로드시 바로 실행
             handler(newVal) {
+
                 this.submitData = newVal.map(item => ({
                     itemName: item.itemName,
                     itemPrice: item.itemPrice,
                     itemCode: item.itemCode,
+                    saleDate: this.date,
                     itemCount: 0
                 }))
             }
@@ -119,10 +130,21 @@ export default {
 </script>
 
 <style scoped>
+.row-assign {}
+
+.item-group {
+    display: flex;
+    align-items: center;
+}
+
+.item-group label {
+    display: inline-block;
+    width: 150px;
+    margin-right: 5px;
+}
+
 .saleCount {
-    margin-left: 50px;
-    margin-bottom: 3px;
-    padding: 3px;
+    width: 50px;
     border-radius: 5px;
 
 }
