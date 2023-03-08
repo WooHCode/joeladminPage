@@ -11,14 +11,14 @@
                         <div class="col-md-4 mb-3">
                             <label for="name">상품 카테고리</label><br>
                             <select class="form-control" id="code" placeholder="카테고리를 선택해주세요" required
-                                v-model="selectedItemCode">
+                                v-model="selectedItemCode" @change="viewSubmit = true">
                                 <option value="null" selected disabled>상품코드를 선택해주세요</option>
                                 <option v-for="i in itemCode" :key="i">{{ i }}</option>
                             </select>
                         </div>
                     </div>
                     <div class="row row-assign">
-                        <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="col-md-5 col-lg-5 mb-3">
                             <div class="item-group" v-for="(i, idx) in submitData" :key="idx">
                                 <label>{{ i.itemName }}</label>
                                 <input type="number" class="saleCount" id="saleCount" placeholder="판매수량을 입력" required
@@ -26,12 +26,13 @@
                             </div>
 
                         </div>
-                        <div class="col-md-4 col-lg-4 mb-3">
-                            <a @click="testSelect()">테스트</a>
+                        <div class="col-md-1 col-lg-1 mb-3">
+                            <i class="bi bi-caret-right-square" @click="countCheck()" v-if="viewSubmit"></i>
                         </div>
-                        <div class="col-md-4 col-lg-4 mb-3" v-if="viewSubmit">
-                            <h5 v-for="(i, idx) in showSaleItemName" :key="idx">{{ '상품명: ' + i + ' ' + '수량: ' +
-                                showSaleItemValue[idx] }}</h5>
+                        <div class="rige col-md-6 col-lg-6 mb-3" v-if="viewSubmit">
+                            <p v-for="(i, idx) in showSaleItemName" :key="idx">{{ '상품명: ' + i + ' ' + '수량: ' +
+                                showSaleItemValue[idx] + "\n" }}</p> <br>
+                            <button type="button" class="btn btn-primary" @click="submit()" v-if="buttonView">전송하기</button>
                         </div>
                     </div>
                 </form>
@@ -52,14 +53,31 @@ export default {
         backPage() {
             this.$router.go(-1);
         },
-        testSelect() {
+        countCheck() {
+            this.showSaleItemName = [];
+            this.showSaleItemValue = [];
+            this.buttonView = true;
             this.viewSubmit = true;
             const newArray = Object.values(this.submitData);
             newArray.forEach((i) => {
                 this.showSaleItemName.push(i.itemName);
                 this.showSaleItemValue.push(i.itemCount);
             });
-        }
+        },
+        submit() {
+            if (confirm('정말로 전송하시겠습니까?') == true) {
+                const sendData = this.submitData;
+
+                axios.post('/api/v1/sales', sendData).then((res) => {
+                    console.log(res);
+                }).catch((err) => {
+                    console.log(err);
+                })
+
+            } else {
+                alert('상품명과 판매수량을 확인해주세요');
+            }
+        },
     },
     data() {
         return {
@@ -70,6 +88,7 @@ export default {
             date: lib.getNowDate(),
             sItemCode: false,
             viewSubmit: false,
+            buttonView: false,
             showSaleItemName: [],
             showSaleItemValue: [],
 
@@ -130,6 +149,10 @@ export default {
 </script>
 
 <style scoped>
+.rige {
+    border: ridge 10px;
+}
+
 .row-assign {}
 
 .item-group {
