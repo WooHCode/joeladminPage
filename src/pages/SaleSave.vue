@@ -68,8 +68,11 @@ export default {
             if (confirm('정말로 전송하시겠습니까?') == true) {
                 const sendData = this.submitData;
 
-                axios.post('/api/v1/sales', sendData).then((res) => {
-                    console.log(res);
+                axios.post('/api/v1/sales', sendData).then(() => {
+                    alert("매출등록이 완료되었습니다.");
+                    this.showSaleItemName = [];
+                    this.showSaleItemValue = [];
+                    this.buttonView = false;
                 }).catch((err) => {
                     console.log(err);
                 })
