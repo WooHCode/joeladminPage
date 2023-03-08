@@ -9,26 +9,29 @@
                 <form class="validation-form" novalidate>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="name">상품코드</label><br>
-                            <select class="form-control" id="age" placeholder="상품코드를 선택해주세요" required
-                                v-model="selectItemCode">
+                            <label for="name">상품 카테고리</label><br>
+                            <select class="form-control" id="code" placeholder="카테고리를 선택해주세요" required
+                                v-model="selectedItemCode" @change="testSelect()">
                                 <option value="null" selected disabled>상품코드를 선택해주세요</option>
                                 <option v-for="i in itemCode" :key="i">{{ i }}</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="age">상품명</label>
-                            <select class="form-control" id="age" placeholder="상품명을 선택해주세요" required>
-                                <option value="null" selected disabled>상품명을 선택해주세요</option>
-                                <option v-for="i in itemName" :key="i">{{ i }}</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                나이을 입력해주세요.
-                            </div>
+
+
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="count">판매수량</label>
-                            <input type="number" class="form-control" id="phone" placeholder="판매수량을 입력해주세요" required>
+
+                        </div>
+                        <div v-for="(i, idx) in submitData" :key="idx">
+                            <a>{{ i.itemName }}</a>
+                            <input type="number" class="saleCount" id="saleCount" placeholder="판매수량을 입력" required
+                                v-model="i.itemCount">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a @click="testSelect()">테스트</a>
                         </div>
                     </div>
                 </form>
@@ -48,28 +51,56 @@ export default {
         backPage() {
             this.$router.go(-1);
         },
-        test() {
-            alert(this.submititem);
-        },
-        selectItemCode(itemCode) {
-            alert(itemCode);
-        },
+        testSelect() {
+            console.log(this.submitData);
+        }
     },
     data() {
         return {
             selectedItemCode: '',
             selectedItem: '',
+            selectedItemCount: [],
+            submitData: [],
+
+            sItemCode: false,
 
             itemNamePrice: [],
             itemName: [],
             itemCode: [],
             submititem: [],
+            totalItems: [],
+            computedItems: [],
+        }
+    },
+
+    computed: {
+        itemNameOptions: function () {
+            const selectedCode = this.selectedItemCode;
+            const matchedOptions = this.totalItems.filter(item => item.itemCode === selectedCode);
+            return matchedOptions;
+        }
+
+    },
+
+    watch: {
+        itemNameOptions: {
+            deep: true,
+            immediate: true, // 페이지 로드시 바로 실행
+            handler(newVal) {
+                this.submitData = newVal.map(item => ({
+                    itemName: item.itemName,
+                    itemPrice: item.itemPrice,
+                    itemCode: item.itemCode,
+                    itemCount: 0
+                }))
+            }
         }
     },
     created() {
         let items = [];
         axios.get("/api/v1/saleItems").then((res) => {
             items = res.data;
+            this.totalItems = items;
             // JSON 데이터 파싱하여 배열에 저장
             items.forEach(item => {
                 if (!this.itemNamePrice.find(i => i.itemName === item.itemName && i.itemPrice === item.itemPrice)) {
@@ -82,13 +113,20 @@ export default {
                     this.itemName.push(item.itemName);
                 }
             });
-
         })
     },
 }
 </script>
 
 <style scoped>
+.saleCount {
+    margin-left: 50px;
+    margin-bottom: 3px;
+    padding: 3px;
+    border-radius: 5px;
+
+}
+
 .btn-code {
     margin-left: 5px;
 }
