@@ -14,7 +14,7 @@
           class="d-flex col-lg-12 justify-content-center flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <div class="album py-5 bg-light">
             <div class="d-flex justify-content-end me-5 mb-2">
-              <a>{{ currentPageNum + 1}}page</a>
+              <a>{{ currentPageNum + 1 }}page</a>
             </div>
             <div class="d-flex justify-content-end mb-1 me-3">
               <input type="text" placeholder="상품명으로 검색하세요" v-model="searchingItemName"
@@ -87,6 +87,7 @@
             <div aria-label="Page navigation example mt-5" v-if="searchSuccess == true">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
+                  <!--TODO 5페이지만 보여주고 NEXT누르면 6~10 이렇게 구현-->
                   <a class="page-link" href="#" @click="searchPrevPage(currentPageNum)">Previous</a>
                 </li>
                 <li class="page-item" v-for="(i, idx) in totalPageCount" :key="idx">
@@ -191,31 +192,31 @@ export default {
     },
     searchMovePage(pageNum) {
       var pageNumber = pageNum - 1;
-        axios.get("/api/v3/search",
-          {
-            params: {
-              likeName: this.searchingItemName,
-              page: pageNumber,
-              size: 5
-            }
+      axios.get("/api/v3/search",
+        {
+          params: {
+            likeName: this.searchingItemName,
+            page: pageNumber,
+            size: 5
           }
-        ).then(({ data }) => {
-          if (data[0].content == '') {
-            alert("상품을 조회하지 못하였습니다.");
-          } else {
-            this.searchingItem = data[0].content;
-            this.currentPageNum = pageNumber;
-            this.totalItemCount = data[1];
-            this.searchSuccess = true;
-            this.totalPageCount = data[2];
-          }
+        }
+      ).then(({ data }) => {
+        if (data[0].content == '') {
+          alert("상품을 조회하지 못하였습니다.");
+        } else {
+          this.searchingItem = data[0].content;
+          this.currentPageNum = pageNumber;
+          this.totalItemCount = data[1];
+          this.searchSuccess = true;
+          this.totalPageCount = data[2];
+        }
 
+      })
+        .catch(function (error) {
+          console.log(error);
+          alert(error + "\n" + "상품을 조회하지 못하였습니다.");
         })
-          .catch(function (error) {
-            console.log(error);
-            alert(error + "\n" + "상품을 조회하지 못하였습니다.");
-          })
-      
+
     },
     searchNextPage(pageNum) {
       var pageNumber = pageNum + 1;
