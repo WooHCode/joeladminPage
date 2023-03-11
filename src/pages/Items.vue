@@ -320,6 +320,9 @@ export default {
       pageFive: 0,
     }
   },
+  created() {
+    this.pageFive = this.totalPageCount;
+  },
 
   setup() {
     const state = reactive({
