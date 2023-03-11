@@ -118,7 +118,6 @@ export default {
             deep: true,
             immediate: true, // 페이지 로드시 바로 실행
             handler(newVal) {
-
                 this.submitData = newVal.map(item => ({
                     itemName: item.itemName,
                     itemPrice: item.itemPrice,
