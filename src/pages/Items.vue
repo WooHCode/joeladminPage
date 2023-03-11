@@ -326,6 +326,7 @@ export default {
   computed: {
     pagedNumbers() {
       const pageCount = Math.ceil(this.state.pageCounts[0] / 5);
+      const currentPage = Math.ceil(this.currentPageNum + 1 / 5);
       const pages = [];
       for (let i = 0; i < pageCount; i++) {
         const pageNumbers = [];
@@ -335,7 +336,7 @@ export default {
         }
         pages.push(pageNumbers);
       }
-      return pages;
+      return pages[currentPage - 1];
     }
   },
 
