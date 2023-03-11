@@ -76,8 +76,12 @@
                 <li class="page-item">
                   <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
                 </li>
-                <li class="page-item" v-for="(i, idx) in state.pageCounts[0]" :key="idx">
-                  <a class="page-link" href="#" @click="movePage(i)">{{ i }}</a>
+                <li class="page-item" v-for="(pageNumbers, pageIndex) in pagedNumbers" :key="pageIndex">
+                  <ul>
+                    <li class="page-item" v-for="(pageNumber, pageNumberIndex) in pageNumbers" :key="pageNumberIndex">
+                      <a class="page-link" href="#" @click="movePage(pageNumber)">{{ pageNumber }}</a>
+                    </li>
+                  </ul>
                 </li>
                 <li class="page-item">
                   <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
@@ -321,12 +325,12 @@ export default {
   },
   computed: {
     pagedNumbers() {
-      const pageCount = Math.ceil(this.totalPageCount / 5);
+      const pageCount = Math.ceil(this.state.pageCounts[0] / 5);
       const pages = [];
       for (let i = 0; i < pageCount; i++) {
         const pageNumbers = [];
         for (let j = i * 5 + 1; j <= (i + 1) * 5; j++) {
-          if (j > this.totalPageCount) break;
+          if (j > this.state.pageCounts[0]) break;
           pageNumbers.push(j);
         }
         pages.push(pageNumbers);
