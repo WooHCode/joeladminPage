@@ -317,11 +317,22 @@ export default {
       currentPageNum: 0,
       totalItemCount: 0,
       totalPageCount: 0,
-      pageFive: 0,
     }
   },
-  created() {
-    this.pageFive = this.totalPageCount;
+  computed: {
+    pagedNumbers() {
+      const pageCount = Math.ceil(this.totalPageCount / 5);
+      const pages = [];
+      for (let i = 0; i < pageCount; i++) {
+        const pageNumbers = [];
+        for (let j = i * 5 + 1; j <= (i + 1) * 5; j++) {
+          if (j > this.totalPageCount) break;
+          pageNumbers.push(j);
+        }
+        pages.push(pageNumbers);
+      }
+      return pages;
+    }
   },
 
   setup() {
