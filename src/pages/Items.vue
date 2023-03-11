@@ -317,6 +317,7 @@ export default {
       currentPageNum: 0,
       totalItemCount: 0,
       totalPageCount: 0,
+      pageFive: 0,
     }
   },
 
