@@ -318,7 +318,6 @@ export default {
       totalItemCount: 0,
       totalPageCount: 0,
     }
-
   },
 
   setup() {
