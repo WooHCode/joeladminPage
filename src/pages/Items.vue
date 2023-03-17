@@ -257,8 +257,6 @@ export default {
       this.reallyRemove = retrunValue;
     },
     movePage(pNum) {
-      console.log("currentPageNum=" + pNum);
-      console.log("calculatePageNum=" + this.calculatedPageNum);
       axios.get(`/api/v3/items`, {
         params: {
           page: pNum - 1,
@@ -266,18 +264,16 @@ export default {
         }
       }).then(({ data }) => {
         this.state.items = data.data;
-        this.calculatedPageNum = pNum + 1;
-      })
+        this.currentPageNum = pNum - 1; // 현재 페이지 값을 바꿔줌
+        this.calculatedPageNum = pNum;
+      });
     },
     prevPage(currentPNum) {
-      console.log("currentPageNum - 1!!!=" + currentPNum);
-      console.log("calculatePageNum=" + this.calculatedPageNum);
       var nextPNum = currentPNum - 1;
       if (nextPNum < 0) {
-        alert("첫번째 페이지 입니다.")
+        alert("첫번째 페이지 입니다.");
         nextPNum = 0;
-      }
-      else {
+      } else {
         axios.get(`/api/v3/items`, {
           params: {
             page: nextPNum,
@@ -286,13 +282,12 @@ export default {
         }).then(({ data }) => {
           this.state.items = data.data;
           this.currentPageNum = nextPNum;
-        })
+          this.calculatedPageNum = this.calculatedPageNum - 1;
+        });
       }
     },
     nextPage(currentPNum) {
-
       var nextPNum = currentPNum + 1;
-
       if (nextPNum >= this.state.pageCounts[0]) {
         alert("마지막 페이지입니다.");
       } else {
@@ -305,13 +300,10 @@ export default {
           this.state.items = data.data;
           this.currentPageNum = nextPNum;
           this.calculatedPageNum = this.calculatedPageNum + 1;
-          console.log("calculatePageNum=" + this.calculatedPageNum);
-          console.log("currentPageNum + 1!!!= " + this.currentPageNum);
         })
       }
-    }
+    },
   },
-
   components: { SidebarMenu, Itemmodal, Itmeumodal },
 
   data() {
@@ -332,7 +324,7 @@ export default {
   computed: {
     pagedNumbers() {
       const pageCount = Math.ceil(this.state.pageCounts[0] / 5);
-      const currentPage = Math.ceil(this.currentPageNum + 1 / 5);
+      const currentPage = Math.ceil((this.currentPageNum + 1) / 5);
       const pages = [];
       for (let i = 0; i < pageCount; i++) {
         const pageNumbers = [];
