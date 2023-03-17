@@ -387,7 +387,7 @@ export default {
 }
 
 .itemImages {
-  width: 50px;
+  width: 100%;
   height: 50px;
 }
 
