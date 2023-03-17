@@ -87,7 +87,6 @@
             <div aria-label="Page navigation example mt-5" v-if="searchSuccess == true">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
-                  <!--TODO 5페이지만 보여주고 NEXT누르면 6~10 이렇게 구현-->
                   <a class="page-link" href="#" @click="searchPrevPage(currentPageNum)">Previous</a>
                 </li>
                 <li class="page-item" v-for="(i, idx) in totalPageCount" :key="idx">
