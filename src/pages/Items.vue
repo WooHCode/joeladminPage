@@ -147,6 +147,7 @@ export default {
         } else {
           this.searchingItem = data[0].content;
           this.currentPageNum = 0;
+          this.calculatedPageNum = this.currentPageNum + 1;
           this.totalItemCount = data[1];
           this.searchSuccess = true;
           this.totalPageCount = data[2];
@@ -178,6 +179,7 @@ export default {
           } else {
             this.searchingItem = data[0].content;
             this.currentPageNum = pageNumber;
+            this.calculatedPageNum = this.currentPageNum + 1;
             this.totalItemCount = data[1];
             this.searchSuccess = true;
             this.totalPageCount = data[2];
@@ -206,6 +208,7 @@ export default {
         } else {
           this.searchingItem = data[0].content;
           this.currentPageNum = pageNumber;
+          this.calculatedPageNum = this.currentPageNum + 1;
           this.totalItemCount = data[1];
           this.searchSuccess = true;
           this.totalPageCount = data[2];
@@ -237,6 +240,7 @@ export default {
           } else {
             this.searchingItem = data[0].content;
             this.currentPageNum = pageNumber;
+            this.calculatedPageNum = this.currentPageNum + 1;
             this.totalItemCount = data[1];
             this.searchSuccess = true;
             this.totalPageCount = data[2];
