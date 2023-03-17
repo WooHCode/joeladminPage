@@ -14,7 +14,7 @@
           class="d-flex col-lg-12 justify-content-center flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
           <div class="album py-5 bg-light">
             <div class="d-flex justify-content-end me-5 mb-2">
-              <a>{{ currentPageNum + 1 }}page</a>
+              <a>{{ calculatedPageNum }}page</a>
             </div>
             <div class="d-flex justify-content-end mb-1 me-3">
               <input type="text" placeholder="상품명으로 검색하세요" v-model="searchingItemName"
@@ -77,11 +77,7 @@
                   <a class="page-link" href="#" @click="prevPage(currentPageNum)">Previous</a>
                 </li>
                 <li class="page-item" v-for="(pageNumbers, pageIndex) in pagedNumbers" :key="pageIndex">
-                  <ul>
-                    <li class="page-item" v-for="(pageNumber, pageNumberIndex) in pageNumbers" :key="pageNumberIndex">
-                      <a class="page-link" href="#" @click="movePage(pageNumber)">{{ pageNumber }}</a>
-                    </li>
-                  </ul>
+                  <a class="page-link" href="#" @click="movePage(pageNumbers)">{{ pageNumbers }}</a>
                 </li>
                 <li class="page-item">
                   <a class="page-link" href="#" @click="nextPage(currentPageNum)">Next</a>
@@ -261,6 +257,8 @@ export default {
       this.reallyRemove = retrunValue;
     },
     movePage(pNum) {
+      console.log("currentPageNum=" + pNum);
+      console.log("calculatePageNum=" + this.calculatedPageNum);
       axios.get(`/api/v3/items`, {
         params: {
           page: pNum - 1,
@@ -268,10 +266,12 @@ export default {
         }
       }).then(({ data }) => {
         this.state.items = data.data;
-        this.currentPageNum = pNum - 1;
+        this.calculatedPageNum = pNum + 1;
       })
     },
     prevPage(currentPNum) {
+      console.log("currentPageNum - 1!!!=" + currentPNum);
+      console.log("calculatePageNum=" + this.calculatedPageNum);
       var nextPNum = currentPNum - 1;
       if (nextPNum < 0) {
         alert("첫번째 페이지 입니다.")
@@ -290,7 +290,9 @@ export default {
       }
     },
     nextPage(currentPNum) {
+
       var nextPNum = currentPNum + 1;
+
       if (nextPNum >= this.state.pageCounts[0]) {
         alert("마지막 페이지입니다.");
       } else {
@@ -302,6 +304,9 @@ export default {
         }).then(({ data }) => {
           this.state.items = data.data;
           this.currentPageNum = nextPNum;
+          this.calculatedPageNum = this.calculatedPageNum + 1;
+          console.log("calculatePageNum=" + this.calculatedPageNum);
+          console.log("currentPageNum + 1!!!= " + this.currentPageNum);
         })
       }
     }
@@ -319,6 +324,7 @@ export default {
       searchSuccess: false,
       reallyRemove: false,
       currentPageNum: 0,
+      calculatedPageNum: 1,
       totalItemCount: 0,
       totalPageCount: 0,
     }
