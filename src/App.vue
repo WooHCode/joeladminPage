@@ -1,17 +1,24 @@
 <template>
   <Header></Header>
   <RouterView></RouterView>
-  </template>
+</template>
   
-  <script>
+<script>
 import Header from './components/Header.vue'
-  export default {
-    name: 'App',
-    components: {
-        Header
+import store from './scripts/store';
+export default {
+  name: 'App',
+  components: {
+    Header
+  },
+  setup() {
+    const id = sessionStorage.getItem("id");
+
+    if (id) {
+      store.commit("setAccount", id);
     }
   }
-  </script>
+}
+</script>
   
-  <style>
-  </style>
+<style></style>
