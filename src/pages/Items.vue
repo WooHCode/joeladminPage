@@ -17,6 +17,8 @@
               <a>{{ calculatedPageNum }}page</a>
             </div>
             <div class="d-flex justify-content-end mb-1 me-3">
+              <small class="me-2">상품코드로 검색하려면 체크</small>
+              <input type="checkbox" class="me-2" v-model="searchingItemCodeTrue">
               <input type="text" placeholder="상품명으로 검색하세요" v-model="searchingItemName"
                 @keydown.enter="searchingResult(searchingItemName)">
               <button class="fa fa-undo ms-2" v-if="searchSuccess == true"
@@ -130,34 +132,67 @@ export default {
       }
 
     },
-    searchingResult(searchingItemName) {
-      const pname = JSON.parse(JSON.stringify(searchingItemName))
-      axios.get("/api/v3/search",
+    searchingByItemCode(searchingItemCode) {
+      const itemCode = searchingItemCode;
+      axios.get(`/api/v4/items/${itemCode}`,
         {
           params: {
-            likeName: pname,
             page: 0,
             size: 5
           }
-        }
-      ).then(({ data }) => {
-        if (data[0].content == '') {
-          alert("상품을 조회하지 못하였습니다.");
-        } else {
-          this.searchingItem = data[0].content;
-          this.currentPageNum = 0;
-          this.calculatedPageNum = this.currentPageNum + 1;
-          this.totalItemCount = data[1];
-          this.searchSuccess = true;
-          this.totalPageCount = data[2];
-          this.searchingItemName = pname;
-        }
+        }).then(({ data }) => {
+          console.log(data);
+          if (data.content == '') {
+            alert("상품을 조회하지 못하였습니다.");
+          } else {
+            this.searchingItem = data.content;
+            this.currentPageNum = 0;
+            this.calculatedPageNum = this.currentPageNum + 1;
+            this.totalItemCount = data.totalElements;
+            this.searchSuccess = true;
+            this.totalPageCount = data.totalPages;
+            this.searchingItemName = searchingItemCode;
+          }
 
-      })
+        })
         .catch(function (error) {
           console.log(error);
           alert(error + "\n" + "상품을 조회하지 못하였습니다.");
         })
+    },
+    searchingResult(searchingItemName) {
+      if (this.searchingItemCodeTrue) {
+        this.searchingByItemCode(searchingItemName);
+        this.searchingItemCodeTrue = true;
+      } else {
+        const pname = JSON.parse(JSON.stringify(searchingItemName))
+        axios.get("/api/v3/search",
+          {
+            params: {
+              likeName: pname,
+              page: 0,
+              size: 5
+            }
+          }
+        ).then(({ data }) => {
+          if (data[0].content == '') {
+            alert("상품을 조회하지 못하였습니다.");
+          } else {
+            this.searchingItem = data[0].content;
+            this.currentPageNum = 0;
+            this.calculatedPageNum = this.currentPageNum + 1;
+            this.totalItemCount = data[1];
+            this.searchSuccess = true;
+            this.totalPageCount = data[2];
+            this.searchingItemName = pname;
+          }
+
+        })
+          .catch(function (error) {
+            console.log(error);
+            alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+          })
+      }
     },
     searchPrevPage(pageNum) {
       var pageNumber = pageNum - 1;
@@ -253,6 +288,7 @@ export default {
       }
     },
     undo() {
+      this.searchingItemCodeTrue = false;
       this.load();
     },
     warnRemove() {
@@ -322,6 +358,7 @@ export default {
       calculatedPageNum: 1,
       totalItemCount: 0,
       totalPageCount: 0,
+      searchingItemCodeTrue: false,
     }
   },
   computed: {
