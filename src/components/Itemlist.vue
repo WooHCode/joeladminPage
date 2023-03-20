@@ -1,5 +1,5 @@
 <template>
-    <div class="items">
+    <div class="items" v-if="$store.account.id">
         <div class="container">
             <table class="table table-bordered">
                 <thead>
@@ -37,7 +37,7 @@ import axios from 'axios'
 export default {
     name: "Itemlist",
     props: {
-        items : Object,
+        items: Object,
     },
     setup() {
         const state = reactive({
@@ -59,6 +59,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
