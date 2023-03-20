@@ -160,9 +160,108 @@ export default {
           alert(error + "\n" + "상품을 조회하지 못하였습니다.");
         })
     },
+
+    searchPrevPageIC(searchingItemName, pageNum) {
+      var pageNumber = pageNum - 1;
+      var itemCode = searchingItemName;
+      if (pageNumber < 0) {
+        alert("첫번째 페이지입니다.")
+      } else {
+        axios.get(`/api/v4/items/${itemCode}`,
+          {
+            params: {
+              page: pageNumber,
+              size: 5
+            }
+          }
+        ).then(({ data }) => {
+          if (data.content == '') {
+            alert("상품을 조회하지 못하였습니다.");
+          } else {
+            this.searchingItem = data.content;
+            this.currentPageNum = pageNumber;
+            this.calculatedPageNum = this.currentPageNum + 1;
+            this.totalItemCount = data.totalElements;
+            this.searchSuccess = true;
+            this.totalPageCount = data.totalPages;
+          }
+
+        })
+          .catch(function (error) {
+            console.log(error);
+            alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+          })
+      }
+    },
+
+    searchMovePageIC(searchingItemName, pageNum) {
+      var pageNumber = pageNum - 1;
+      var itemCode = searchingItemName;
+      axios.get(`/api/v4/items/${itemCode}`,
+        {
+          params: {
+            page: pageNumber,
+            size: 5
+          }
+        }
+      ).then(({ data }) => {
+        if (data.content == '') {
+          alert("상품을 조회하지 못하였습니다.");
+        } else {
+          this.searchingItem = data.content;
+          this.currentPageNum = pageNumber;
+          this.calculatedPageNum = this.currentPageNum + 1;
+          this.totalItemCount = data.totalElements;
+          this.searchSuccess = true;
+          this.totalPageCount = data.totalPages;
+        }
+
+      })
+        .catch(function (error) {
+          console.log(error);
+          alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+        })
+
+    },
+
+    searchNextPageIC(searchingItemName, pageNum) {
+      var pageNumber = pageNum + 1;
+      var itemCode = searchingItemName;
+      if (pageNumber >= this.totalPageCount) {
+        alert("마지막 페이지입니다.")
+      } else {
+        axios.get(`/api/v4/items/${itemCode}`,
+          {
+            params: {
+              page: pageNumber,
+              size: 5
+            }
+          }
+        ).then(({ data }) => {
+          if (data.content == '') {
+            alert("상품을 조회하지 못하였습니다.");
+          } else {
+            this.searchingItem = data.content;
+            this.currentPageNum = pageNumber;
+            this.calculatedPageNum = this.currentPageNum + 1;
+            this.totalItemCount = data.totalElements;
+            this.searchSuccess = true;
+            this.totalPageCount = data.totalPages;
+          }
+
+        })
+          .catch(function (error) {
+            console.log(error);
+            alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+          })
+      }
+    },
+
+
+
     searchingResult(searchingItemName) {
       if (this.searchingItemCodeTrue) {
-        this.searchingByItemCode(searchingItemName);
+        this.searchingByItemCode(this.searchingItemName);
         this.searchingItemCodeTrue = true;
       } else {
         const pname = JSON.parse(JSON.stringify(searchingItemName))
@@ -195,10 +294,48 @@ export default {
       }
     },
     searchPrevPage(pageNum) {
-      var pageNumber = pageNum - 1;
-      if (pageNumber < 0) {
-        alert("첫번째 페이지입니다.")
+      if (this.searchingItemCodeTrue) {
+        this.searchPrevPageIC(this.searchingItemName, pageNum);
+        this.searchingItemCodeTrue = true;
       } else {
+        var pageNumber = pageNum - 1;
+        if (pageNumber < 0) {
+          alert("첫번째 페이지입니다.")
+        } else {
+          axios.get("/api/v3/search",
+            {
+              params: {
+                likeName: this.searchingItemName,
+                page: pageNumber,
+                size: 5
+              }
+            }
+          ).then(({ data }) => {
+            if (data[0].content == '') {
+              alert("상품을 조회하지 못하였습니다.");
+            } else {
+              this.searchingItem = data[0].content;
+              this.currentPageNum = pageNumber;
+              this.calculatedPageNum = this.currentPageNum + 1;
+              this.totalItemCount = data[1];
+              this.searchSuccess = true;
+              this.totalPageCount = data[2];
+            }
+
+          })
+            .catch(function (error) {
+              console.log(error);
+              alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+            })
+        }
+      }
+    },
+    searchMovePage(pageNum) {
+      if (this.searchingItemCodeTrue) {
+        this.searchMovePageIC(this.searchingItemName, pageNum);
+        this.searchingItemCodeTrue = true;
+      } else {
+        var pageNumber = pageNum - 1;
         axios.get("/api/v3/search",
           {
             params: {
@@ -226,65 +363,41 @@ export default {
           })
       }
     },
-    searchMovePage(pageNum) {
-      var pageNumber = pageNum - 1;
-      axios.get("/api/v3/search",
-        {
-          params: {
-            likeName: this.searchingItemName,
-            page: pageNumber,
-            size: 5
-          }
-        }
-      ).then(({ data }) => {
-        if (data[0].content == '') {
-          alert("상품을 조회하지 못하였습니다.");
-        } else {
-          this.searchingItem = data[0].content;
-          this.currentPageNum = pageNumber;
-          this.calculatedPageNum = this.currentPageNum + 1;
-          this.totalItemCount = data[1];
-          this.searchSuccess = true;
-          this.totalPageCount = data[2];
-        }
-
-      })
-        .catch(function (error) {
-          console.log(error);
-          alert(error + "\n" + "상품을 조회하지 못하였습니다.");
-        })
-
-    },
     searchNextPage(pageNum) {
-      var pageNumber = pageNum + 1;
-      if (pageNumber >= this.totalPageCount) {
-        alert("마지막 페이지입니다.")
+      if (this.searchingItemCodeTrue) {
+        this.searchNextPageIC(this.searchingItemName, pageNum);
+        this.searchingItemCodeTrue = true;
       } else {
-        axios.get("/api/v3/search",
-          {
-            params: {
-              likeName: this.searchingItemName,
-              page: pageNumber,
-              size: 5
+        var pageNumber = pageNum + 1;
+        if (pageNumber >= this.totalPageCount) {
+          alert("마지막 페이지입니다.")
+        } else {
+          axios.get("/api/v3/search",
+            {
+              params: {
+                likeName: this.searchingItemName,
+                page: pageNumber,
+                size: 5
+              }
             }
-          }
-        ).then(({ data }) => {
-          if (data[0].content == '') {
-            alert("상품을 조회하지 못하였습니다.");
-          } else {
-            this.searchingItem = data[0].content;
-            this.currentPageNum = pageNumber;
-            this.calculatedPageNum = this.currentPageNum + 1;
-            this.totalItemCount = data[1];
-            this.searchSuccess = true;
-            this.totalPageCount = data[2];
-          }
+          ).then(({ data }) => {
+            if (data[0].content == '') {
+              alert("상품을 조회하지 못하였습니다.");
+            } else {
+              this.searchingItem = data[0].content;
+              this.currentPageNum = pageNumber;
+              this.calculatedPageNum = this.currentPageNum + 1;
+              this.totalItemCount = data[1];
+              this.searchSuccess = true;
+              this.totalPageCount = data[2];
+            }
 
-        })
-          .catch(function (error) {
-            console.log(error);
-            alert(error + "\n" + "상품을 조회하지 못하였습니다.");
           })
+            .catch(function (error) {
+              console.log(error);
+              alert(error + "\n" + "상품을 조회하지 못하였습니다.");
+            })
+        }
       }
     },
     undo() {
