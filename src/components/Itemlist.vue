@@ -1,5 +1,5 @@
 <template>
-    <div class="items" v-if="$store.account.id">
+    <div class="items">
         <div class="container">
             <table class="table table-bordered">
                 <thead>
