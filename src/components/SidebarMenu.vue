@@ -4,27 +4,27 @@
       <ul class="nav flex-column">
         <li class="nav-item">
           <router-link to="/Sales" class="align-text-bottom">
-            매출관리
+            <button class="sideButton">매출관리</button>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/Items" class="align-text-bottom">
-            상품관리
+            <button class="sideButton">상품관리</button>
           </router-link>
         </li>
         <li class="nav-item" v-if="$store.state.account.id == 1">
           <router-link to="/Emp" class="align-text-bottom">
-            직원관리
+            <button class="sideButton">직원관리</button>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/Client" class="align-text-bottom">
-            고객관리
+            <button class="sideButton">고객관리</button>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/Store" class="align-text-bottom">
-            매장관리
+            <button class="sideButton">매장관리</button>
           </router-link>
         </li>
       </ul>
@@ -74,6 +74,55 @@ export default {
 </script>
 
 <style scoped>
+.sideButton {
+  background: #1AAB8A;
+  border-radius: 15px;
+  color: #fff;
+  border: none;
+  position: relative;
+  height: 60px;
+  font-size: 1em;
+  padding: 0 2em;
+  cursor: pointer;
+  transition: 800ms ease all;
+  outline: none;
+}
+
+.sideButton:hover {
+  background: #fff;
+  color: #1AAB8A;
+}
+
+.sideButton:before,
+.sideButton:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
+  background: #1AAB8A;
+  transition: 400ms ease all;
+}
+
+.sideButton:after {
+  right: inherit;
+  top: inherit;
+  left: 0;
+  bottom: 0;
+}
+
+.sideButton:hover:before,
+.sideButton:hover:after {
+  width: 100%;
+  transition: 800ms ease all;
+}
+
+
+.align-text-bottom {
+  cursor: pointer
+}
+
 .nav-item {
   margin-top: 20px;
   margin-bottom: 20px;
