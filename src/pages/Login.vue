@@ -4,18 +4,15 @@
       <img class="mb-4" src="Joelfab.png" alt="" width="72" height="72">
       <div class="d-flex justify-content-center">
         <label for="inputId" class="sr-only">ID</label>
-        <input type="text" id="inputId" class="form-control" placeholder="ID" required autofocus v-model="state.form.ide">
+        <input type="text" id="inputId" class="form-control" placeholder="ID" required autofocus v-model="state.form.ide"
+          @keyup.enter="submit()">
       </div>
       <div class="d-flex justify-content-center mt-1">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
-          v-model="state.form.password">
+          v-model="state.form.password" @keyup.enter="submit()">
       </div>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> 로그인 상태 유지
-        </label>
-      </div>
+      <br><br><br><br>
       <button class="btn btn-lg btn-primary btn-block" @click="submit()">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
     </div>

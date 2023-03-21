@@ -9,7 +9,7 @@
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
         <router-link to="/login" class="text-white me-3" v-if="$store.state.account.id == 0">로그인</router-link>
-        <a to="/login" class="text-white me-3" @click="logout()" v-else>로그아웃</a>
+        <a to="/login" class="logout text-white me-3" @click="logout()" v-else>로그아웃</a>
       </div>
     </div>
   </header>
@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style scoped>
+.logout {
+  cursor: pointer;
+}
+
 .nav-item {
   margin-top: 20px;
   margin-bottom: 20px;
