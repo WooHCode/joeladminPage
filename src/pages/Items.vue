@@ -402,6 +402,8 @@ export default {
     },
     undo() {
       this.searchingItemCodeTrue = false;
+      this.currentPageNum = 0;
+      this.calculatedPageNum = 1;
       this.load();
     },
     warnRemove() {
