@@ -22,7 +22,7 @@
               <input type="text" placeholder="상품명으로 검색하세요" v-model="searchingItemName"
                 @keydown.enter="searchingResult(searchingItemName)">
               <button class="fa fa-undo ms-2" v-if="searchSuccess == true"
-                @click="searchSuccess = false, searchingItemName = '', currentPageNum = 0"></button>
+                @click="calculatedPageNum = 1, searchSuccess = false, searchingItemName = '', currentPageNum = 0"></button>
             </div>
             <div class="container">
               <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
@@ -399,12 +399,6 @@ export default {
             })
         }
       }
-    },
-    undo() {
-      this.searchingItemCodeTrue = false;
-      this.currentPageNum = 0;
-      this.calculatedPageNum = 1;
-      this.load();
     },
     warnRemove() {
       var retrunValue = confirm("상품 1건을 삭제하시겠습니까?");
