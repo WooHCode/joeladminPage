@@ -9,6 +9,7 @@ import Header from './components/Header.vue'
 import store from './scripts/store';
 import { useRoute } from 'vue-router';
 import { watch } from 'vue';
+import router from './scripts/router';
 export default {
   name: 'App',
   components: {
@@ -23,7 +24,13 @@ export default {
     const route = useRoute();
     watch(route, () => {
       check();
-    })
+    });
+    window.addEventListener('unload', () => {
+      axios.post("/api/account/logout").then(() => {
+        store.commit('setAccount', 0);
+        router.push({ path: "/login" });
+      })
+    });
   }
 }
 </script>
