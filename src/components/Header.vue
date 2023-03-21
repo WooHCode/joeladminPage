@@ -8,7 +8,7 @@
       milk</router-link>
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <router-link to="/login" class="text-white me-3" v-if="!$store.state.account.id">로그인</router-link>
+        <router-link to="/login" class="text-white me-3" v-if="$store.state.account.id == 0">로그인</router-link>
         <a to="/login" class="text-white me-3" @click="logout()" v-else>로그아웃</a>
       </div>
     </div>
@@ -18,13 +18,15 @@
 <script>
 import router from '@/scripts/router';
 import store from '@/scripts/store';
+import axios from 'axios';
 export default {
   name: "Header",
   setup() {
     const logout = () => {
-      store.commit('setAccount', 0);
-      sessionStorage.removeItem("id");
-      router.push({ path: "/login" });
+      axios.post("/api/account/logout").then(() => {
+        store.commit('setAccount', 0);
+        router.push({ path: "/login" });
+      })
     }
     return { logout };
   }
