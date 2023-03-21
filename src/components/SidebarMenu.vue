@@ -12,7 +12,7 @@
             상품관리
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="$store.state.account.id == 1">
           <router-link to="/Emp" class="align-text-bottom">
             직원관리
           </router-link>

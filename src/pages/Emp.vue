@@ -21,7 +21,7 @@
                         @click="searchSuccess = false, searchingData = '', currentPageNum = 0"></button>
                     </div>
                     <div class="card-body">
-                      <caption class="d-flex justify-content-end">{{ currentPageNum + 1}} page</caption>
+                      <caption class="d-flex justify-content-end">{{ currentPageNum + 1 }} page</caption>
                       <div class="table-responsive">
                         <table class="table table-hover table-striped">
 
@@ -351,6 +351,7 @@ export default {
           size: 5
         }
       }).then((res) => {
+        console.log(res);
         state.count = res.data
       })
 

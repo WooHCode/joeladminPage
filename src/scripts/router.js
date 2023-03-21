@@ -9,6 +9,7 @@ import Store from "@/pages/Store";
 import EmpSave from "@/pages/EmpSave";
 import EmpDetail from "@/pages/EmpDetail";
 import { createRouter, createWebHistory } from "vue-router";
+import store from "./store";
 
 const routes = [
   { path: "/", component: Home },
@@ -31,6 +32,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes: routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = store.state.account.id === 1;
+  if (to.path !== "/login" && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import router from '@/scripts/router';
 import store from '@/scripts/store';
 import axios from 'axios';
+import router from '@/scripts/router';
 export default {
   name: "Header",
   setup() {
