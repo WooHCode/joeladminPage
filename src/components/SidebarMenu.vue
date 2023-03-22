@@ -86,6 +86,7 @@ export default {
   cursor: pointer;
   transition: 800ms ease all;
   outline: none;
+  font-size: 1rem;
 }
 
 .sideButton:hover {
