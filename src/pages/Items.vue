@@ -538,14 +538,16 @@ export default {
 }
 
 .mopen {
-  top: 5%;
-  left: 20%;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  padding: 10px;
-
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
 .white-bg {
@@ -614,5 +616,35 @@ export default {
   text-align: center;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Add this rule to hide the page elements when the modal is open /
+.mopen~ {
+pointer-events: none;
+opacity: 0.5;
+}
+
+/* Add this rule to adjust page elements for mobile screens */
+@media (max-width: 767px) {
+  .nav-item {
+    margin-left: 10px;
+    font-size: 14px;
+  }
+
+  .total-itemCount {
+    font-size: 13px;
+  }
+
+  .container {
+    margin-top: 50px;
+  }
+
+  .itemImages {
+    height: 40px;
+  }
+
+  .white-bg {
+    width: 90%;
+  }
 }
 </style>

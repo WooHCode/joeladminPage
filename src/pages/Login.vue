@@ -38,7 +38,6 @@ export default {
 
     const submit = () => {
       axios.post("/api/account/login", state.form).then((res) => {
-        console.log(res);
         const idData = Object.values(res.data[2]);
         const nameString = Object.values(res.data[1]);
         const parseCode = Object.values(res.data[3]);

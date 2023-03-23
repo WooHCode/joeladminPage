@@ -1,53 +1,54 @@
 <template>
-    <div class="modal  col-lg-10 col-md-10 col-sm-10">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-10 col-lg-12">
-                <div class="d-flex justify-content-end me-2 mt-5"><button class="fa fa-times"
-                        @click="modalHide($emit, modalHide)"></button></div>
-                <h4 class="mb-3 d-flex justify-content-center">상품 정보</h4>
-                <div class="needs-validation" novalidate="">
-                    <div class="row g-3">
-                        <div class="col-lg-12 col-sm-4">
-                            <input type="text" class="form-control" id="itemName" placeholder="상품명"
-                                v-model="state.form.name">
-                        </div>
-                        <div class="col-lg-12 col-sm-4">
-                            <input type="number" class="form-control" id="itemPrice" placeholder="상품 가격"
-                                v-model="state.form.price">
-                        </div>
-                        <div class="col-lg-12 col-sm-4">
-                            <input type="text" class="form-control" id="imgPath" placeholder="이미지 경로"
-                                v-model="state.form.imgPath">
-                        </div>
+    <div class="modal">
+        <div class="modal-content col-lg-10 col-md-10 col-sm-10">
+            <div class="row d-flex justify-content-end">
+                <span class="modal-close fa fa-times" @click="modalHide($emit, modalHide)"></span>
+            </div>
+            <h4 class="mb-3 d-flex justify-content-center">상품 정보</h4>
+            <div class="needs-validation" novalidate="">
+                <div class="row g-3">
+                    <div class="col-lg-12 col-sm-4">
+                        <input type="text" class="form-control" id="itemName" placeholder="상품명" v-model="state.form.name"
+                            required>
                     </div>
-                    <hr class="my-4">
-                    <h4 class="mb-3">상품상세정보</h4>
-                    <hr class="my-4">
-                    <label for="cc-name" class="form-label">상품 코드</label>
-                    <div class="my-3">
-                        <select name="itemCode" required v-model="state.form.itemCode">
-                            <option value="" disabled selected>상품선택</option>
-                            <option value="CROFFLE">CROFFLE</option>
-                            <option value="TOAST">TOAST</option>
-                            <option value="SCONE">SCONE</option>
-                            <option value="BASAK">BASAK</option>
-                            <option value="COFFEE">COFFEE</option>
-                            <option value="LATTE">LATTE</option>
-                            <option value="NON_COFFEE">NON_COFFEE</option>
-                            <option value="ONE_LITER">ONE_LITTER</option>
-                            <option value="SMOOTHIE">SMOOTHIE</option>
-                            <option value="B_TEA">B_TEA</option>
-                            <option value="ADE">ADE</option>
-                            <option value="TEA">TEA</option>
-                        </select>
+                    <div class="col-lg-12 col-sm-4">
+                        <input type="number" class="form-control" id="itemPrice" placeholder="상품 가격"
+                            v-model="state.form.price" required>
                     </div>
+                    <div class="col-lg-12 col-sm-4">
+                        <input type="text" class="form-control" id="imgPath" placeholder="이미지 경로"
+                            v-model="state.form.imgPath" required>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <h4 class="mb-3">상품상세정보</h4>
+                <hr class="my-4">
+                <div class="form-group">
+                    <label for="itemCode" class="form-label">상품 코드</label>
+                    <select class="form-control" name="itemCode" required v-model="state.form.itemCode">
+                        <option value="" disabled selected>상품선택</option>
+                        <option value="CROFFLE">CROFFLE</option>
+                        <option value="TOAST">TOAST</option>
+                        <option value="SCONE">SCONE</option>
+                        <option value="BASAK">BASAK</option>
+                        <option value="COFFEE">COFFEE</option>
+                        <option value="LATTE">LATTE</option>
+                        <option value="NON_COFFEE">NON_COFFEE</option>
+                        <option value="ONE_LITER">ONE_LITTER</option>
+                        <option value="SMOOTHIE">SMOOTHIE</option>
+                        <option value="B_TEA">B_TEA</option>
+                        <option value="ADE">ADE</option>
+                        <option value="TEA">TEA</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="itemDes" class="form-label">상품 설명</label>
-                    <input type="text" class="form-control" id="itemDes" v-model="state.form.itemDes">
-                    <hr class="my-4">
-                    <div class="d-flex justify-content-center">
-                        <button class="w-50 btn btn-primary btn-lg" @click="[submit(), modalHide($emit, modalHide)]">상품
-                            추가하기</button>
-                    </div>
+                    <input type="text" class="form-control" id="itemDes" v-model="state.form.itemDes" required>
+                </div>
+                <hr class="my-4">
+                <div class="d-flex justify-content-center">
+                    <button class="w-50 btn btn-primary btn-lg" @click="[submit(), modalHide($emit, modalHide)]">상품
+                        추가하기</button>
                 </div>
             </div>
         </div>
@@ -94,24 +95,61 @@ export default {
     },
 }
 </script>
-
 <style scoped>
-select option[value=""][disabled] {
-    display: none;
-}
-
-#form-contorl {
-    margin-left: 50px;
-}
-
 .modal {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
     display: flex;
-    width: 50%;
-    height: 90%;
-    border-radius: 12px;
-    align-items: center;
     justify-content: center;
-    background-color: white;
+    align-items: center;
+    background-color: rgb(254, 254, 254);
+}
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    height: auto;
+    max-height: 90%;
+    overflow: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+@media (max-width: 767px) {
+    .modal-content {
+        width: 95%;
+        max-width: none;
+        max-height: 95%;
+    }
 }
 </style>

@@ -12,12 +12,12 @@
             <button class="sideButton">상품관리</button>
           </router-link>
         </li>
-        <li class="nav-item" v-if="$store.state.code.c === 0">
+        <li class="nav-item" v-if="cookieData === 0">
           <router-link to="/emp" class="align-text-bottom">
             <button class="sideButton">직원관리</button>
           </router-link>
         </li>
-        <li class="nav-item" v-if="$store.state.code.c === 1">
+        <li class="nav-item" v-if="cookieData === 1">
           <router-link to="/store" class="align-text-bottom">
             <button class="sideButton">출근관리</button>
           </router-link>
@@ -72,9 +72,14 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 export default {
-  name: "SidebarMenu"
-
+  name: "SidebarMenu",
+  computed: {
+    cookieData() {
+      return Cookies.get('memberCode');
+    }
+  }
 }
 </script>
 
