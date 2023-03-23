@@ -1,5 +1,6 @@
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
+import MyPage from "@/pages/MyPage";
 import Sales from "@/pages/Sales";
 import SaleSave from "@/pages/SaleSave";
 import Items from "@/pages/Items";
@@ -13,6 +14,7 @@ import store from "./store";
 
 const routes = [
   { path: "/", component: Home },
+  { path: "/myPage", component: MyPage },
   { path: "/login", component: Login },
   { path: "/sales", component: Sales },
   { path: "/saleSave", component: SaleSave },
@@ -35,7 +37,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = store.state.account.id === 1;
+  const isAuthenticated = store.state.account.id !== 0;
   if (to.path !== "/login" && !isAuthenticated) {
     next("/login");
   } else {
