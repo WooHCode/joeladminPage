@@ -12,9 +12,9 @@
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
           v-model="state.form.password" @keyup.enter="submit()">
       </div>
-      <br><br><br><br>
-      <button class="btn btn-lg btn-primary btn-block" @click="submit()">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+      <br><br><button class="btn btn-lg btn-primary btn-block" @click="enter()">회원가입</button><br><br>
+      <button class="btn btn-lg btn-primary btn-block" @click="submit()">로그인</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </div>
   </div>
 </template>
@@ -32,19 +32,25 @@ export default {
         password: '',
       }
     })
+    const enter = () => {
+      router.push("/enterMember");
+    }
 
     const submit = () => {
       axios.post("/api/account/login", state.form).then((res) => {
-        store.commit('setAccount', res.data);
+        console.log(res);
+        const idData = Object.keys(res.data);
+        const memberName = Object.values(res.data);
+        store.commit('setAccount', idData);
         router.push({ path: "/" });
-        alert("로그인 성공");
+        alert("환영합니다. " + memberName + "님");
       }).catch(() => {
         alert("로그인 정보가 존재하지 않습니다.");
       });
     }
 
     return {
-      state, submit
+      state, submit, enter
     }
   },
 }
