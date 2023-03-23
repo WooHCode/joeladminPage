@@ -1,8 +1,12 @@
 <template>
     <div class="modal">
         <div class="modal-content col-lg-10 col-md-10 col-sm-10">
-            <div class="row d-flex justify-content-end">
-                <span class="modal-close fa fa-times" @click="modalHide($emit, modalHide)"></span>
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <span class="modal-close">
+                        <li class="fa fa-times me-4" @click="modalHide($emit, modalHide)"></li>
+                    </span>
+                </div>
             </div>
             <h4 class="mb-3 d-flex justify-content-center">상품 정보</h4>
             <div class="needs-validation" novalidate="">
@@ -133,12 +137,18 @@ export default {
 
 .modal-close {
     position: absolute;
+    display: flex;
+    justify-content: flex-end;
     top: 10px;
-    right: 10px;
+    right: 0;
     font-size: 1.5rem;
     color: #999;
     cursor: pointer;
     transition: color 0.2s ease-in-out;
+}
+
+.modal-close li {
+    margin-left: auto;
 }
 
 .modal-close:hover {
@@ -150,6 +160,13 @@ export default {
         width: 95%;
         max-width: none;
         max-height: 95%;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-content {
+        height: 80vh;
+        margin-top: 5vh;
     }
 }
 </style>
