@@ -12,6 +12,7 @@ import EmpSave from "@/pages/EmpSave";
 import EmpDetail from "@/pages/EmpDetail";
 import { createRouter, createWebHistory } from "vue-router";
 import store from "./store";
+import Cookies from "js-cookie";
 
 const routes = [
   { path: "/", component: Home },
@@ -43,6 +44,17 @@ router.beforeEach((to, from, next) => {
   const pathInfo = to.path !== "/login" && to.path !== "/enterMember";
   if (pathInfo && !isAuthenticated) {
     next("/login");
+  } else {
+    next();
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  const isEmpPage = to.path.toLowerCase() === "/emp";
+  const memberCode = Cookies.get("memberCode");
+  const isValidated = memberCode === 0;
+  if (isEmpPage && (!memberCode || isValidated)) {
+    next(false);
   } else {
     next();
   }
