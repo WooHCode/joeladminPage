@@ -13,7 +13,7 @@
           </router-link>
         </li>
         <li class="nav-item" v-if="$store.state.account.id != 0">
-          <router-link to="/Emp" class="align-text-bottom">
+          <router-link to="/emp" class="align-text-bottom">
             <button class="sideButton">직원관리</button>
           </router-link>
         </li>

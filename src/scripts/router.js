@@ -52,8 +52,7 @@ router.beforeEach((to, from, next) => {
 router.beforeEach((to, from, next) => {
   const isEmpPage = to.path.toLowerCase() === "/emp";
   const memberCode = Cookies.get("memberCode");
-  const isValidated = memberCode === 0;
-  if (isEmpPage && (!memberCode || isValidated)) {
+  if (isEmpPage && (!memberCode || memberCode !== "0")) {
     next(false);
   } else {
     next();
