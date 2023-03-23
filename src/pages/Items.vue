@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <SidebarMenu></SidebarMenu>
+      <SidebarMenu class="sideBar"></SidebarMenu>
       <main class="col-lg-10 col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="mopen col-lg-10 col-md-10 col-sm-12" v-if="modal">
           <Itemmodal @modalHide="modal = false, load()"></Itemmodal>
@@ -518,6 +518,10 @@ export default {
 </script>
   
 <style scoped>
+.sideBar {
+  z-index: 9990;
+}
+
 .total-itemCount {
   font-size: 15px;
 }
