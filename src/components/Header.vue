@@ -4,17 +4,21 @@
       data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <router-link to="/" class="navbar-brand positoin-static center col-md-3 col-lg-2 me-0 px-3 fs-10">Joel's coffee &
-      milk</router-link>
-    <div class="navbar-nav">
-      <div class="nav-item text-nowrap">
-        <router-link to="/login" class="text-white me-3" v-if="$store.state.account.id == 0">로그인</router-link>
-        <a to="/login" class="logout text-white me-3" @click="logout()" v-else>로그아웃</a>
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div class="text-center">
+        <router-link to="/" class="navbar-brand left col-md-3 col-lg-2 me-0 px-3 fs-10">Joel's coffee &
+          milk</router-link>
+      </div>
+      <div class="text-right">
+        <div class="nav-item text-nowrap">
+          <router-link to="/login" class="text-white me-3" v-if="$store.state.account.id == 1">마이페이지</router-link>
+          <router-link to="/login" class="text-white me-3" v-if="$store.state.account.id == 0">로그인</router-link>
+          <a to="/login" class="logout text-white me-3" @click="logout()" v-else>로그아웃</a>
+        </div>
       </div>
     </div>
   </header>
 </template>
-
 <script>
 import store from '@/scripts/store';
 import axios from 'axios';
@@ -38,13 +42,38 @@ export default {
   cursor: pointer;
 }
 
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  /* 모바일 환경에서는 가운데 정렬 */
+}
+
 .nav-item {
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 50px;
+  margin-left: 10px;
   align-items: center;
   font-size: 17px;
   font-style: oblique;
+}
+
+/* 화면이 768px 이상인 웹 환경에서만 적용되는 스타일 */
+@media (min-width: 768px) {
+  .navbar-nav {
+    justify-content: flex-end;
+    /* 요소를 오른쪽으로 정렬 */
+  }
+
+  .text-md-center {
+    flex: 1;
+    /* 로고 요소를 중앙 정렬 */
+    text-align: center;
+  }
+
+  .text-right {
+    margin-left: auto;
+    /* 로그인/로그아웃 버튼 등을 오른쪽으로 정렬 */
+  }
 }
 
 .bd-placeholder-img {
