@@ -38,7 +38,6 @@ export default {
 
     const submit = () => {
       axios.post("/api/account/login", state.form).then((res) => {
-        console.log(res);
         const idData = Object.keys(res.data);
         const memberName = Object.values(res.data);
         store.commit('setAccount', idData);
