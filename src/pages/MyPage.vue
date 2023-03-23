@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-3 mb-3 me-5">
                             <label for="phone">전화번호</label>
                             <input type="tel" class="form-control" id="phone" placeholder="휴대폰번호를 입력해주세요"
                                 v-model="updateEmp.phone" required>
@@ -50,7 +50,7 @@
                                 전화번호를 입력해주세요.
                             </div>
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-3 mb-3 ms-5">
                             <label for="pay">월급</label><br />
                             <input type="hidden" class="form-control" id="code" placeholder="" v-model="updateEmp.pay"
                                 required>
@@ -61,11 +61,6 @@
                             <input type="hidden" class="form-control" id="workCount" placeholder=""
                                 v-model="updateEmp.workCount" required>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ updateEmp.workCount }}일
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="payOk">월급지급완료</label><br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success"
-                                @click="paidOk()">완료</button>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -112,13 +107,7 @@ export default {
         backPage() {
             this.$router.go(-1);
         },
-        paidOk() {
-            if (confirm("정말 월급이 지급완료되었습니까?" + "\n" + "주의) 월급기록과 출근일수가 초기화됩니다.") == true) {
-                this.updateEmp.pay = 0;
-                this.updateEmp.workCount = 0;
-            }
-        },
-        submit(empId) {
+        submit() {
             const dto = {
                 empName: this.updateEmp.name,
                 empPhone: this.updateEmp.phone,
@@ -131,7 +120,8 @@ export default {
                 empDescription: this.updateEmp.empDesc
             }
             const args = JSON.parse(JSON.stringify(dto));
-            axios.put(`api/v1/emp/update/${empId}`, args).then(() => {
+            const empId = store.state.account.id;
+            axios.put(`api/v2/emp/update/${empId}`, args).then(() => {
                 alert("직원정보가 수정되었습니다.");
                 this.$router.go(-1);
             }).catch(function (error) {
@@ -159,7 +149,6 @@ export default {
         })
         let loginMemberCode = JSON.parse(JSON.stringify(store.state.account.id));
         axios.get(`api/v4/emp/${loginMemberCode}`).then(({ data }) => {
-            console.log(data);
             state.emp = data;
             this.updateEmp = state.emp
         })
