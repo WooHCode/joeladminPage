@@ -106,7 +106,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10000;
+    z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -160,11 +160,13 @@ export default {
         width: 95%;
         max-width: none;
         max-height: 95%;
+        z-index: 9999;
     }
 }
 
 @media (min-width: 992px) {
     .modal-content {
+        z-index: 9999;
         height: 80vh;
         margin-top: 5vh;
     }

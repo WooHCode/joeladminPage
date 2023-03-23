@@ -1,59 +1,60 @@
 <template>
     <div class="modal">
-        <div class="py-5 text-center">
-        </div>
-        <div class="row g-5 h-50">
-            <div class="col-md-10 col-lg-12">
-                <div class="d-flex justify-content-end me-2 mt-5"><button class="fa fa-times"
-                        @click="modalHide($emit, modalHide)"></button></div>
-                <h4 class="mb-3">상품 정보</h4>
-                <div class="needs-validation" novalidate="">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <label for="OitemName" class="form-label-data">기존이름 : {{ upitems.name }}</label>
-                            <input type="text" class="form-control" id="itemName" placeholder="상품명"
-                                v-model="state.form.iname" required>
-                        </div>
-                        <div class="col-12">
-                            <label for="OitemPrice" class="form-label-data">기존가격 : {{ upitems.price }}원</label>
-                            <input type="number" class="form-control" id="itemPrice" placeholder="상품 가격"
-                                v-model="state.form.price">
-                        </div>
-                        <div class="col-12">
-                            <label for="OimgPath" class="form-label-data">기존이미지경로 : {{ upitems.imgPath }}</label>
-                            <input type="text" class="form-control" id="imgPath" placeholder="이미지 경로"
-                                v-model="state.form.imgPath">
-                        </div>
+        <div class="modal-content col-lg-10 col-md-10 col-sm-10">
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <span class="modal-close">
+                        <li class="fa fa-times me-4" @click="modalHide($emit, modalHide)"></li>
+                    </span>
+                </div>
+            </div>
+            <h4 class="mb-3 d-flex justify-content-center">상품 정보</h4>
+            <div class="needs-validation" novalidate="">
+                <div class="row g-3">
+                    <div class="col-lg-12 col-sm-4">
+                        <label for="itemName" class="form-label-data">기존이름 : {{ upitems.name }}</label>
+                        <input type="text" class="form-control" id="itemName" placeholder="상품명" v-model="state.form.name"
+                            required>
                     </div>
-                    <hr class="my-4">
-                    <h4 class="mb-3">상품상세정보</h4>
-                    <hr class="my-4">
-                    <label for="cc-name" class="form-label">상품 코드</label>
-                    <br />
-                    <label for="OitemCode" class="form-label-data">기존상품 코드 : {{ upitems.itemCode }}</label>
-                    <div class="my-3">
-                        <select name="itemCode" required v-model="state.form.itemCode">
-                            <option value="" disabled selected>상품선택</option>
-                            <option value="CROFFLE">CROFFLE</option>
-                            <option value="TOAST">TOAST</option>
-                            <option value="SCONE">SCONE</option>
-                            <option value="BASAK">BASAK</option>
-                            <option value="COFFEE">COFFEE</option>
-                            <option value="LATTE">LATTE</option>
-                            <option value="NON_COFFEE">NON_COFFEE</option>
-                            <option value="ONE_LITER">ONE_LITTER</option>
-                            <option value="SMOOTHIE">SMOOTHIE</option>
-                            <option value="B_TEA">B_TEA</option>
-                            <option value="ADE">ADE</option>
-                            <option value="TEA">TEA</option>
-                        </select>
-
+                    <div class="col-lg-12 col-sm-4">
+                        <label for="itemPrice" class="form-label-data">기존가격 : {{ upitems.price }}원</label>
+                        <input type="number" class="form-control" id="itemPrice" placeholder="상품 가격"
+                            v-model="state.form.price">
                     </div>
+                    <div class="col-lg-12 col-sm-4">
+                        <label for="imgPath" class="form-label-data">기존이미지경로 : {{ upitems.imgPath }}</label>
+                        <input type="text" class="form-control" id="imgPath" placeholder="이미지 경로"
+                            v-model="state.form.imgPath">
+                    </div>
+                </div>
+                <hr class="my-4">
+                <h4 class="mb-3">상품상세정보</h4>
+                <hr class="my-4">
+                <div class="form-group">
+                    <label for="itemCode" class="form-label">상품 코드</label>
+                    <select class="form-control" name="itemCode" required v-model="state.form.itemCode">
+                        <option value="" disabled selected>상품선택</option>
+                        <option value="CROFFLE">CROFFLE</option>
+                        <option value="TOAST">TOAST</option>
+                        <option value="SCONE">SCONE</option>
+                        <option value="BASAK">BASAK</option>
+                        <option value="COFFEE">COFFEE</option>
+                        <option value="LATTE">LATTE</option>
+                        <option value="NON_COFFEE">NON_COFFEE</option>
+                        <option value="ONE_LITER">ONE_LITTER</option>
+                        <option value="SMOOTHIE">SMOOTHIE</option>
+                        <option value="B_TEA">B_TEA</option>
+                        <option value="ADE">ADE</option>
+                        <option value="TEA">TEA</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="itemDes" class="form-label">상품 설명</label>
-                    <input type="text" class="form-control" id="itemDes" v-model="state.form.itemDes">
-                    <hr class="my-4">
-                    <button class="w-50 btn btn-primary btn-lg"
-                        @click="[submit(upitems.id), modalHide($emit, modalHide)]">상품
+                    <input type="text" class="form-control" id="itemDes" v-model="state.form.itemDes" required>
+                </div>
+                <hr class="my-4">
+                <div class="d-flex justify-content-center">
+                    <button class="w-50 btn btn-primary btn-lg" @click="[submit(), modalHide($emit, modalHide)]">상품
                         변경하기</button>
                 </div>
             </div>
@@ -134,26 +135,74 @@ export default {
 </script>
 
 <style scoped>
-.form-label-data {
-    opacity: 0.7;
-    color: blue;
-}
-
-select option[value=""][disabled] {
-    display: none;
-}
-
-#form-contorl {
-    margin-left: 50px;
-}
-
 .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(254, 254, 254);
+}
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    height: auto;
+    max-height: 90%;
+    overflow: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.modal-close {
     position: absolute;
     display: flex;
-    width: 45%;
-    height: 80%;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+    justify-content: flex-end;
+    top: 10px;
+    right: 0;
+    font-size: 1.5rem;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.modal-close li {
+    margin-left: auto;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+@media (max-width: 767px) {
+    .modal-content {
+        width: 95%;
+        max-width: none;
+        max-height: 95%;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-content {
+        z-index: 10000;
+        height: 80vh;
+        margin-top: 5vh;
+    }
 }
 </style>
