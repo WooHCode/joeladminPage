@@ -41,7 +41,8 @@ export default {
         console.log(res);
         const idData = Object.values(res.data[2]);
         const nameString = Object.values(res.data[1]);
-        const memberCode = Object.values(res.data[3]);
+        const parseCode = Object.values(res.data[3]);
+        const memberCode = parseInt(parseCode[0], 10);
         const memberName = nameString.join('');
         store.commit('setAccount', idData);
         store.commit('setMemberCode', memberCode);
