@@ -519,7 +519,7 @@ export default {
   
 <style scoped>
 .sideBar {
-  z-index: 9990;
+  z-index: 1000;
 }
 
 .total-itemCount {

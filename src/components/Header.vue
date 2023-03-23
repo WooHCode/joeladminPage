@@ -4,7 +4,7 @@
       data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="d-flex justify-content-between align-items-center w-100">
+    <div class="topcontent d-flex justify-content-between align-items-center w-100">
       <div class="text-center">
         <router-link to="/" class="navbar-brand left col-md-3 col-lg-2 me-0 px-3 fs-10">Joel's coffee &
           milk</router-link>
@@ -39,6 +39,10 @@ export default {
 </script>
 
 <style scoped>
+.topcontent {
+  z-index: 8000;
+}
+
 .logout {
   cursor: pointer;
 }
