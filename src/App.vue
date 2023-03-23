@@ -28,6 +28,7 @@ export default {
     window.addEventListener('unload', () => {
       axios.post("/api/account/logout").then(() => {
         store.commit('setAccount', 0);
+        store.commit('setMemberCode', 3);
         router.push({ path: "/login" });
       })
     });

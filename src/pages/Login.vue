@@ -38,9 +38,13 @@ export default {
 
     const submit = () => {
       axios.post("/api/account/login", state.form).then((res) => {
-        const idData = Object.keys(res.data);
-        const memberName = Object.values(res.data);
+        console.log(res);
+        const idData = Object.values(res.data[2]);
+        const nameString = Object.values(res.data[1]);
+        const memberCode = Object.values(res.data[3]);
+        const memberName = nameString.join('');
         store.commit('setAccount', idData);
+        store.commit('setMemberCode', memberCode);
         router.push({ path: "/" });
         alert("환영합니다. " + memberName + "님");
       }).catch(() => {
