@@ -77,7 +77,7 @@ export default {
   name: "SidebarMenu",
   computed: {
     cookieData() {
-      return Cookies.get('memberCode');
+      return Number(Cookies.get('memberCode'));
     }
   }
 }
