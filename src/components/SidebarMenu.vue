@@ -18,7 +18,7 @@
           </router-link>
         </li>
         <li class="nav-item" v-if="cookieData === 1">
-          <router-link to="/store" class="align-text-bottom">
+          <router-link to="/EmpWork" class="align-text-bottom">
             <button class="sideButton">출근관리</button>
           </router-link>
         </li>

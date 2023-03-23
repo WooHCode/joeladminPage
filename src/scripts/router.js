@@ -6,6 +6,7 @@ import Sales from "@/pages/Sales";
 import SaleSave from "@/pages/SaleSave";
 import Items from "@/pages/Items";
 import Emp from "@/pages/Emp";
+import EmpWork from "@/pages/EmpWork";
 import Client from "@/pages/Client";
 import Store from "@/pages/Store";
 import EmpSave from "@/pages/EmpSave";
@@ -23,6 +24,7 @@ const routes = [
   { path: "/saleSave", component: SaleSave },
   { path: "/items", component: Items },
   { path: "/emp", name: "Emp", component: Emp },
+  { path: "/empWork", component: EmpWork },
   { path: "/client", component: Client },
   { path: "/store", component: Store },
   { path: "/empSave", component: EmpSave },
