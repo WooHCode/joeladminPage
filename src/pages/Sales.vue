@@ -97,6 +97,7 @@ export default {
     showWeekChart() {
       axios.get("/api/v1/sales").then(({ data }) => {
         var sortData = lib.sortDataByDate(data);
+        console.log(data);
         this.chartDataW.labels = Object.keys(sortData);
         this.chartDataW.datasets[0].data = Object.values(sortData);
       })
