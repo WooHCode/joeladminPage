@@ -3,7 +3,9 @@
     <!--TODO 직원 출근 페이지 개발-->
     <div class="row">
       <SidebarMenu></SidebarMenu>
-
+      <div class="row">
+        <h3>hello</h3>
+      </div>
     </div>
   </div>
 </template>
