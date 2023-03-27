@@ -3,9 +3,9 @@
     <!--TODO 직원 출근 페이지 개발-->
     <div class="row">
       <SidebarMenu></SidebarMenu>
-      <div class="row">
+      <main class="col-lg-10 col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <h3>hello</h3>
-      </div>
+      </main>
     </div>
   </div>
 </template>
