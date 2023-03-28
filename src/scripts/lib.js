@@ -55,12 +55,29 @@ export default {
 
   getNowDate() {
     const now = new Date();
-    const year = now.getUTCFullYear();
-    const month = String(now.getUTCMonth() + 1).padStart(2, "0");
-    const day = String(now.getUTCDate()).padStart(2, "0");
-    const hour = String(now.getUTCHours()).padStart(2, "0");
-    const minute = String(now.getUTCMinutes()).padStart(2, "0");
-    const second = String(now.getUTCSeconds()).padStart(2, "0");
-    return `${year}-${month}-${day}T${hour}:${minute}:${second}Z`;
+    const formatter = new Intl.DateTimeFormat("ko-KR", {
+      timeZone: "Asia/Seoul",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    const dateParts = formatter.formatToParts(now).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    return `${dateParts.year}-${dateParts.month}-${dateParts.day}T${dateParts.hour}:${dateParts.minute}:${dateParts.second}`;
+  },
+
+  formatDate(str) {
+    const date = new Date(str);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   },
 };

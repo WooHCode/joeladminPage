@@ -9,6 +9,9 @@ const store = createStore({
       code: {
         c: 3,
       },
+      name: {
+        name: "",
+      },
     };
   },
   mutations: {
@@ -17,6 +20,9 @@ const store = createStore({
     },
     setMemberCode(state, payload) {
       state.code.c = payload;
+    },
+    setMemberName(state, payload) {
+      state.name.name = payload;
     },
   },
 });
