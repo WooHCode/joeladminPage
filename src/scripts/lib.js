@@ -55,9 +55,12 @@ export default {
 
   getNowDate() {
     const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    const year = now.getUTCFullYear();
+    const month = String(now.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(now.getUTCDate()).padStart(2, "0");
+    const hour = String(now.getUTCHours()).padStart(2, "0");
+    const minute = String(now.getUTCMinutes()).padStart(2, "0");
+    const second = String(now.getUTCSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hour}:${minute}:${second}Z`;
   },
 };
