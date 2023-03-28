@@ -94,8 +94,8 @@ export default {
       this.$router.push("SaleSave");
     },
 
-    showWeekChart() {
-      axios.get("/api/v1/sales").then(({ data }) => {
+    async showWeekChart() {
+      await axios.get("/api/v1/sales").then(({ data }) => {
         var sortData = lib.sortDataByDate(data);
         console.log(data);
         this.chartDataW.labels = Object.keys(sortData);
@@ -121,7 +121,12 @@ export default {
 
     },
 
-    showMonthChart() {
+    async showMonthChart() {
+      await axios.get(`/api/v2/sales`).then(({ data }) => {
+        var sortData = lib.sortDataByDate(data);
+        this.chartDataM.labels = Object.keys(sortData);
+        this.chartDataM.datasets[0].data = Object.values(sortData);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = true;
@@ -137,16 +142,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      axios.get(`/api/v2/sales`).then(({ data }) => {
-        var sortData = lib.sortDataByDate(data);
-        this.chartDataM.labels = Object.keys(sortData);
-        this.chartDataM.datasets[0].data = Object.values(sortData);
-      })
     },
-
-
-    showCroffle() {
+    async showCroffle() {
+      var itemCode = 'CROFFLE';
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataCroffle.labels = Object.keys(data.data);
+        this.chartDataCroffle.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -162,16 +164,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'CROFFLE';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataCroffle.labels = Object.keys(data.data);
-        this.chartDataCroffle.datasets[0].data = Object.values(data.data);
-      })
-
     },
-    showToast() {
+    async showToast() {
+      var itemCode = 'TOAST';
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataToast.labels = Object.keys(data.data);
+        this.chartDataToast.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -187,18 +186,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-
-      var itemCode = 'TOAST';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataToast.labels = Object.keys(data.data);
-        this.chartDataToast.datasets[0].data = Object.values(data.data);
-      })
-
-
     },
-    showScone() {
+    async showScone() {
+      var itemCode = 'SCONE';
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataScone.labels = Object.keys(data.data);
+        this.chartDataScone.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -214,15 +208,13 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'SCONE';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataScone.labels = Object.keys(data.data);
-        this.chartDataScone.datasets[0].data = Object.values(data.data);
-      })
     },
-    showBasak() {
+    async showBasak() {
+      var itemCode = 'BASAK';
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataBasak.labels = Object.keys(data.data);
+        this.chartDataBasak.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -238,15 +230,14 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'BASAK';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataBasak.labels = Object.keys(data.data);
-        this.chartDataBasak.datasets[0].data = Object.values(data.data);
-      })
     },
-    showCoffee() {
+    async showCoffee() {
+      var itemCode = 'COFFEE';
+
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataCoffee.labels = Object.keys(data.data);
+        this.chartDataCoffee.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -262,15 +253,14 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'COFFEE';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataCoffee.labels = Object.keys(data.data);
-        this.chartDataCoffee.datasets[0].data = Object.values(data.data);
-      })
     },
-    showLatte() {
+    async showLatte() {
+      var itemCode = 'LATTE';
+
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataLatte.labels = Object.keys(data.data);
+        this.chartDataLatte.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -286,15 +276,14 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'LATTE';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataLatte.labels = Object.keys(data.data);
-        this.chartDataLatte.datasets[0].data = Object.values(data.data);
-      })
     },
-    showNCoffee() {
+    async showNCoffee() {
+      var itemCode = 'NON_COFFEE';
+
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataNonCoffee.labels = Object.keys(data.data);
+        this.chartDataNonCoffee.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -310,15 +299,14 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'NON_COFFEE';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataNonCoffee.labels = Object.keys(data.data);
-        this.chartDataNonCoffee.datasets[0].data = Object.values(data.data);
-      })
     },
-    showOneLitter() {
+    async showOneLitter() {
+      var itemCode = 'ONE_LITTER';
+
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataOneLitter.labels = Object.keys(data.data);
+        this.chartDataOneLitter.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -334,15 +322,14 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'ONE_LITTER';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataOneLitter.labels = Object.keys(data.data);
-        this.chartDataOneLitter.datasets[0].data = Object.values(data.data);
-      })
     },
-    showSmoothie() {
+    async showSmoothie() {
+      var itemCode = 'SMOOTHIE';
+
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataSmoothie.labels = Object.keys(data.data);
+        this.chartDataSmoothie.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -358,15 +345,14 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'SMOOTHIE';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataSmoothie.labels = Object.keys(data.data);
-        this.chartDataSmoothie.datasets[0].data = Object.values(data.data);
-      })
     },
-    showBTea() {
+    async showBTea() {
+      var itemCode = 'B_TEA';
+
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataBTea.labels = Object.keys(data.data);
+        this.chartDataBTea.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -382,15 +368,14 @@ export default {
       this.bTeaData = true;
       this.adeData = false;
       this.teaData = false;
-
-      var itemCode = 'B_TEA';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataBTea.labels = Object.keys(data.data);
-        this.chartDataBTea.datasets[0].data = Object.values(data.data);
-      })
     },
-    showAde() {
+    async showAde() {
+      var itemCode = 'ADE';
+
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataAde.labels = Object.keys(data.data);
+        this.chartDataAde.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -406,15 +391,14 @@ export default {
       this.bTeaData = false;
       this.adeData = true;
       this.teaData = false;
-
-      var itemCode = 'ADE';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataAde.labels = Object.keys(data.data);
-        this.chartDataAde.datasets[0].data = Object.values(data.data);
-      })
     },
-    showTea() {
+    async showTea() {
+      var itemCode = 'TEA';
+
+      await axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
+        this.chartDataTea.labels = Object.keys(data.data);
+        this.chartDataTea.datasets[0].data = Object.values(data.data);
+      })
       this.startData = false;
       this.weekData = false;
       this.monthData = false;
@@ -430,13 +414,6 @@ export default {
       this.bTeaData = false;
       this.adeData = false;
       this.teaData = true;
-
-      var itemCode = 'TEA';
-
-      axios.get(`/api/v2/sales/${itemCode}`).then((data) => {
-        this.chartDataTea.labels = Object.keys(data.data);
-        this.chartDataTea.datasets[0].data = Object.values(data.data);
-      })
     }
   },
 
