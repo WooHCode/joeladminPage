@@ -38,7 +38,10 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="addEmp()">출근하기</button>
+                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="workStart()"
+                    v-if="isWorked == false">출근하기</button>
+                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="workFinish()"
+                    v-if="isWorked == true">퇴근하기</button>
                 </div>
               </div>
               <div>
@@ -58,14 +61,17 @@ import { reactive } from '@vue/reactivity';
 import lib from '@/scripts/lib'
 export default {
   methods: {
-    addEmp() {
-      this.$router.push("EmpSave");
+    workStart() {
+      this.isWorked = true;
+    },
+    workFinish() {
+      this.isWorked = false;
     },
   },
   components: { SidebarMenu },
   data() {
     return {
-
+      isWorked: false,
     };
   },
   setup() {
