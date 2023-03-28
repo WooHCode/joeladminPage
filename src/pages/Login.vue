@@ -45,6 +45,7 @@ export default {
         const memberName = nameString.join('');
         store.commit('setAccount', idData);
         store.commit('setMemberCode', memberCode);
+        store.commit('setMemberName', memberName);
         router.push({ path: "/" });
         alert("환영합니다. " + memberName + "님");
       }).catch(() => {

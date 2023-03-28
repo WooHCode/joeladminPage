@@ -15,21 +15,19 @@
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
+                        <div class="d-flex justify-content-end"><small>{{ "이번달 출근횟수: " + workCount + "회" }}</small>
+                        </div>
                         <table class="table table-hover table-striped">
                           <thead>
+                            <th class="tb-title"> # </th>
                             <th class="tb-title">이름</th>
-                            <th class="tb-title">월급</th>
-                            <th class="tb-title">이번달 출근횟수</th>
                             <th class="tb-title">출근날짜</th>
                           </thead>
                           <tbody>
-                            <tr class="">
-                              <td class="tb-context"></td>
-                              <td class="tb-context"></td>
-                              <td class="tb-context"></td>
-                              <td class="tb-context"></td>
-                              <td class="tb-context"></td>
-                              <td class="tb-context"></td>
+                            <tr class="" v-for="(i, idx) in emp" :key="i">
+                              <td class="tb-context">{{ idx + 1 }}</td>
+                              <td class="tb-context">{{ i.empName }}</td>
+                              <td class="tb-context">{{ lib.formatDate(i.workDate) }}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -57,50 +55,69 @@
 <script>
 import SidebarMenu from '@/components/SidebarMenu.vue';
 import axios from 'axios';
-import { reactive } from '@vue/reactivity';
 import lib from '@/scripts/lib'
+import store from '@/scripts/store';
 export default {
   methods: {
     workStart() {
-      this.isWorked = true;
+      const empId = JSON.parse(JSON.stringify(store.state.account.id));
+      axios.post(`api/v3/emp/work/${empId}`).then((res) => {
+        this.attId = res.data;
+        this.isWorked = true;
+        const nowdate = lib.getNowDate();
+        const now = lib.formatDate(nowdate);
+        const memberName = store.state.name.name;
+        alert(memberName + "님, " + now + "출근하셨습니다.");
+        this.loading();
+      }).catch((err) => {
+        alert(err);
+      })
+
     },
     workFinish() {
-      this.isWorked = false;
+      const empId = JSON.parse(JSON.stringify(store.state.account.id));
+      axios.patch(`api/v3/emp/work/${empId}`, {
+        attId: this.attId,
+      }).then(() => {
+        this.isWorked = false;
+        const nowdate = lib.getNowDate();
+        const now = lib.formatDate(nowdate);
+        const memberName = store.state.name.name;
+        alert(memberName + "님, " + now + "퇴근하셨습니다.");
+        this.loading();
+      }).catch((err) => {
+        alert(err);
+      })
+    },
+    async loading() {
+      const loginId = JSON.parse(JSON.stringify(store.state.account.id));
+      const res = await axios.get(`/api/v5/emp/${loginId}`);
+      this.emp = res.data;
+      this.workCount = res.data[0].workCount;
     },
   },
   components: { SidebarMenu },
   data() {
     return {
       isWorked: false,
+      attId: 0,
+      emp: [],
+      workCount: 0,
     };
   },
-  setup() {
-    const state = reactive({
-      emp: [],
-      count: [],
-    })
-    const load = () => {
-      axios.get("/api/v3/emp/total", {
-        params: {
-          size: 5
-        }
-      }).then((res) => {
-        console.log(res);
-        state.count = res.data
-      })
-
-      axios.get(`/api/v3/emp`, {
-        params: {
-          page: 0,
-          size: 5
-        }
-      }).then(({ data }) => {
-        state.emp = data;
-      })
-    }
-    load();
-    return { state, lib, load }
+  created() {
+    const load = async () => {
+      const loginId = JSON.parse(JSON.stringify(store.state.account.id));
+      const res = await axios.get(`/api/v5/emp/${loginId}`);
+      this.emp = res.data;
+      this.workCount = res.data[0].workCount;
+    };
+    load(); // load() 함수를 호출할 때 await를 사용해줍니다.
+    return { load };
   },
+  setup() {
+    return { lib };
+  }
 };
 </script>
 <style scoped>

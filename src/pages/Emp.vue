@@ -361,6 +361,7 @@ export default {
           size: 5
         }
       }).then(({ data }) => {
+        console.log(data);
         state.emp = data;
       })
     }
