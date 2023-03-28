@@ -1,10 +1,51 @@
 <template>
   <div class="container-fluid">
-    <!--TODO 직원 출근 페이지 개발-->
     <div class="row">
       <SidebarMenu></SidebarMenu>
       <main class="col-lg-10 col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <h3>hello</h3>
+        <div
+          class="d-flex col-lg-12 justify-content-center flex-wrap flex-md-nowrap align-items-center pt-6 pb-6 mb-6 border-bottom">
+          <div class="py-5 bg-light">
+            <div class="container">
+              <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
+                <div class="tableBox col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h1 class="card-title d-flex justify-content-center">출근현황</h1>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                          <thead>
+                            <th class="tb-title">이름</th>
+                            <th class="tb-title">월급</th>
+                            <th class="tb-title">이번달 출근횟수</th>
+                            <th class="tb-title">출근날짜</th>
+                          </thead>
+                          <tbody>
+                            <tr class="">
+                              <td class="tb-context"></td>
+                              <td class="tb-context"></td>
+                              <td class="tb-context"></td>
+                              <td class="tb-context"></td>
+                              <td class="tb-context"></td>
+                              <td class="tb-context"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="addEmp()">출근하기</button>
+                </div>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   </div>
@@ -20,232 +61,11 @@ export default {
     addEmp() {
       this.$router.push("EmpSave");
     },
-    searchingEmp(empData) {
-      let searchData = lib.getSearchEmpData(empData);
-      if (searchData != 'M' && searchData != 'W') {
-        axios.get(`api/v2/emp/search`, {
-          params: {
-            empName: searchData,
-            page: 0,
-            size: 5
-          }
-        }).then(({ data }) => {
-          this.currentPageNum = 0;
-          this.searchSuccess = true;
-          this.searchResult = data.content;
-          this.searchingName = searchData;
-          this.searchingMaxPage = data.totalPages;
-          this.searchingTotalElements = data.totalElements;
-        }).catch(function (err) {
-          alert("이름 혹은 성별로 검색해주세요!");
-          console.log(err)
-        })
-      } else {
-        axios.get(`/api/v1/emp/search`, {
-          params: {
-            empGender: searchData,
-            page: 0,
-            size: 5
-          }
-        }).then(({ data }) => {
-          this.currentPageNum = 0;
-          this.searchSuccess = true;
-          this.searchResult = data.content;
-          this.searchingName = searchData;
-          this.searchingMaxPage = data.totalPages;
-          this.searchingTotalElements = data.totalElements;
-        }).catch(function (err) {
-          alert("이름 혹은 성별로 검색해주세요!");
-          console.log(err)
-        })
-      }
-    },
-    searchPrevPage(pageNum) {
-      let searchPageNum = pageNum - 1;
-      let searchingName = lib.getSearchEmpData(this.searchingName);
-
-      if (searchPageNum <= 0) {
-        alert("첫번째 페이지입니다.")
-      } else {
-        if (searchingName != 'M' && searchingName != 'W') {
-          axios.get(`/api/v2/emp/search`, {
-            params: {
-              empName: searchingName,
-              page: searchPageNum,
-              size: 5
-            }
-          }).then(({ data }) => {
-            this.currentPageNum = searchPageNum;
-            this.searchSuccess = true;
-            this.searchResult = data.content;
-            this.searchingName = searchingName;
-          }).catch(function (err) {
-            alert("이름 혹은 성별로 검색해주세요!");
-            console.log(err)
-          })
-        } else {
-          axios.get(`/api/v1/emp/search`, {
-            params: {
-              empGender: searchingName,
-              page: searchPageNum,
-              size: 5
-            }
-          }).then(({ data }) => {
-            this.currentPageNum = searchPageNum;
-            this.searchSuccess = true;
-            this.searchResult = data.content;
-            this.searchingName = searchingName;
-          }).catch(function (err) {
-            alert("이름 혹은 성별로 검색해주세요!");
-            console.log(err)
-          })
-        }
-      }
-    },
-    searchChangePages(pageNum) {
-      let searchPageNum = pageNum - 1;
-      let searchingName = lib.getSearchEmpData(this.searchingName);
-
-      if (searchingName != 'M' && searchingName != 'W') {
-        axios.get(`/api/v2/emp/search`, {
-          params: {
-            empName: searchingName,
-            page: searchPageNum,
-            size: 5
-          }
-        }).then(({ data }) => {
-          this.currentPageNum = searchPageNum;
-          this.searchSuccess = true;
-          this.searchResult = data.content;
-          this.searchingName = searchingName;
-        }).catch(function (err) {
-          alert("이름 혹은 성별로 검색해주세요!");
-          console.log(err)
-        })
-      } else {
-        axios.get(`/api/v1/emp/search`, {
-          params: {
-            empGender: searchingName,
-            page: searchPageNum,
-            size: 5
-          }
-        }).then(({ data }) => {
-          this.currentPageNum = searchPageNum;
-          this.searchSuccess = true;
-          this.searchResult = data.content;
-          this.searchingName = searchingName;
-        }).catch(function (err) {
-          alert("이름 혹은 성별로 검색해주세요!");
-          console.log(err)
-        })
-      }
-    },
-    searchNextPage(pageNum) {
-      let searchPageNum = pageNum + 1;
-      let searchingName = lib.getSearchEmpData(this.searchingName);
-
-      if (searchPageNum >= this.searchingMaxPage) {
-        alert("마지막 페이지입니다.")
-      } else {
-        if (searchingName != 'M' && searchingName != 'W') {
-          axios.get(`/api/v2/emp/search`, {
-            params: {
-              empName: searchingName,
-              page: searchPageNum,
-              size: 5
-            }
-          }).then(({ data }) => {
-            this.currentPageNum = searchPageNum;
-            this.searchSuccess = true;
-            this.searchResult = data.content;
-            this.searchingName = searchingName;
-          }).catch(function (err) {
-            alert("이름 혹은 성별로 검색해주세요!");
-            console.log(err)
-          })
-        } else {
-          axios.get(`/api/v1/emp/search`, {
-            params: {
-              empGender: searchingName,
-              page: searchPageNum,
-              size: 5
-            }
-          }).then(({ data }) => {
-            this.currentPageNum = searchPageNum;
-            this.searchSuccess = true;
-            this.searchResult = data.content;
-            this.searchingName = searchingName;
-          }).catch(function (err) {
-            alert("이름 혹은 성별로 검색해주세요!");
-            console.log(err)
-          })
-        }
-      }
-    },
-    empDetail(requestName) {
-      this.$router.push({
-        name: "EmpDetail",
-        params: { name: requestName }
-      })
-    },
-    changePages(pageNum) {
-      axios.get(`/api/v3/emp`, {
-        params: {
-          page: pageNum - 1,
-          size: 5
-        }
-      }).then(({ data }) => {
-        this.state.emp = data;
-        this.currentPageNum = pageNum - 1;
-      })
-    },
-    nextPage(num) {
-      var nextPNum = num + 1;
-      axios.get(`/api/v3/emp`, {
-        params: {
-          page: nextPNum,
-          size: 5
-        }
-      }).then(({ data }) => {
-        this.state.emp = data;
-        this.currentPageNum = nextPNum;
-      })
-      if (this.state.count[0] < nextPNum + 1) {
-        alert("마지막 페이지입니다.")
-        this.prevPage(this.state.count[0])
-      }
-    },
-    prevPage(num) {
-      var nextPNum = num - 1;
-      if (nextPNum < 0) {
-        alert("첫번째 페이지입니다.")
-        nextPNum = 0;
-      } else {
-        axios.get(`/api/v3/emp`, {
-          params: {
-            page: nextPNum,
-            size: 5
-          }
-        }).then(({ data }) => {
-          this.state.emp = data;
-          this.currentPageNum = nextPNum;
-        })
-      }
-    },
   },
   components: { SidebarMenu },
   data() {
     return {
-      isModalViewed: false,
-      pageCount: 0,
-      empList: [],
-      currentPageNum: 0,
-      searchingName: '',
-      searchingData: '',
-      searchingMaxPage: 0,
-      searchingTotalElements: 0,
-      searchSuccess: false,
-      searchResult: [],
+
     };
   },
   setup() {
