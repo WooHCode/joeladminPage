@@ -27,11 +27,11 @@
             <button class="sideButton">고객관리</button>
           </router-link>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link to="/Store" class="align-text-bottom">
             <button class="sideButton">매장관리</button>
           </router-link>
-        </li>
+        </li> -->
       </ul>
 
       <h6
