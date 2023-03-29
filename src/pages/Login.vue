@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { reactive } from '@vue/reactivity'
 import store from '@/scripts/store'
 import router from '@/scripts/router'
+import api from '@/scripts/api'
 export default {
   setup() {
     const state = reactive({
@@ -37,7 +37,7 @@ export default {
     }
 
     const submit = () => {
-      axios.post("/api/account/login", state.form).then((res) => {
+      api.post("/api/account/login", state.form).then((res) => {
         const idData = Object.values(res.data[2]);
         const nameString = Object.values(res.data[1]);
         const parseCode = Object.values(res.data[3]);

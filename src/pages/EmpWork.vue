@@ -54,14 +54,14 @@
 
 <script>
 import SidebarMenu from '@/components/SidebarMenu.vue';
-import axios from 'axios';
+import api from '@/scripts/api'
 import lib from '@/scripts/lib'
 import store from '@/scripts/store';
 export default {
   methods: {
     workStart() {
       const empId = JSON.parse(JSON.stringify(store.state.account.id));
-      axios.post(`api/v3/emp/work/${empId}`).then((res) => {
+      api.post(`api/v3/emp/work/${empId}`).then((res) => {
         this.attId = res.data;
         this.isWorked = true;
         const nowdate = lib.getNowDate();
@@ -76,7 +76,7 @@ export default {
     },
     workFinish() {
       const empId = JSON.parse(JSON.stringify(store.state.account.id));
-      axios.patch(`api/v3/emp/work/${empId}`, {
+      api.patch(`api/v3/emp/work/${empId}`, {
         attId: this.attId,
       }).then(() => {
         this.isWorked = false;
@@ -91,7 +91,7 @@ export default {
     },
     async loading() {
       const loginId = JSON.parse(JSON.stringify(store.state.account.id));
-      const res = await axios.get(`/api/v5/emp/${loginId}`);
+      const res = await api.get(`/api/v5/emp/${loginId}`);
       this.emp = res.data;
       this.workCount = res.data[0].workCount;
     },
@@ -108,7 +108,7 @@ export default {
   created() {
     const load = async () => {
       const loginId = JSON.parse(JSON.stringify(store.state.account.id));
-      const res = await axios.get(`/api/v5/emp/${loginId}`);
+      const res = await api.get(`/api/v5/emp/${loginId}`);
       this.emp = res.data;
       this.workCount = res.data[0].workCount;
     };

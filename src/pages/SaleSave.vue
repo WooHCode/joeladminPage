@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/scripts/api'
 import lib from '@/scripts/lib';
 
 export default {
@@ -68,7 +68,7 @@ export default {
             if (confirm('정말로 전송하시겠습니까?') == true) {
                 const sendData = this.submitData;
 
-                axios.post('/api/v1/sales', sendData).then(() => {
+                api.post('/api/v1/sales', sendData).then(() => {
                     alert("매출등록이 완료되었습니다.");
                     this.showSaleItemName = [];
                     this.showSaleItemValue = [];
@@ -130,7 +130,7 @@ export default {
     },
     created() {
         let items = [];
-        axios.get("/api/v1/saleItems").then((res) => {
+        api.get("/api/v1/saleItems").then((res) => {
             items = res.data;
             this.totalItems = items;
             // JSON 데이터 파싱하여 배열에 저장

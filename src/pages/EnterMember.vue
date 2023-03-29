@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/scripts/api'
 import router from '@/scripts/router';
 
 export default {
@@ -108,7 +108,7 @@ export default {
         submit() {
             const empDto = this.postData.EmpDto;
             const loginInfoDto = this.postData.LoginInfoDto;
-            axios.post(`/api/v2/emp/save`, {
+            api.post(`/api/v2/emp/save`, {
                 empDto: empDto,
                 loginInfoDto: loginInfoDto
             }).then(() => {

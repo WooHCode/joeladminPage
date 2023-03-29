@@ -32,7 +32,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import axios from 'axios'
+import api from '@/scripts/api'
 
 export default {
     name: "Itemlist",
@@ -44,7 +44,7 @@ export default {
             items: [],
         })
 
-        axios.get("/api/v1/items").then(({ data }) => {
+        api.get("/api/v1/items").then(({ data }) => {
             state.items = [];
 
             for (let d of data) {

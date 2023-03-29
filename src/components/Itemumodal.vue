@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/scripts/api'
 import { reactive } from '@vue/reactivity';
 export default {
     name: "Itemumodal",
@@ -85,7 +85,7 @@ export default {
                 const args = JSON.parse(JSON.stringify(form));
 
 
-                axios.post(`/api/v1/items/${pathId}`, args,).then(() => {
+                api.post(`/api/v1/items/${pathId}`, args,).then(() => {
                     alert("상품이 수정되었습니다.");
                 })
                     .catch(function (error) {
@@ -123,7 +123,7 @@ export default {
         const ustate = reactive({
             uitems: [],
         })
-        axios.get(`/api/v2/items/${this.itemName}`).then(({ data }) => {
+        api.get(`/api/v2/items/${this.itemName}`).then(({ data }) => {
             ustate.uitems = data;
             this.upitems = ustate.uitems;
             console.log(ustate.uitems);

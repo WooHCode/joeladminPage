@@ -104,7 +104,7 @@
 
 <script>
 import SidebarMenu from '@/components/SidebarMenu.vue';
-import axios from 'axios';
+import api from '@/scripts/api'
 import { reactive } from '@vue/reactivity';
 import lib from '@/scripts/lib'
 export default {
@@ -115,7 +115,7 @@ export default {
     searchingEmp(empData) {
       let searchData = lib.getSearchEmpData(empData);
       if (searchData != 'M' && searchData != 'W') {
-        axios.get(`api/v2/emp/search`, {
+        api.get(`api/v2/emp/search`, {
           params: {
             empName: searchData,
             page: 0,
@@ -133,7 +133,7 @@ export default {
           console.log(err)
         })
       } else {
-        axios.get(`/api/v1/emp/search`, {
+        api.get(`/api/v1/emp/search`, {
           params: {
             empGender: searchData,
             page: 0,
@@ -160,7 +160,7 @@ export default {
         alert("첫번째 페이지입니다.")
       } else {
         if (searchingName != 'M' && searchingName != 'W') {
-          axios.get(`/api/v2/emp/search`, {
+          api.get(`/api/v2/emp/search`, {
             params: {
               empName: searchingName,
               page: searchPageNum,
@@ -176,7 +176,7 @@ export default {
             console.log(err)
           })
         } else {
-          axios.get(`/api/v1/emp/search`, {
+          api.get(`/api/v1/emp/search`, {
             params: {
               empGender: searchingName,
               page: searchPageNum,
@@ -199,7 +199,7 @@ export default {
       let searchingName = lib.getSearchEmpData(this.searchingName);
 
       if (searchingName != 'M' && searchingName != 'W') {
-        axios.get(`/api/v2/emp/search`, {
+        api.get(`/api/v2/emp/search`, {
           params: {
             empName: searchingName,
             page: searchPageNum,
@@ -215,7 +215,7 @@ export default {
           console.log(err)
         })
       } else {
-        axios.get(`/api/v1/emp/search`, {
+        api.get(`/api/v1/emp/search`, {
           params: {
             empGender: searchingName,
             page: searchPageNum,
@@ -240,7 +240,7 @@ export default {
         alert("마지막 페이지입니다.")
       } else {
         if (searchingName != 'M' && searchingName != 'W') {
-          axios.get(`/api/v2/emp/search`, {
+          api.get(`/api/v2/emp/search`, {
             params: {
               empName: searchingName,
               page: searchPageNum,
@@ -256,7 +256,7 @@ export default {
             console.log(err)
           })
         } else {
-          axios.get(`/api/v1/emp/search`, {
+          api.get(`/api/v1/emp/search`, {
             params: {
               empGender: searchingName,
               page: searchPageNum,
@@ -281,7 +281,7 @@ export default {
       })
     },
     changePages(pageNum) {
-      axios.get(`/api/v3/emp`, {
+      api.get(`/api/v3/emp`, {
         params: {
           page: pageNum - 1,
           size: 5
@@ -293,7 +293,7 @@ export default {
     },
     nextPage(num) {
       var nextPNum = num + 1;
-      axios.get(`/api/v3/emp`, {
+      api.get(`/api/v3/emp`, {
         params: {
           page: nextPNum,
           size: 5
@@ -313,7 +313,7 @@ export default {
         alert("첫번째 페이지입니다.")
         nextPNum = 0;
       } else {
-        axios.get(`/api/v3/emp`, {
+        api.get(`/api/v3/emp`, {
           params: {
             page: nextPNum,
             size: 5
@@ -346,7 +346,7 @@ export default {
       count: [],
     })
     const load = () => {
-      axios.get("/api/v3/emp/total", {
+      api.get("/api/v3/emp/total", {
         params: {
           size: 5
         }
@@ -355,7 +355,7 @@ export default {
         state.count = res.data
       })
 
-      axios.get(`/api/v3/emp`, {
+      api.get(`/api/v3/emp`, {
         params: {
           page: 0,
           size: 5

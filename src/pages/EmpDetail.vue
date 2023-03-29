@@ -18,8 +18,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="age">나이(세)</label>
-                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" required
-                                v-model="updateEmp.age">
+                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" required v-model="updateEmp.age">
                                 <option v-for="i in 100 " :key="i">{{ i }}</option>
                             </select>
                             <div class="invalid-feedback">
@@ -29,15 +28,14 @@
                         <div class="col-md-4 mb-3">
                             <label for="nickname">성별</label>&nbsp;&nbsp;&nbsp;&nbsp;남성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성
                             <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="genderM" name="empGenders"
-                                v-model="updateGender" value="M" v-if="updateEmp.gender == 'M'" checked required>&nbsp;
-                            <input type="radio" class="genderCheck" id="genderM" name="empGenders"
-                                v-model="updateGender" value="M" v-if="updateEmp.gender == 'W'"
-                                required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="genderCheck" id="genderW" name="empGenders"
-                                v-model="updateGender" value="W" v-if="updateEmp.gender == 'M'" required>
-                            <input type="radio" class="genderCheck" id="genderW" name="empGenders"
-                                v-model="updateGender" value="W" v-if="updateEmp.gender == 'W'" checked required>&nbsp;
+                            <input type="radio" class="genderCheck" id="genderM" name="empGenders" v-model="updateGender"
+                                value="M" v-if="updateEmp.gender == 'M'" checked required>&nbsp;
+                            <input type="radio" class="genderCheck" id="genderM" name="empGenders" v-model="updateGender"
+                                value="M" v-if="updateEmp.gender == 'W'" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="genderCheck" id="genderW" name="empGenders" v-model="updateGender"
+                                value="W" v-if="updateEmp.gender == 'M'" required>
+                            <input type="radio" class="genderCheck" id="genderW" name="empGenders" v-model="updateGender"
+                                value="W" v-if="updateEmp.gender == 'W'" checked required>&nbsp;
                             <div class="invalid-feedback">
                                 성별을 체크해주세요.
                             </div>
@@ -80,8 +78,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="workDate">최근 출근일</label><br />
-                        <input type="hidden" class="form-control" id="workDate" placeholder=""
-                            v-model="updateEmp.workDate" required readonly="true">
+                        <input type="hidden" class="form-control" id="workDate" placeholder="" v-model="updateEmp.workDate"
+                            required readonly="true">
                         {{ lib.getDateFormatted(updateEmp.workDate) }}
                     </div>
                     <div class="mb-3">
@@ -105,7 +103,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import axios from 'axios'
+import api from '@/scripts/api'
 import lib from '@/scripts/lib'
 export default {
     name: "EmpDetail",
@@ -132,7 +130,7 @@ export default {
                 empDescription: this.updateEmp.empDesc
             }
             const args = JSON.parse(JSON.stringify(dto));
-            axios.put(`api/v1/emp/update/${empId}`, args).then(() => {
+            api.put(`api/v1/emp/update/${empId}`, args).then(() => {
                 alert("직원정보가 수정되었습니다.");
                 this.$router.go(-1);
             }).catch(function (error) {
@@ -159,7 +157,7 @@ export default {
             emp: [],
         })
         let searchName = JSON.parse(JSON.stringify(this.searchingName));
-        axios.get(`api/v1/emp/${searchName}`).then(({ data }) => {
+        api.get(`api/v1/emp/${searchName}`).then(({ data }) => {
             state.emp = data;
             this.updateEmp = state.emp
         })

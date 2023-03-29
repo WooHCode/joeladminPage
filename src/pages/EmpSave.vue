@@ -18,8 +18,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="age">나이(세)</label>
-                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" v-model="postData.age"
-                                required>
+                            <select class="form-control" id="age" placeholder="나이를 선택해주세요" v-model="postData.age" required>
                                 <option value="null" selected disabled>나이를 선택하세요</option>
                                 <option v-for="i in 100" :key="i">{{ i }}</option>
                             </select>
@@ -66,8 +65,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="workDate">입사일</label><br />
-                        <input type="date" class="form-control" id="workDate" placeholder=""
-                            v-model="postData.enterDate" required>
+                        <input type="date" class="form-control" id="workDate" placeholder="" v-model="postData.enterDate"
+                            required>
 
                     </div>
                     <div class="mb-3">
@@ -89,7 +88,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/scripts/api'
 
 export default {
     name: "EmpDetail",
@@ -99,7 +98,7 @@ export default {
         },
         submit() {
             const args = JSON.parse(JSON.stringify(this.postData))
-            axios.post(`/api/v1/emp/save`, args).then(() => {
+            api.post(`/api/v1/emp/save`, args).then(() => {
                 alert(this.postData.name + "님, 직원이 등록되었습니다.")
             }).catch(function (error) {
                 alert(error + "\n" + "직원 정보를 다시 입력해주세요");

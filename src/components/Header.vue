@@ -21,13 +21,13 @@
 </template>
 <script>
 import store from '@/scripts/store';
-import axios from 'axios';
+import api from '@/scripts/api'
 import router from '@/scripts/router';
 export default {
   name: "Header",
   setup() {
     const logout = () => {
-      axios.post("/api/account/logout").then(() => {
+      api.post("/api/account/logout").then(() => {
         store.commit('setAccount', 0);
         router.push({ path: "/login" });
       })

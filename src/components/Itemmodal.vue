@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/scripts/api'
 import { reactive } from '@vue/reactivity';
 export default {
     name: "Itemmodal",
@@ -87,7 +87,7 @@ export default {
                 const args = JSON.parse(JSON.stringify(state.form));
                 args.items = JSON.stringify(state.items);
 
-                axios.post("/api/v1/items", args).then(() => {
+                api.post("/api/v1/items", args).then(() => {
                     alert("상품이 추가되었습니다.");
                 })
                     .catch(function (error) {

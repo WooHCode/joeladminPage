@@ -107,7 +107,7 @@
 </template>
   
 <script>
-import axios from "axios"
+import api from '@/scripts/api'
 import { reactive } from '@vue/reactivity'
 import SidebarMenu from "@/components/SidebarMenu.vue"
 import Itemmodal from '@/components/Itemmodal.vue'
@@ -125,7 +125,7 @@ export default {
     },
     remove(itemId) {
       if (this.reallyRemove == true) {
-        axios.delete(`/api/v1/items/${itemId}`,).then(() => {
+        api.delete(`/api/v1/items/${itemId}`,).then(() => {
           alert("상품이 1건 삭제되었습니다.")
           this.load();
         })
@@ -134,7 +134,7 @@ export default {
     },
     searchingByItemCode(searchingItemCode) {
       const itemCode = searchingItemCode;
-      axios.get(`/api/v4/items/${itemCode}`,
+      api.get(`/api/v4/items/${itemCode}`,
         {
           params: {
             page: 0,
@@ -167,7 +167,7 @@ export default {
       if (pageNumber < 0) {
         alert("첫번째 페이지입니다.")
       } else {
-        axios.get(`/api/v4/items/${itemCode}`,
+        api.get(`/api/v4/items/${itemCode}`,
           {
             params: {
               page: pageNumber,
@@ -197,7 +197,7 @@ export default {
     searchMovePageIC(searchingItemName, pageNum) {
       var pageNumber = pageNum - 1;
       var itemCode = searchingItemName;
-      axios.get(`/api/v4/items/${itemCode}`,
+      api.get(`/api/v4/items/${itemCode}`,
         {
           params: {
             page: pageNumber,
@@ -230,7 +230,7 @@ export default {
       if (pageNumber >= this.totalPageCount) {
         alert("마지막 페이지입니다.")
       } else {
-        axios.get(`/api/v4/items/${itemCode}`,
+        api.get(`/api/v4/items/${itemCode}`,
           {
             params: {
               page: pageNumber,
@@ -265,7 +265,7 @@ export default {
         this.searchingItemCodeTrue = true;
       } else {
         const pname = JSON.parse(JSON.stringify(searchingItemName))
-        axios.get("/api/v3/search",
+        api.get("/api/v3/search",
           {
             params: {
               likeName: pname,
@@ -302,7 +302,7 @@ export default {
         if (pageNumber < 0) {
           alert("첫번째 페이지입니다.")
         } else {
-          axios.get("/api/v3/search",
+          api.get("/api/v3/search",
             {
               params: {
                 likeName: this.searchingItemName,
@@ -336,7 +336,7 @@ export default {
         this.searchingItemCodeTrue = true;
       } else {
         var pageNumber = pageNum - 1;
-        axios.get("/api/v3/search",
+        api.get("/api/v3/search",
           {
             params: {
               likeName: this.searchingItemName,
@@ -372,7 +372,7 @@ export default {
         if (pageNumber >= this.totalPageCount) {
           alert("마지막 페이지입니다.")
         } else {
-          axios.get("/api/v3/search",
+          api.get("/api/v3/search",
             {
               params: {
                 likeName: this.searchingItemName,
@@ -405,7 +405,7 @@ export default {
       this.reallyRemove = retrunValue;
     },
     movePage(pNum) {
-      axios.get(`/api/v3/items`, {
+      api.get(`/api/v3/items`, {
         params: {
           page: pNum - 1,
           size: 5
@@ -422,7 +422,7 @@ export default {
         alert("첫번째 페이지 입니다.");
         nextPNum = 0;
       } else {
-        axios.get(`/api/v3/items`, {
+        api.get(`/api/v3/items`, {
           params: {
             page: nextPNum,
             size: 5
@@ -439,7 +439,7 @@ export default {
       if (nextPNum >= this.state.pageCounts[0]) {
         alert("마지막 페이지입니다.");
       } else {
-        axios.get(`/api/v3/items`, {
+        api.get(`/api/v3/items`, {
           params: {
             page: nextPNum,
             size: 5
@@ -494,7 +494,7 @@ export default {
     })
 
     const load = () => {
-      axios.get("/api/v3/items/count", {
+      api.get("/api/v3/items/count", {
         params: {
           size: 5
         }
@@ -502,7 +502,7 @@ export default {
         state.pageCounts = res.data
       })
 
-      axios.get("/api/v3/items", {
+      api.get("/api/v3/items", {
         params: {
           page: 0,
           size: 5

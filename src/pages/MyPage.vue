@@ -98,7 +98,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import axios from 'axios'
+import api from '@/scripts/api'
 import lib from '@/scripts/lib'
 import store from '@/scripts/store'
 export default {
@@ -121,7 +121,7 @@ export default {
             }
             const args = JSON.parse(JSON.stringify(dto));
             const empId = store.state.account.id;
-            axios.put(`api/v2/emp/update/${empId}`, args).then(() => {
+            api.put(`api/v2/emp/update/${empId}`, args).then(() => {
                 alert("직원정보가 수정되었습니다.");
                 this.$router.go(-1);
             }).catch(function (error) {
@@ -148,7 +148,7 @@ export default {
             emp: [],
         })
         let loginMemberCode = JSON.parse(JSON.stringify(store.state.account.id));
-        axios.get(`api/v4/emp/${loginMemberCode}`).then(({ data }) => {
+        api.get(`api/v4/emp/${loginMemberCode}`).then(({ data }) => {
             state.emp = data;
             this.updateEmp = state.emp
         })

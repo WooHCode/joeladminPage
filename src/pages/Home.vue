@@ -20,7 +20,7 @@
 
 <script>
 import SidebarMenu from '@/components/SidebarMenu.vue'
-import axios from 'axios'
+import api from '@/scripts/api'
 import { Line } from 'vue-chartjs'
 
 export default {
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     async load() {
-      const res = await axios.get(`/api/v2/sales`);
+      const res = await api.get(`/api/v2/sales`);
       this.chartDataM.labels = Object.keys(res.data);
       this.chartDataM.datasets[0].data = Object.values(res.data);
     },
