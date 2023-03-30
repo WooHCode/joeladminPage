@@ -11,9 +11,10 @@
       </div>
       <div class="text-right">
         <div class="nav-item text-nowrap">
-          <router-link to="/myPage" class="text-white me-3" v-if="$store.state.account.id != 0">마이페이지</router-link>
-          <router-link to="/login" class="text-white me-3" v-if="$store.state.account.id == 0">로그인</router-link>
-          <a to="/login" class="logout text-white me-3" @click="logout()" v-else>로그아웃</a>
+          <router-link to="/myPage" class="text-white me-3" v-if="islogin !== 0 && islogin !== null">마이페이지</router-link>
+          <router-link to="/login" class="text-white me-3" v-if="islogin === 0 || islogin === null">로그인</router-link>
+          <a to="/login" class="logout text-white me-3" @click="logout()"
+            v-if="islogin !== 0 && islogin !== null">로그아웃</a>
         </div>
       </div>
     </div>
@@ -23,18 +24,37 @@
 import store from '@/scripts/store';
 import api from '@/scripts/api'
 import router from '@/scripts/router';
+import Cookies from "js-cookie";
 export default {
   name: "Header",
-  setup() {
-    const logout = () => {
+  data() {
+    return {
+      islogin: sessionStorage.getItem("id"),
+    }
+  },
+  watch: {
+    islogin(newVal) {
+      this.islogin = newVal;
+    }
+  },
+  methods: {
+    logout() {
       api.post("/api/account/logout").then(() => {
         store.commit('setAccount', 0);
+        sessionStorage.removeItem("id");
+        sessionStorage.removeItem("code");
+        Cookies.remove("token");
+        Cookies.remove("memberCode");
+
+        this.islogin = null;
+
         router.push({ path: "/login" });
       })
     }
-
-    return { logout };
-  }
+  },
+  created() {
+    console.log(sessionStorage.getItem("id"))
+  },
 }
 </script>
 

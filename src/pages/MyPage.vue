@@ -147,7 +147,7 @@ export default {
         const state = reactive({
             emp: [],
         })
-        let loginMemberCode = JSON.parse(JSON.stringify(store.state.account.id));
+        let loginMemberCode = JSON.parse(JSON.stringify(sessionStorage.getItem("id")));
         api.get(`api/v4/emp/${loginMemberCode}`).then(({ data }) => {
             state.emp = data;
             this.updateEmp = state.emp

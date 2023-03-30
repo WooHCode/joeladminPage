@@ -12,8 +12,8 @@ import Store from "@/pages/Store";
 import EmpSave from "@/pages/EmpSave";
 import EmpDetail from "@/pages/EmpDetail";
 import { createRouter, createWebHistory } from "vue-router";
-import store from "./store";
 import Cookies from "js-cookie";
+import store from "./store";
 
 const routes = [
   { path: "/", component: Home },
@@ -43,8 +43,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.state.account.id !== 0;
+  const isAuthorized =
+    sessionStorage.getItem("id") !== null &&
+    sessionStorage.getItem("id") !== "0";
+  const myCookieValue = Cookies.get("token");
+  const isCookie = myCookieValue;
   const pathInfo = to.path !== "/login" && to.path !== "/enterMember";
-  if (pathInfo && !isAuthenticated) {
+  if (pathInfo && !isAuthenticated && !isAuthorized && !isCookie) {
     next("/login");
   } else {
     next();
@@ -53,7 +58,7 @@ router.beforeEach((to, from, next) => {
 
 router.beforeEach((to, from, next) => {
   const isEmpPage = to.path.toLowerCase() === "/emp";
-  const memberCode = Cookies.get("memberCode");
+  const memberCode = sessionStorage.getItem("code");
   if (isEmpPage && (!memberCode || memberCode !== "0")) {
     next(false);
   } else {

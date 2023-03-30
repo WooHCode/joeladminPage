@@ -15,8 +15,7 @@
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
-                        <div class="d-flex justify-content-end"><small>{{ "이번달 출근횟수: " + workCount + "회" }}</small>
-                        </div>
+
                         <table class="table table-hover table-striped">
                           <thead>
                             <th class="tb-title"> # </th>
@@ -36,10 +35,8 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="workStart()"
-                    v-if="isWorked == false">출근하기</button>
-                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="workFinish()"
-                    v-if="isWorked == true">퇴근하기</button>
+                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="workStart()">출근하기</button>
+                  <button class="col-lg-2 col-md-3 col-sm-3 btn btn-success" @click="workFinish()">퇴근하기</button>
                 </div>
               </div>
               <div>
@@ -60,9 +57,10 @@ import store from '@/scripts/store';
 export default {
   methods: {
     workStart() {
-      const empId = JSON.parse(JSON.stringify(store.state.account.id));
+      const empId = JSON.parse(JSON.stringify(sessionStorage.getItem("id")));
       api.post(`api/v3/emp/work/${empId}`).then((res) => {
         this.attId = res.data;
+        console.log(this.attId);
         this.isWorked = true;
         const nowdate = lib.getNowDate();
         const now = lib.formatDate(nowdate);
@@ -75,7 +73,8 @@ export default {
 
     },
     workFinish() {
-      const empId = JSON.parse(JSON.stringify(store.state.account.id));
+      const empId = JSON.parse(JSON.stringify(sessionStorage.getItem("id")));
+      console.log(this.attId)
       api.patch(`api/v3/emp/work/${empId}`, {
         attId: this.attId,
       }).then(() => {
@@ -90,10 +89,9 @@ export default {
       })
     },
     async loading() {
-      const loginId = JSON.parse(JSON.stringify(store.state.account.id));
+      const loginId = JSON.parse(JSON.stringify(sessionStorage.getItem("id")));
       const res = await api.get(`/api/v5/emp/${loginId}`);
       this.emp = res.data;
-      this.workCount = res.data[0].workCount;
     },
   },
   components: { SidebarMenu },
@@ -107,10 +105,10 @@ export default {
   },
   created() {
     const load = async () => {
-      const loginId = JSON.parse(JSON.stringify(store.state.account.id));
+      const myId = sessionStorage.getItem("id");
+      const loginId = Number(myId);
       const res = await api.get(`/api/v5/emp/${loginId}`);
       this.emp = res.data;
-      this.workCount = res.data[0].workCount;
     };
     load(); // load() 함수를 호출할 때 await를 사용해줍니다.
     return { load };

@@ -24,6 +24,7 @@ import { reactive } from '@vue/reactivity'
 import store from '@/scripts/store'
 import router from '@/scripts/router'
 import api from '@/scripts/api'
+import Cookies from 'js-cookie'
 export default {
   setup() {
     const state = reactive({
@@ -38,12 +39,15 @@ export default {
 
     const submit = () => {
       api.post("/api/account/login", state.form).then((res) => {
-        const idData = Object.values(res.data[2]);
+        const idData = parseInt(res.data[2]);
         const nameString = Object.values(res.data[1]);
-        const parseCode = Object.values(res.data[3]);
+        const parseCode = res.data[3];
         const memberCode = parseInt(parseCode[0], 10);
         const memberName = nameString.join('');
+        Cookies.set("id", idData);
         store.commit('setAccount', idData);
+        sessionStorage.setItem("id", idData);
+        sessionStorage.setItem("code", memberCode);
         store.commit('setMemberCode', memberCode);
         store.commit('setMemberName', memberName);
         router.push({ path: "/" });
