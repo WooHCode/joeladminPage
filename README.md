@@ -3,6 +3,13 @@
 
 ---
 
+### 사용 기술스택:
+
+
+---
+
+# 기능설명
+
 #### &#x2B50;로그인&#x2B50;
 
 ![image](https://user-images.githubusercontent.com/112393201/228716703-149be613-9a41-4d15-8889-cc2e7a366ffb.png)
@@ -33,6 +40,7 @@
 ![image](https://user-images.githubusercontent.com/112393201/228718008-284b2f95-c81a-43bf-a9b8-7e4603e91d46.png)
 
 * 또한 매출등록을 통해 금일 매출을 상품별 개수로 입력하여 등록할 수 있습니다.
+
 ![image](https://user-images.githubusercontent.com/112393201/228718322-dbcf31db-ae77-4f47-a84e-7e56593771d7.png)
 
 #### &#x2B50;상품관리&#x2B50;
@@ -40,5 +48,28 @@
 * 상품관리를 들어가면 전체 상품을 한 화면에 5개씩 페이징하여 보여주고 개별 상품명을 선택하면 상품정보를 수정할수있습니다.
 * 또한 상품명을 통해 검색(ex. 망고스무디 or 망고) 상품코드로검색을 선택하면 상품코드로도 검색이가능합니다.
 ![image](https://user-images.githubusercontent.com/112393201/228718753-e1c69de1-1726-4d75-942e-044b8247c87e.png)
+
+#### &#x2B50; 직원출근, 직원관리&#x2B50;
+
+* 회원가입 시 관리자계정인지 일반직원인지(관리자 : 0, 일반직원 : 1)를 입력하여 관리자로 접속하면 직원관리 페이지, 일반직원으로 접속하면 출근관리 페이지가 보이게됩니다.
+
+![image](https://user-images.githubusercontent.com/112393201/228721630-a8c4ffd4-4373-4969-b1ae-dae957b40504.png)
+
+* 직원관리페이지에서는 직원의 상세정보, 직원등록 등을 할 수 있습니다.
+
+![image](https://user-images.githubusercontent.com/112393201/228721786-adfb31ae-cfc5-4fce-9ab1-caf78af6d6a4.png)
+
+* 출근관리 페이지에서는 출근정보가 보여지고 출근하기, 퇴근하기로 금일 출근기록을 작성할 수 있습니다.
+
+![image](https://user-images.githubusercontent.com/112393201/228723043-467da6f7-3a14-4dd4-b165-9adba96d747f.png)
+
+![image](https://user-images.githubusercontent.com/112393201/228723085-8c888e1e-1c72-4ac8-9991-35a9e4b2f938.png)
+
+* 출근과, 퇴근 시 시간차를 계산하여 월급이 적용되며 이번달 출근일수가 자동으로 기록됩니다.(시급 * 시간)
+
+![image](https://user-images.githubusercontent.com/112393201/228723362-6f970927-86b9-478e-bf7f-1e1acc283c35.png)
+
+* 추가적으로 sidebar하단에서 인스타그램 계정과 네이버 리뷰관리, 배달의 민족 관리를 할수있도록 링크를 설정하였고, 추가/ 고객관리페이지는 요청에 의해 추후 개발될 예정입니다.
+
 
 
