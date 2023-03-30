@@ -22,7 +22,7 @@
 
 ## 연동 api 서버:
 
-
+https://github.com/WooHCode/joelpage
 
 ---
 
