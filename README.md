@@ -4,7 +4,13 @@
 ---
 
 ### 사용 기술스택:
+<img src="https://img.shields.io/badge/vue.js-221144?style=flat-square&logo=vue.js&logoColor=green">
 
+<img src="https://img.shields.io/badge/javascript-ffff00?style=flat-square&logo=javascript&logoColor=green">
+
+<img src="https://img.shields.io/badge/html5-FF818D?style=flat-square&logo=html5&logoColor=">
+
+<img src="https://img.shields.io/badge/css3-7CB1F7?style=flat-square&logo=css3&logoColor=blue">
 
 ---
 
