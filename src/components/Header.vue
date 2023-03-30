@@ -52,9 +52,10 @@ export default {
       })
     }
   },
-  created() {
-    console.log(sessionStorage.getItem("id"))
+  mounted() {
+    this.islogin = sessionStorage.getItem("id")
   },
+
 }
 </script>
 
