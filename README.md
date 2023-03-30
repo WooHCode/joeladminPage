@@ -36,7 +36,7 @@ https://github.com/WooHCode/joelpage
 2. 렌더링 시점 문제
 - 문제: chart.js를 활용하여 매출데이터를 화면에 출력하는데 chart.js가 화면에 먼저 출력이 되고 그 이후에 데이터가 바인딩되어 화면이 출력되었을 때 빈 데이터 출력
 - 해결 : async, await로 메소드를 변경하여 api로 데이터가 완전히 받아진 후 데이터를 바인딩하게 하였음.
-- 관련링크 : https://github.com/WooHCode/joeladminPage/blob/master/src/pages/Home.vue   --> 44~54 
+- 관련링크 : https://github.com/WooHCode/joeladminPage/blob/master/src/pages/Home.vue   --> 44~54 Line
 
 ---
 
