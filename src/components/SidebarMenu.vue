@@ -49,7 +49,8 @@
           </a>
         </li>
         <li class="nav-item-1">
-          <a class="nav-link" href="#">
+          <a class="nav-link"
+            href="https://map.naver.com/v5/entry/place/1939754336?lng=126.8337179&lat=37.5478993&placePath=%2Fhome%3Fentry=plt">
             <span data-feather="file-text" class="align-text-bottom"></span>
             네이버 지도관리
           </a>

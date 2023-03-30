@@ -146,10 +146,9 @@ export default {
     },
     data() {
         return {
-            searchingName: this.$props.name,
+            searchingName: this.name || '',
             updateEmp: [],
             updateGender: '',
-
         }
     },
     created() {
@@ -157,7 +156,7 @@ export default {
             emp: [],
         })
         let searchName = JSON.parse(JSON.stringify(this.searchingName));
-        api.get(`api/v1/emp/${searchName}`).then(({ data }) => {
+        api.get(`/empDetail/api/v1/emp/${searchName}`).then(({ data }) => {
             state.emp = data;
             this.updateEmp = state.emp
         })

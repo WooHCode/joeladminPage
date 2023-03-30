@@ -53,7 +53,6 @@
 import SidebarMenu from '@/components/SidebarMenu.vue';
 import api from '@/scripts/api'
 import lib from '@/scripts/lib'
-import store from '@/scripts/store';
 export default {
   methods: {
     workStart() {
@@ -64,7 +63,7 @@ export default {
         this.isWorked = true;
         const nowdate = lib.getNowDate();
         const now = lib.formatDate(nowdate);
-        const memberName = store.state.name.name;
+        const memberName = this.emp[0].empName;
         alert(memberName + "님, " + now + "출근하셨습니다.");
         this.loading();
       }).catch((err) => {
@@ -81,7 +80,7 @@ export default {
         this.isWorked = false;
         const nowdate = lib.getNowDate();
         const now = lib.formatDate(nowdate);
-        const memberName = store.state.name.name;
+        const memberName = this.emp[0].empName;
         alert(memberName + "님, " + now + "퇴근하셨습니다.");
         this.loading();
       }).catch((err) => {
