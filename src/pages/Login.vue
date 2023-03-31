@@ -4,8 +4,8 @@
       <img class="mb-4" src="Joelfab.png" alt="" width="72" height="72">
       <div class="d-flex justify-content-center">
         <label for="inputId" class="sr-only">ID</label>
-        <input type="text" id="inputId" class="form-control" placeholder="ID" required autofocus v-model="state.form.ide"
-          @keyup.enter="submit()">
+        <input type="text" id="inputId" class="form-control" placeholder="ID('-'는 빼고 입력해주세요)" required autofocus
+          v-model="state.form.ide" @keyup.enter="submit()">
       </div>
       <div class="d-flex justify-content-center mt-1">
         <label for="inputPassword" class="sr-only">Password</label>
